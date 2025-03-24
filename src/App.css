@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 32px 64px 32px 64px;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  gap: 16px;
+}
+
+.main-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.canvas-wrapper {
+  flex: 1.5;
+  background-color: black;
+}
+
+.sidebar-wrapper {
+  background-color: white;
+}
+
+.sidebar-container {
+  margin: 16px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar-nav-list-item-button {
+  padding: 5px 10px 5px 10px;
+}
+
+.items-button {
+  background-color: transparent;
+  border: none;
+}
+
+@media only screen and (max-width:920px) {
+  .container {
+    margin: 32px;
+  }
+
+  .main-container {
+    flex-direction: column;
+  }
+}
