@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./AddForm.css";
 import { useQuery } from "@tanstack/react-query";
+import SearchSelect from "./SearchSelect";
 
 async function fetchCases() {
   console.log("fetching case data");
@@ -12,6 +13,7 @@ async function fetchCases() {
 
 function AddForm() {
   const [category, setCategory] = useState("case");
+
   const categories = ["case", "custom", "other"];
   const { isLoading, error, data } = useQuery({
     queryKey: ["cases"],
@@ -52,17 +54,7 @@ function AddForm() {
         <label htmlFor="name-select">Name: </label>
         {isLoading && "Loading..."}
         {error && "Error fetching cases"}
-        {data && (
-          <select name="cases" id="name-select">
-            {Object.entries(data).map(([brand, cases]) => {
-              return cases.map((caseItem, index) => (
-                <option key={`${brand}-${index}`} value={caseItem.name}>
-                  {`${brand} - ${caseItem.name}`}
-                </option>
-              ));
-            })}
-          </select>
-        )}
+        {data && <SearchSelect data={data} />}
       </div>
     </form>
   );
