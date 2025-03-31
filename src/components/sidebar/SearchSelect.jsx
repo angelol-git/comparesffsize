@@ -1,6 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 function SearchSelect({ data }) {
-  const [textClicked, setTextClicked] = useState(false);
+  const [inputClicked, setTextClicked] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredData = Object.entries(data).reduce((acc, [brand, cases]) => {
+    const matchedCases = cases.filter(
+      (c) =>
+        brand.toLowerCase().includes(searchInput.toLowerCase()) ||
+        c.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    if (matchedCases.length) {
+      acc[brand] = matchedCases;
+    }
+    return acc;
+  }, {});
+
   return (
     <div>
       <input
@@ -8,16 +23,24 @@ function SearchSelect({ data }) {
         placeholder="Select..."
         id="name-select"
         onClick={() => {
-          setTextClicked(!textClicked);
+          setTextClicked(!inputClicked);
+        }}
+        value={searchInput}
+        onChange={(event) => {
+          setSearchInput(event.target.value);
         }}
         className="name-select"
       />
-      {textClicked && (
+      {inputClicked && (
         <div>
-          {Object.entries(data).map(([brand, cases]) => {
+          {Object.entries(filteredData).map(([brand, cases]) => {
             return (
               <div key={brand} className="brand-name">
-                <SelectOptions brand={brand} cases={cases} />
+                {searchInput.length === 0 ? (
+                  <SelectOptions brand={brand} cases={cases} open={false} />
+                ) : (
+                  <SelectOptions brand={brand} cases={cases} open={true} />
+                )}
               </div>
             );
           })}
@@ -27,8 +50,13 @@ function SearchSelect({ data }) {
   );
 }
 
-function SelectOptions({ brand, cases }) {
-  const [isOpen, setIsOpen] = useState(false);
+function SelectOptions({ brand, cases, open }) {
+  const [isOpen, setIsOpen] = useState(open);
+
+  useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
+
   return (
     <div
       onClick={() => {
@@ -37,7 +65,7 @@ function SelectOptions({ brand, cases }) {
     >
       {brand}
       {isOpen &&
-        cases.map((caseItem) => <div key={caseItem}>{caseItem.name}</div>)}
+        cases.map((caseItem) => <div key={caseItem.name}>{caseItem.name}</div>)}
     </div>
   );
 }
