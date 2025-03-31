@@ -1,0 +1,30 @@
+{
+  "Fractal Design": [
+    {
+      "name": "Terra",
+      "measurements": {
+        "length": "343",
+        "width": "153",
+        "height": "218"
+      }
+    },
+    {
+      "name": "Era 2",
+      "measurements": {
+        "length": "365",
+        "width": "165",
+        "height": "314"
+      }
+    }
+  ],
+  "Ncase": [
+    {
+      "name": "M2",
+      "measurements": {
+        "length": "372",
+        "width": "166",
+        "height": "262"
+      }
+    }
+  ]
+}

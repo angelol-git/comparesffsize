@@ -1,0 +1,17 @@
+.add-form-category-row {
+    display: flex;
+    align-items: center;
+}
+
+.add-form-category-radio-row {
+    display: flex;
+    gap: 10px;
+}
+
+label>input[type=radio] {
+    visibility: hidden;
+}
+
+.selected {
+    color: blue;
+}
