@@ -33,7 +33,9 @@ function AddForm() {
             <label
               key={categoryItem}
               htmlFor={categoryItem}
-              className={`${category === categoryItem && "selected"}`}
+              className={`${
+                category === categoryItem && "selected"
+              } add-form-category-label`}
             >
               <input
                 type="radio"

@@ -7,14 +7,14 @@
     display: flex;
     flex-direction: column;
     width: 70%;
-    background-color: blue;
+    cursor: pointer;
 }
 
 .search-select-row {
     display: flex;
     align-items: center;
-    position: relative;
     width: 100%;
+    position: relative;
 }
 
 .search-input {
@@ -22,14 +22,32 @@
     width: 100%;
 }
 
-.search-input-svg-arrow {
+.search-input-arrow-container {
     position: absolute;
-    right: 0px;
+    right: 0;
     z-index: 10;
+    cursor: pointer;
 }
 
-.select-options-container {
+.select-options-wrapper {
+    position: absolute;
+    top: 100%;
+    z-index: 10;
     padding: 5px 10px 5px 10px;
     width: 100%;
     background-color: rgb(221, 220, 220);
+}
+
+.select-option-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.select-option {
+    padding-left: 40px;
+}
+
+.select-option:hover {
+    background-color: rgb(206, 206, 206);
 }
