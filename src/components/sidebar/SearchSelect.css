@@ -1,0 +1,35 @@
+.search-select-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+.search-select-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background-color: blue;
+}
+
+.search-select-row {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.search-input {
+    padding: 5px 10px 5px 10px;
+    width: 100%;
+}
+
+.search-input-svg-arrow {
+    position: absolute;
+    right: 0px;
+    z-index: 10;
+}
+
+.select-options-container {
+    padding: 5px 10px 5px 10px;
+    width: 100%;
+    background-color: rgb(221, 220, 220);
+}

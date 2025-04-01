@@ -23,10 +23,11 @@ function AddForm() {
   function handleSubmit(event) {
     event.preventDefault();
   }
+
   return (
     <form id="add-form" onSubmit={handleSubmit} className="add-form">
       <div className="add-form-category-row">
-        <h3>Category:</h3>
+        <h3 className="add-form-subheader">Category:</h3>
         <div>
           {categories.map((categoryItem) => (
             <label
@@ -51,8 +52,7 @@ function AddForm() {
         </div>
       </div>
       <div>
-        <label htmlFor="name-select">Name: </label>
-        {isLoading && "Loading..."}
+        {isLoading && "Loading cases..."}
         {error && "Error fetching cases"}
         {data && <SearchSelect data={data} />}
       </div>

@@ -1,3 +1,9 @@
+.add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .add-form-category-row {
     display: flex;
     align-items: center;
@@ -14,4 +20,9 @@ label>input[type=radio] {
 
 .selected {
     color: blue;
+}
+
+.add-form-subheader {
+    font-size: 18px;
+    font-weight: bold;
 }
