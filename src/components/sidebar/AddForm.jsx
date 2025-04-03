@@ -13,7 +13,6 @@ async function fetchCases() {
 
 function AddForm() {
   const [category, setCategory] = useState("case");
-
   const categories = ["case", "custom", "other"];
   const { isLoading, error, data } = useQuery({
     queryKey: ["cases"],
