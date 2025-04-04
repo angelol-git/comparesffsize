@@ -68,6 +68,7 @@ function SearchSelect({ data, selectedItem, setSelectedItem }) {
             type="text"
             placeholder="Select..."
             id="search-input"
+            autoComplete="off"
             onClick={handleSearchInputClick}
             onChange={(event) => {
               setSearchInput(event.target.value);
