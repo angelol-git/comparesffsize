@@ -1,7 +1,7 @@
 .add-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 .add-form-category-row {
@@ -29,4 +29,32 @@ label>input[type=radio] {
 .add-form-subheader {
     font-size: 18px;
     font-weight: bold;
+}
+
+.add-form-data-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-form-measurements {
+    display: flex;
+    gap: 15px;
+}
+
+.measurement-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.measurement-input-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.measurement-input {
+    text-align: right;
+    width: 50px;
 }

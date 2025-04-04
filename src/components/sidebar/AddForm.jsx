@@ -13,6 +13,10 @@ async function fetchCases() {
 
 function AddForm() {
   const [category, setCategory] = useState("case");
+  const [selectedItem, setSelectedItem] = useState({
+    brand: null,
+    item: null,
+  });
   const categories = ["case", "custom", "other"];
   const { isLoading, error, data } = useQuery({
     queryKey: ["cases"],
@@ -55,7 +59,52 @@ function AddForm() {
       <div>
         {isLoading && "Loading cases..."}
         {error && "Error fetching cases"}
-        {data && <SearchSelect data={data} />}
+        {data && (
+          <div className="add-form-data-container">
+            <SearchSelect
+              data={data}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+            />
+            {selectedItem.brand && selectedItem.item && (
+              <div className="add-form-measurements">
+                <h3 className="add-form-subheader">Measurements: </h3>
+                <div className="measurement-form">
+                  <div className="measurement-input-row">
+                    <label htmlFor="length">Length: </label>
+                    <input
+                      type="text"
+                      name="length"
+                      className="measurement-input"
+                      value={selectedItem.item.measurements.length}
+                      readOnly
+                    />
+                  </div>
+                  <div className="measurement-input-row">
+                    <label htmlFor="length">Width: </label>
+                    <input
+                      type="text"
+                      name="width"
+                      className="measurement-input"
+                      value={selectedItem.item.measurements.width}
+                      readOnly
+                    />
+                  </div>
+                  <div className="measurement-input-row">
+                    <label htmlFor="length">Height: </label>
+                    <input
+                      type="text"
+                      name="height"
+                      className="measurement-input"
+                      value={selectedItem.item.measurements.height}
+                      readOnly
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </form>
   );

@@ -1,22 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import "./SearchSelect.css";
-function SearchSelect({ data }) {
+function SearchSelect({ data, selectedItem, setSelectedItem }) {
   const [isOpen, setIsOpen] = useState(false);
   const SearchSelectRef = useRef(null);
   const [searchInput, setSearchInput] = useState("");
-
-  const filteredData = Object.entries(data).reduce((acc, [brand, cases]) => {
-    const matchedCases = cases.filter(
-      (c) =>
-        brand.toLowerCase().includes(searchInput.toLowerCase()) ||
-        c.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
-
-    if (matchedCases.length) {
-      acc[brand] = matchedCases;
-    }
-    return acc;
-  }, {});
 
   useEffect(() => {
     function handleWindowClose(event) {
@@ -31,6 +18,19 @@ function SearchSelect({ data }) {
     };
   }, [isOpen]);
 
+  const filteredData = Object.entries(data).reduce((acc, [brand, cases]) => {
+    const matchedCases = cases.filter(
+      (c) =>
+        brand.toLowerCase().includes(searchInput.toLowerCase()) ||
+        c.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    if (matchedCases.length) {
+      acc[brand] = matchedCases;
+    }
+    return acc;
+  }, {});
+
   function handleSearchInputClick(event) {
     if (
       event.target.id === "search-input" ||
@@ -38,6 +38,22 @@ function SearchSelect({ data }) {
       event.target.className.baseVal === "search-input-arrow-container"
     ) {
       setIsOpen(true);
+    }
+  }
+
+  function handleClearSelectedItem() {
+    setSelectedItem({
+      brand: null,
+      item: null,
+    });
+    setSearchInput("");
+  }
+
+  function handleKeyDown(event) {
+    if (selectedItem.brand && selectedItem.item) {
+      if (event.key === "Backspace") {
+        handleClearSelectedItem();
+      }
     }
   }
 
@@ -53,12 +69,36 @@ function SearchSelect({ data }) {
             placeholder="Select..."
             id="search-input"
             onClick={handleSearchInputClick}
-            value={searchInput}
             onChange={(event) => {
               setSearchInput(event.target.value);
             }}
+            onKeyDown={handleKeyDown}
+            value={
+              selectedItem.brand && selectedItem.item
+                ? `${selectedItem.brand} - ${selectedItem.item.name}`
+                : searchInput
+            }
             className="search-input"
           />
+          {selectedItem.brand && selectedItem.item ? (
+            <svg
+              clipRule="evenodd"
+              fillRule="evenodd"
+              strokeLinejoin="round"
+              strokeMiterlimit="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              height="20px"
+              width="20px"
+              className="search-input-x-container"
+              onClick={handleClearSelectedItem}
+            >
+              <path
+                className="search-input-x"
+                d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"
+              />
+            </svg>
+          ) : null}
           {!isOpen ? (
             <svg
               clipRule="evenodd"
@@ -112,12 +152,14 @@ function SearchSelect({ data }) {
                           brand={brand}
                           cases={cases}
                           open={false}
+                          setSelectedItem={setSelectedItem}
                         />
                       ) : (
                         <SelectOptions
                           brand={brand}
                           cases={cases}
                           open={true}
+                          setSelectedItem={setSelectedItem}
                         />
                       )}
                     </div>
@@ -132,7 +174,7 @@ function SearchSelect({ data }) {
   );
 }
 
-function SelectOptions({ brand, cases, open }) {
+function SelectOptions({ brand, cases, open, setSelectedItem }) {
   const [isOpen, setIsOpen] = useState(open);
 
   useEffect(() => {
@@ -179,7 +221,16 @@ function SelectOptions({ brand, cases, open }) {
       <div>
         {isOpen &&
           cases.map((caseItem) => (
-            <div key={caseItem.name} className="select-option">
+            <div
+              key={caseItem.name}
+              className="select-option"
+              onClick={() => {
+                setSelectedItem({
+                  brand: brand,
+                  item: caseItem,
+                });
+              }}
+            >
               {caseItem.name}
             </div>
           ))}
