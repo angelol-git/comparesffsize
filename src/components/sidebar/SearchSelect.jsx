@@ -58,7 +58,7 @@ function SearchSelect({ data, selectedItem, setSelectedItem }) {
   }
 
   return (
-    <div className="search-select-wrapper">
+    <div className="add-form-category-row search-select-wrapper">
       <label htmlFor="search-select" className="add-form-subheader">
         Name:{" "}
       </label>

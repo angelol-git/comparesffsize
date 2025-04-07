@@ -39,7 +39,7 @@ function AddForm({ setShowAddForm, selectedItems, setSelectedItems }) {
   return (
     <form id="add-form" onSubmit={handleSubmit} className="add-form">
       <div className="add-form-category-row">
-        <h3 className="add-form-subheader">Category:</h3>
+        <p className="add-form-subheader">Category:</p>
         <div>
           {categories.map((categoryItem) => (
             <label
@@ -77,7 +77,7 @@ function AddForm({ setShowAddForm, selectedItems, setSelectedItems }) {
             />
             {selectedItem.brand && selectedItem.item && (
               <div className="add-form-measurements">
-                <h3 className="add-form-subheader">Measurements: </h3>
+                <p>Measurements: </p>
                 <div className="measurement-form">
                   <div className="measurement-input-row">
                     <label htmlFor="length">L: </label>

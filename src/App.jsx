@@ -4,11 +4,14 @@ import { useState } from "react";
 import AddForm from "./components/sidebar/AddForm";
 import "./App.css";
 import "./reset.css";
+import SelectedItems from "./components/sidebar/SelectedItems";
 
 const queryClient = new QueryClient();
 function App() {
+  const [selectedItems, setSelectedItems] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
 
+  console.log(selectedItems);
   return (
     <QueryClientProvider client={queryClient}>
       <div className="container">
@@ -34,10 +37,21 @@ function App() {
                   }}
                   className="sidebar-nav-list-item-button"
                 >
-                  Add Item +
+                  +
                 </button>
               </header>
-              <div>{showAddForm === true && <AddForm />}</div>
+              <div>
+                {selectedItems.length > 0 && (
+                  <SelectedItems items={selectedItems} />
+                )}
+                {showAddForm === true && (
+                  <AddForm
+                    setShowAddForm={setShowAddForm}
+                    selectedItems={selectedItems}
+                    setSelectedItems={setSelectedItems}
+                  />
+                )}
+              </div>
             </div>
           </section>
         </main>
