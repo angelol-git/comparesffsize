@@ -1,16 +1,15 @@
-.add-form {
+.add-item-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     width: 100%;
-    padding: 10px;
 }
 
-.add-form-category-row {
+.add-item-form-row {
     display: flex;
 }
 
-.add-form-category-label {
+.add-item-form-category-label {
     cursor: pointer;
 }
 
@@ -22,19 +21,18 @@ label>input[type=radio] {
     color: blue;
 }
 
-.add-form-subheader {
+.add-item-form-subheader {
     font-size: 16px;
     /* font-weight: bold; */
 }
 
-.add-form-data-container {
+.add-item-form-data-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.add-form-measurements {
-    display: flex;
+.add-item-form-measurements {
     gap: 15px;
 }
 
@@ -57,7 +55,7 @@ label>input[type=radio] {
     width: 50px;
 }
 
-.add-form-buttons-row {
+.add-item-form-buttons-row {
     display: flex;
     align-items: center;
     justify-content: end;
@@ -65,7 +63,8 @@ label>input[type=radio] {
     gap: 15px;
 }
 
-.add-form-button {
+.add-item-form-button {
     height: 40px;
     padding: 5px 10px 5px 10px;
+    cursor: pointer;
 }

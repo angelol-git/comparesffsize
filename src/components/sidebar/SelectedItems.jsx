@@ -1,23 +1,15 @@
 import "./SelectedItems.css";
-function SelectedItems({ items }) {
+
+function SelectedItems({ item }) {
   return (
-    <ul className="selected-items-list-container">
-      {items.map((item) => {
-        return (
-          <li
-            key={`${item.brand}-${item.item.name}`}
-            className="selected-items-list-item"
-          >
-            {item.brand} - {item.item.name}
-            <div>
-              {`${item.item.measurements.length} ×
+    <li className="items-list-item">
+      {item.brand} - {item.item.name}
+      <div>
+        {`${item.item.measurements.length} ×
               ${item.item.measurements.width}  ×
               ${item.item.measurements.height}`}
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+      </div>
+    </li>
   );
 }
 
