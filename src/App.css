@@ -18,12 +18,15 @@
 .canvas-wrapper {
   height: 100%;
   background-color: black;
-  cursor: move;
 }
 
 .sidebar-wrapper {
   height: 100%;
   background-color: white;
+}
+
+.canvas-item:hover {
+  cursor: pointer;
 }
 
 .sidebar-container {
