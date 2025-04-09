@@ -70,4 +70,9 @@
     grid-template-rows: 1fr 1fr;
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .canvas-wrapper {
+    height: 99%;
+    background-color: black;
+  }
 }
