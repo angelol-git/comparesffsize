@@ -19,7 +19,7 @@ function App() {
         <h1 className="main-header">Compare Box Size</h1>
         <div className="main-container">
           <section id="canvas-wrapper" className="canvas-wrapper">
-            <Canvas camera={{ position: [10, 10, 20], fov: 75 }}>
+            <Canvas camera={{ position: [10, 20, 15], fov: 75 }}>
               {selectedItems.length > 0 && (
                 <CanvasItems selectedItems={selectedItems} />
               )}

@@ -7,7 +7,7 @@ function CanvasItems({ selectedItems }) {
     }, 0);
   }
 
-  function calculatePosition(width, index) {
+  function calculatePosition(width, height, index) {
     const totalWidth = calculateTotalWidth();
     const start = -(totalWidth / 2);
 
@@ -15,8 +15,10 @@ function CanvasItems({ selectedItems }) {
     for (let i = 0; i < index; i++) {
       cumulativeWidth += Number(selectedItems[i].item.measurements.width);
     }
+
+    let yAxis = height / 2;
     const xAxis = start + cumulativeWidth + width / 2;
-    return [xAxis / 30, 0, 0];
+    return [xAxis / 30, yAxis / 30, 0];
   }
 
   function assignColor(index) {
@@ -30,11 +32,11 @@ function CanvasItems({ selectedItems }) {
 
   return selectedItems.map((item, index) => {
     const width = item.item.measurements.width;
-
+    const height = item.item.measurements.height;
     return (
       <mesh
         className="canvas-item"
-        position={calculatePosition(width, index)}
+        position={calculatePosition(width, height, index)}
         key={`${item.brand}-${index}`}
       >
         <boxGeometry
