@@ -5,6 +5,10 @@
   background-color: rgb(210, 210, 210);
 }
 
+body {
+  font-family: "Inter", sans-serif;
+}
+
 .main-wrapper {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -34,6 +38,7 @@
   flex-direction: column;
   height: 100%;
   padding: 20px;
+  overflow-y: auto;
 }
 
 .sidebar-header {
@@ -54,11 +59,12 @@
   gap: 15px;
   height: 100%;
   list-style-type: none;
-  overflow-y: auto;
+  overflow-y: visible;
 }
 
 @media only screen and (max-width:920px) {
   #root {
+    height: 100%;
     padding: 12px 24px 12px 24px;
   }
 
@@ -69,10 +75,5 @@
   .main-container {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .canvas-wrapper {
-    height: 99%;
-    background-color: black;
   }
 }
