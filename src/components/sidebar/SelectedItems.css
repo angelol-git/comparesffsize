@@ -1,0 +1,6 @@
+.items-list-selected-item {
+    padding: 10px;
+    color: white;
+    cursor: move;
+    cursor: grab;
+}

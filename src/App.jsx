@@ -13,18 +13,19 @@ function App() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [showAddItemForm, setShowAddItemForm] = useState(false);
 
+  const colors = ["red", "blue", "yellow", "green", "orange", "pink"];
   return (
     <QueryClientProvider client={queryClient}>
       <main className="main-wrapper">
         <h1 className="main-header">Compare Box Size</h1>
         <div className="main-container">
           <section id="canvas-wrapper" className="canvas-wrapper">
-            <Canvas camera={{ position: [10, 20, 15], fov: 75 }}>
+            <Canvas camera={{ position: [10, 15, 20], fov: 75 }}>
               {selectedItems.length > 0 && (
-                <CanvasItems selectedItems={selectedItems} />
+                <CanvasItems selectedItems={selectedItems} colors={colors} />
               )}
-              <directionalLight position={[4, 4, 1]} />
-              <ambientLight intensity={0.3} />
+              <directionalLight position={[10, 10, 1]} />
+              <ambientLight intensity={0.9} />
               <OrbitControls />
             </Canvas>
           </section>
@@ -43,11 +44,12 @@ function App() {
               </header>
               <ul className="items-list">
                 {selectedItems.length > 0 &&
-                  selectedItems.map((item) => {
+                  selectedItems.map((item, index) => {
                     return (
                       <SelectedItems
                         key={`${item.brand}-${item.item.name}`}
                         item={item}
+                        index={index}
                       />
                     );
                   })}
