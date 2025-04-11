@@ -12,7 +12,15 @@ const queryClient = new QueryClient();
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [showAddItemForm, setShowAddItemForm] = useState(false);
-  const colors = ["red", "blue", "yellow", "green", "orange", "pink"];
+  const colors = [
+    "#8B0000", // dark red
+    "#00008B", // dark blue
+    "#B8860B", // dark goldenrod (instead of bright yellow)
+    "#006400", // dark green
+    "#FF8C00", // dark orange
+    "#8B008B", // dark magenta (deep pink-ish)
+  ];
+
   return (
     <QueryClientProvider client={queryClient}>
       <main className="main-wrapper">
@@ -24,7 +32,7 @@ function App() {
                 <CanvasItems selectedItems={selectedItems} colors={colors} />
               )}
               <directionalLight position={[10, 10, 1]} />
-              <ambientLight intensity={0.9} />
+              <ambientLight intensity={2.5} />
               <OrbitControls />
             </Canvas>
           </section>
@@ -51,6 +59,7 @@ function App() {
                         index={index}
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
+                        colors={colors}
                       />
                     );
                   })}

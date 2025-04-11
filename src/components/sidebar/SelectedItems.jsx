@@ -1,8 +1,12 @@
 import "./SelectedItems.css";
 
-function SelectedItems({ item, index, selectedItems, setSelectedItems }) {
-  const colors = ["red", "blue", "green", "orange", "purple"];
-
+function SelectedItems({
+  item,
+  index,
+  selectedItems,
+  setSelectedItems,
+  colors,
+}) {
   function assignColor(index) {
     return colors[index % colors.length];
   }

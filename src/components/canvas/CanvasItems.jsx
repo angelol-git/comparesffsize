@@ -1,8 +1,6 @@
 import React from "react";
 
-function CanvasItems({ selectedItems }) {
-  const colors = ["red", "blue", "green", "orange", "purple"];
-
+function CanvasItems({ selectedItems, colors }) {
   function calculateTotalWidth() {
     return selectedItems.reduce((total, item) => {
       return total + Number(item.item.measurements.width);
