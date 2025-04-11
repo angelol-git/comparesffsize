@@ -3,13 +3,13 @@ import React from "react";
 function CanvasItems({ selectedItems, colors }) {
   function calculateTotalWidth() {
     return selectedItems.reduce((total, item) => {
-      return total + Number(item.item.measurements.width);
+      return total + Number(item.measurements.width);
     }, 0);
   }
 
   function calculateShortestLength() {
     return Math.min(
-      ...selectedItems.map((c) => Number(c.item.measurements.length))
+      ...selectedItems.map((item) => Number(item.measurements.length))
     );
   }
 
@@ -20,7 +20,7 @@ function CanvasItems({ selectedItems, colors }) {
 
     let cumulativeWidth = 0;
     for (let i = 0; i < index; i++) {
-      cumulativeWidth += Number(selectedItems[i].item.measurements.width);
+      cumulativeWidth += Number(selectedItems[i].measurements.width);
     }
 
     const xAxis = start + cumulativeWidth + width / 2;
@@ -35,9 +35,9 @@ function CanvasItems({ selectedItems, colors }) {
   }
 
   return selectedItems.map((item, index) => {
-    const width = item.item.measurements.width;
-    const height = item.item.measurements.height;
-    const length = item.item.measurements.length;
+    const width = item.measurements.width;
+    const height = item.measurements.height;
+    const length = item.measurements.length;
     return (
       <mesh
         className="canvas-item"
@@ -47,8 +47,8 @@ function CanvasItems({ selectedItems, colors }) {
         <boxGeometry
           args={[
             width / 30,
-            item.item.measurements.height / 30,
-            item.item.measurements.length / 30,
+            item.measurements.height / 30,
+            item.measurements.length / 30,
           ]}
         />
         <meshStandardMaterial color={assignColor(index)} />

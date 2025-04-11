@@ -54,7 +54,7 @@ function App() {
                   selectedItems.map((item, index) => {
                     return (
                       <SelectedItems
-                        key={`${item.brand}-${item.item.name}`}
+                        key={`${item.brand}-${item.name}`}
                         item={item}
                         index={index}
                         selectedItems={selectedItems}

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./AddItemForm.css";
 import { useQuery } from "@tanstack/react-query";
 import SearchSelect from "./SearchSelect";
+import "./AddItemForm.css";
 
 async function fetchCases() {
   console.log("fetching case data");
@@ -21,28 +21,37 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
 
   const [selectedItem, setSelectedItem] = useState({
     brand: null,
-    item: null,
+    name: null,
+    measurements: null,
   });
 
-  function clearCurrentItem(showAddItemForm) {
+  function isSelectedItemEmpty() {
+    return (
+      !selectedItem.brand && !selectedItem.name && !selectedItem.measurements
+    );
+  }
+
+  function clearCurrentItem() {
     setSelectedItem({
       brand: null,
-      item: null,
+      name: null,
+      measurements: null,
     });
-    setShowAddItemForm(showAddItemForm);
   }
 
   function handleCategoryClick(event) {
     setCategory(event.target.value);
-    clearCurrentItem(true);
+    clearCurrentItem();
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     if (category === "case") {
-      if (selectedItem.brand && selectedItem.item) {
+      if (!isSelectedItemEmpty()) {
+        selectedItem.hide = false;
         setSelectedItems([...selectedItems, selectedItem]);
-        clearCurrentItem(false);
+        clearCurrentItem();
+        setShowAddItemForm(false);
       }
     }
   }
@@ -51,8 +60,8 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
     <li className="items-list-item">
       <form
         id="add-item-form"
-        onSubmit={handleSubmit}
         className="add-item-form"
+        onSubmit={handleSubmit}
       >
         <div className="add-item-form-row">
           <div className="add-item-form-subheader">Category:</div>
@@ -88,8 +97,11 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
                 data={data}
                 selectedItem={selectedItem}
                 setSelectedItem={setSelectedItem}
+                isSelectedItemEmpty={isSelectedItemEmpty}
+                clearCurrentItem={clearCurrentItem}
+                setShowAddItemForm={setShowAddItemForm}
               />
-              {selectedItem.brand && selectedItem.item && (
+              {!isSelectedItemEmpty() && (
                 <div className="add-item-form-row add-item-form-measurements">
                   <div className="add-item-form-subheader">Measurements: </div>
                   <div className="measurement-form">
@@ -99,27 +111,27 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
                         type="text"
                         name="length"
                         className="measurement-input"
-                        value={selectedItem.item.measurements.length}
+                        value={selectedItem.measurements?.length ?? ""}
                         readOnly
                       />
                     </div>
                     <div className="measurement-input-row">
-                      <label htmlFor="length">W: </label>
+                      <label htmlFor="width">W: </label>
                       <input
                         type="text"
                         name="width"
                         className="measurement-input"
-                        value={selectedItem.item.measurements.width}
+                        value={selectedItem.measurements?.width ?? ""}
                         readOnly
                       />
                     </div>
                     <div className="measurement-input-row">
-                      <label htmlFor="length">H: </label>
+                      <label htmlFor="height">H: </label>
                       <input
                         type="text"
                         name="height"
                         className="measurement-input"
-                        value={selectedItem.item.measurements.height}
+                        value={selectedItem.measurements?.height ?? ""}
                         readOnly
                       />
                     </div>
@@ -133,7 +145,10 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
                   className="add-item-form-button"
                 />
                 <button
-                  onClick={clearCurrentItem}
+                  type="button"
+                  onClick={() => {
+                    clearCurrentItem(true);
+                  }}
                   className="add-item-form-button"
                 >
                   Cancel
