@@ -144,7 +144,7 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
                   className="add-item-form-button
                    add-item-button"
                 >
-                  <PlusSvg height={"12px"} width={"12px"} color="white" />
+                  <PlusSvg height={"12px"} width={"12px"} color={"white"} />
                   Add
                 </button>
 
@@ -155,7 +155,7 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
                   }}
                   className="add-item-form-button cancel-item-button"
                 >
-                  <XSvg height={"12px"} width={"12px"} />
+                  <XSvg height={"12px"} width={"12px"} color={"black"} />
                   Cancel
                 </button>
               </div>
@@ -187,9 +187,10 @@ function XSvg({ height, width, color }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
       width={width}
       height={height}
-      viewBox="0 0 24 24"
+      fill={color}
     >
       <path d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z" />
     </svg>
