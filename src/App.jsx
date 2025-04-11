@@ -12,7 +12,6 @@ const queryClient = new QueryClient();
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [showAddItemForm, setShowAddItemForm] = useState(false);
-
   const colors = ["red", "blue", "yellow", "green", "orange", "pink"];
   return (
     <QueryClientProvider client={queryClient}>
@@ -50,6 +49,8 @@ function App() {
                         key={`${item.brand}-${item.item.name}`}
                         item={item}
                         index={index}
+                        selectedItems={selectedItems}
+                        setSelectedItems={setSelectedItems}
                       />
                     );
                   })}

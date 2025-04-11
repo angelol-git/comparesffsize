@@ -1,6 +1,25 @@
 .items-list-selected-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
     color: white;
     cursor: move;
     cursor: grab;
+}
+
+.selected-item-right {
+    display: flex;
+    gap: 10px;
+}
+
+.selected-item-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
 }
