@@ -46,7 +46,7 @@ function App() {
                   }}
                   className="sidebar-header-button"
                 >
-                  +
+                  <PlusSvg height={"14px"} width={"14px"} color="#636363" />
                 </button>
               </header>
               <ul className="items-list">
@@ -80,3 +80,17 @@ function App() {
 }
 
 export default App;
+
+function PlusSvg({ height, width, color }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      height={height}
+      width={width}
+      fill={color}
+    >
+      <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z" />
+    </svg>
+  );
+}

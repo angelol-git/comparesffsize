@@ -139,18 +139,23 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
                 </div>
               )}
               <div className="add-item-form-buttons-row">
-                <input
+                <button
                   type="submit"
-                  value="Add"
-                  className="add-item-form-button"
-                />
+                  className="add-item-form-button
+                   add-item-button"
+                >
+                  <PlusSvg height={"12px"} width={"12px"} color="white" />
+                  Add
+                </button>
+
                 <button
                   type="button"
                   onClick={() => {
                     clearCurrentItem(true);
                   }}
-                  className="add-item-form-button"
+                  className="add-item-form-button cancel-item-button"
                 >
+                  <XSvg height={"12px"} width={"12px"} />
                   Cancel
                 </button>
               </div>
@@ -163,3 +168,30 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
 }
 
 export default AddItemForm;
+
+function PlusSvg({ height, width, color }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      height={height}
+      width={width}
+      fill={color}
+    >
+      <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z" />
+    </svg>
+  );
+}
+
+function XSvg({ height, width, color }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+    >
+      <path d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z" />
+    </svg>
+  );
+}

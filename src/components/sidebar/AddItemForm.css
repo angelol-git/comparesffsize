@@ -64,7 +64,33 @@ label>input[type=radio] {
 }
 
 .add-item-form-button {
-    height: 40px;
-    padding: 5px 10px 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    height: 35px;
+    width: 85px;
+    font-size: 14px;
     cursor: pointer;
+}
+
+.add-item-button {
+    border: 1px solid blue;
+    color: white;
+    background-color: blue;
+}
+
+.add-item-button:hover {
+    background-color: rgb(72, 72, 255);
+}
+
+.cancel-item-button {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+}
+
+.cancel-item-button:hover {
+    background-color: rgb(238, 238, 238);
+
 }
