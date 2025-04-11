@@ -10,7 +10,6 @@
 
 .selected-item-right {
     display: flex;
-    gap: 10px;
 }
 
 .selected-item-button {
