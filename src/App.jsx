@@ -21,6 +21,7 @@ function App() {
     "#8B008B", // dark magenta (deep pink-ish)
   ];
 
+  console.log(selectedItems);
   return (
     <QueryClientProvider client={queryClient}>
       <main className="main-wrapper">

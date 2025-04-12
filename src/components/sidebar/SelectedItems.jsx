@@ -11,12 +11,21 @@ function SelectedItems({
     return colors[index % colors.length];
   }
 
+  // function handleHideClick(item){
+  //   setSelectedItems(prevItems =>
+  //     prevItems.map(item =>
+  //       item.id ===  ? { ...item, ...item.hide===true } : item
+  //     )
+  //   );
+  // }
+
   function handleDeleteClick(item, index) {
     const newSelectedItemsData = selectedItems.filter(
       (data, dIndex) => index !== dIndex
     );
     setSelectedItems(newSelectedItemsData);
   }
+
   return (
     <li
       className="items-list-selected-item"
@@ -31,18 +40,14 @@ function SelectedItems({
         </div>
       </div>
       <div className="selected-item-right">
-        {/* Edit */}
         <button onClick={handleDeleteClick} className="selected-item-button">
           <EditSvg height={"20px"} width={"20px"} />
         </button>
         {
-          //Hide
           <button className="selected-item-button">
             <HideSvg height={"20px"} width={"20px"} />
           </button>
         }
-
-        {/* delete */}
         <button
           onClick={() => {
             handleDeleteClick(item, index);

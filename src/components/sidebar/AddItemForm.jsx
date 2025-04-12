@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { v4 as uuidv4 } from "uuid";
 import SearchSelect from "./SearchSelect";
 import "./AddItemForm.css";
 
@@ -48,6 +49,7 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
     event.preventDefault();
     if (category === "case") {
       if (!isSelectedItemEmpty()) {
+        selectedItem.id = uuidv4();
         selectedItem.hide = false;
         setSelectedItems([...selectedItems, selectedItem]);
         clearCurrentItem();
