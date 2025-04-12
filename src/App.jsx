@@ -16,10 +16,10 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <main className="main-wrapper">
-        <h1 className="main-header">Compare Box Size</h1>
-        <div className="main-container">
-          <section id="canvas-wrapper" className="canvas-wrapper">
+      <main className="grid grid-rows-[auto_1fr] h-full">
+        <h1 className="">ComparePcSize</h1>
+        <div className="grid grid-cols-[minmax(0,1.5fr)_1fr]">
+          <section id="canvas-wrapper" className="h-full bg-black">
             <Canvas camera={{ position: [10, 15, 20], fov: 75 }}>
               {selectedItems.length > 0 && (
                 <CanvasItems selectedItems={selectedItems} />
@@ -29,7 +29,7 @@ function App() {
               <OrbitControls />
             </Canvas>
           </section>
-          <section id="sidebar-wrapper" className="sidebar-wrapper">
+          <section id="sidebar-wrapper" className="h-fill bg-white">
             <div className="sidebar-container">
               <header className="sidebar-header">
                 <h2>Items</h2>

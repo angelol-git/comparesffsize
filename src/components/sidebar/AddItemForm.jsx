@@ -158,6 +158,16 @@ function AddItemForm({
                       />
                     </div>
                   </div>
+                  <div className="measurement-input-row">
+                    <label htmlFor="volume">Volume: </label>
+                    <input
+                      type="text"
+                      name="volume"
+                      className="measurement-input"
+                      value={selectedItem.measurements?.volume ?? ""}
+                      readOnly
+                    />
+                  </div>
                 </div>
               )}
               <div className="add-item-form-buttons-row">

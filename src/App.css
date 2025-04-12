@@ -1,22 +1,12 @@
 #root {
   display: grid;
   min-height: 100vh;
-  padding: 24px 64px 24px 64px;
+  padding: 12px 64px 12px 64px;
   background-color: rgb(210, 210, 210);
 }
 
 body {
   font-family: "Inter", sans-serif;
-}
-
-.main-wrapper {
-  display: grid;
-  grid-template-rows: auto 1fr;
-}
-
-.main-container {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) 1fr;
 }
 
 .canvas-wrapper {
@@ -31,6 +21,10 @@ body {
 
 .canvas-item:hover {
   cursor: pointer;
+}
+
+.main-header {
+  font-size: 24px;
 }
 
 .sidebar-container {
@@ -74,12 +68,8 @@ body {
 @media only screen and (max-width:920px) {
   #root {
     height: 100%;
-    padding: 12px 24px 12px 24px;
   }
 
-  .main-header {
-    font-size: 24px;
-  }
 
   .main-container {
     grid-template-rows: 1fr 1fr;
