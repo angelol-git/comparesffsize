@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+#root {
+    display: grid;
+    min-height: 100vh;
+    padding: 12px 64px 12px 64px;
+    background-color: rgb(210, 210, 210);
+}
+
+body {
+    font-family: "Inter", sans-serif;
+}
+
+@media only screen and (max-width:920px) {
+    #root {
+        height: 100%;
+    }
+}

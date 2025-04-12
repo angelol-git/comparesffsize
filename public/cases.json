@@ -149,8 +149,8 @@
       "type": "ITX",
       "measurements": {
         "length": "328",
-        "width": "256",
-        "height": "161",
+        "width": "161",
+        "height": "256",
         "volume": "13.5"
       }
     },

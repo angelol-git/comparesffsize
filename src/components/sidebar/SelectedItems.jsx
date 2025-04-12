@@ -1,5 +1,3 @@
-import "./SelectedItems.css";
-
 function SelectedItems({ item, selectedItems, setSelectedItems }) {
   function assignColor() {
     if (item.hide) {
@@ -24,25 +22,25 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
 
   return (
     <li
-      className="items-list-selected-item"
+      className="flex justify-between items-center p-[10px] text-white cursor-grab"
       style={{ backgroundColor: assignColor() }}
     >
-      <div className="selected-item-left">
-        <div className="selected-item-title-row">
-          <div className="selected-item-title">
+      <div className="text-base flex flex-col gap-1">
+        <div className="flex items-center gap-[60px]">
+          <div className="font-bold font-base">
             {item.brand} - {item.name}
           </div>
-          <span className="selected-item-volume">
+          <span className="text-sm font-light">
             {item.measurements.volume} L
           </span>
         </div>
-        <div>
+        <div className="font-light">
           {`${item.measurements.length}mm ×
               ${item.measurements.width}mm ×
               ${item.measurements.height}mm `}
         </div>
       </div>
-      <div className="selected-item-right">
+      <div className="flex">
         <button onClick={handleDeleteClick} className="selected-item-button">
           <EditSvg height={"20px"} width={"20px"} />
         </button>
@@ -51,7 +49,7 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
             onClick={() => {
               handleHideClick(item.id);
             }}
-            className="selected-item-button"
+            className="flex items-center justify-center h-[32px] w-[32px] cursor-pointer bg-transparent border-none"
           >
             {item.hide ? (
               <UnHideSvg height={"20px"} width={"20px"} color={"white"} />

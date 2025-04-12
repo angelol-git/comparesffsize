@@ -5,7 +5,6 @@ import { OrbitControls } from "@react-three/drei";
 import AddItemForm from "./components/sidebar/AddItemForm";
 import SelectedItems from "./components/sidebar/SelectedItems";
 import CanvasItems from "./components/canvas/CanvasItems";
-import "./App.css";
 // import "./reset.css";
 
 const queryClient = new QueryClient();
