@@ -43,7 +43,7 @@ function CanvasItems({ selectedItems }) {
     } else
       return (
         <mesh
-          className="canvas-item"
+          className="canvas-pointer"
           position={calculatePosition(width, height, length, index)}
           key={item.id}
         >

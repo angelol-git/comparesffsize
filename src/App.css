@@ -9,70 +9,8 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-.canvas-wrapper {
-  height: 100%;
-  background-color: black;
-}
-
-.sidebar-wrapper {
-  height: 100%;
-  background-color: white;
-}
-
-.canvas-item:hover {
-  cursor: pointer;
-}
-
-.main-header {
-  font-size: 24px;
-}
-
-.sidebar-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.sidebar-header-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border: none;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-}
-
-.sidebar-header-button:hover {
-  background-color: rgb(239, 239, 239);
-}
-
-.items-list {
-  display: flex;
-  flex-direction: column;
-  padding: 10px 0px 10px 0px;
-  gap: 15px;
-  height: 100%;
-  list-style-type: none;
-  overflow-y: visible;
-}
-
 @media only screen and (max-width:920px) {
   #root {
     height: 100%;
-  }
-
-
-  .main-container {
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: minmax(0, 1fr);
   }
 }
