@@ -1,15 +1,19 @@
 import React from "react";
 
 function CanvasItems({ selectedItems, colors }) {
+  const filteredData = selectedItems.filter((item) => {
+    return item.hide === false;
+  });
+
   function calculateTotalWidth() {
-    return selectedItems.reduce((total, item) => {
+    return filteredData.reduce((total, item) => {
       return total + Number(item.measurements.width);
     }, 0);
   }
 
   function calculateShortestLength() {
     return Math.min(
-      ...selectedItems.map((item) => Number(item.measurements.length))
+      ...filteredData.map((item) => Number(item.measurements.length))
     );
   }
 
@@ -20,12 +24,12 @@ function CanvasItems({ selectedItems, colors }) {
 
     let cumulativeWidth = 0;
     for (let i = 0; i < index; i++) {
-      cumulativeWidth += Number(selectedItems[i].measurements.width);
+      cumulativeWidth += Number(filteredData[i].measurements.width);
     }
 
     const xAxis = start + cumulativeWidth + width / 2;
     const yAxis = height / 2;
-    const zAxis = Number(length - shortestLength) / 2; // S
+    const zAxis = Number(length - shortestLength) / 2;
 
     return [xAxis / 30, yAxis / 30, zAxis / 30];
   }
@@ -38,22 +42,25 @@ function CanvasItems({ selectedItems, colors }) {
     const width = item.measurements.width;
     const height = item.measurements.height;
     const length = item.measurements.length;
-    return (
-      <mesh
-        className="canvas-item"
-        position={calculatePosition(width, height, length, index)}
-        key={`${item.brand}-${index}`}
-      >
-        <boxGeometry
-          args={[
-            width / 30,
-            item.measurements.height / 30,
-            item.measurements.length / 30,
-          ]}
-        />
-        <meshStandardMaterial color={assignColor(index)} />
-      </mesh>
-    );
+    if (item.hide) {
+      return null;
+    } else
+      return (
+        <mesh
+          className="canvas-item"
+          position={calculatePosition(width, height, length, index)}
+          key={item.id}
+        >
+          <boxGeometry
+            args={[
+              width / 30,
+              item.measurements.height / 30,
+              item.measurements.length / 30,
+            ]}
+          />
+          <meshStandardMaterial color={assignColor(index)} />
+        </mesh>
+      );
   });
 }
 

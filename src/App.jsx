@@ -21,7 +21,6 @@ function App() {
     "#8B008B", // dark magenta (deep pink-ish)
   ];
 
-  console.log(selectedItems);
   return (
     <QueryClientProvider client={queryClient}>
       <main className="main-wrapper">
@@ -55,7 +54,7 @@ function App() {
                   selectedItems.map((item, index) => {
                     return (
                       <SelectedItems
-                        key={`${item.brand}-${item.name}`}
+                        key={item.id}
                         item={item}
                         index={index}
                         selectedItems={selectedItems}
