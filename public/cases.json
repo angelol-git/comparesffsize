@@ -1,29 +1,177 @@
 {
   "Fractal Design": [
     {
-      "name": "Terra",
-      "measurements": {
-        "length": "343",
-        "width": "153",
-        "height": "218"
-      }
-    },
-    {
       "name": "Era 2",
+      "type": "ITX",
       "measurements": {
         "length": "365",
         "width": "165",
-        "height": "314"
+        "height": "314",
+        "volume": "19"
+      }
+    },
+    {
+      "name": "Mood",
+      "type": "ITX",
+      "measurements": {
+        "length": "212",
+        "width": "212",
+        "height": "453",
+        "volume": "20.4"
+      }
+    },
+    {
+      "name": "North",
+      "type": "ATX",
+      "measurements": {
+        "length": "447",
+        "width": "215",
+        "height": "469",
+        "volume": "45.1"
+      }
+    },
+    {
+      "name": "North XL",
+      "type": "ATX",
+      "measurements": {
+        "length": "503",
+        "width": "240",
+        "height": "509",
+        "volume": "61.5"
+      }
+    },
+    {
+      "name": "Ridge",
+      "type": "ITX",
+      "measurements": {
+        "length": "426",
+        "width": "167",
+        "height": "431",
+        "volume": "12.6"
+      }
+    },
+    {
+      "name": "Terra",
+      "type": "ITX",
+      "measurements": {
+        "length": "343",
+        "width": "153",
+        "height": "218",
+        "volume": "11.4"
+      }
+    }
+  ],
+  "Lian Li": [
+    {
+      "name": "205M",
+      "type": "ATX",
+      "measurements": {
+        "length": "415",
+        "width": "210",
+        "height": "400",
+        "volume": "34.9"
+      }
+    },
+    {
+      "name": "A3",
+      "type": "mATX",
+      "measurements": {
+        "length": "443",
+        "width": "194",
+        "height": "306",
+        "volume": "26.3"
+      }
+    },
+    {
+      "name": "A4-H2O",
+      "type": "ITX",
+      "measurements": {
+        "length": "372",
+        "width": "166",
+        "height": "262",
+        "volume": "11.1"
+      }
+    },
+    {
+      "name": "TU150",
+      "type": "ITX",
+      "measurements": {
+        "length": "375",
+        "width": "202",
+        "height": "312",
+        "volume": "23.6"
+      }
+    },
+    {
+      "name": "Q58",
+      "type": "ITX",
+      "measurements": {
+        "length": "342",
+        "width": "170",
+        "height": "250",
+        "volume": "14.5"
+      }
+    },
+    {
+      "name": "O11 Dynamic Mini",
+      "type": "ATX",
+      "measurements": {
+        "length": "420",
+        "width": "380",
+        "height": "270",
+        "volume": "43.1"
+      }
+    },
+    {
+      "name": "O11 Dynamic Evo",
+      "type": "ATX",
+      "measurements": {
+        "length": "465",
+        "width": "459",
+        "height": "285",
+        "volume": "60.8"
+      }
+    },
+    {
+      "name": "O11 Air Mini",
+      "type": "ATX",
+      "measurements": {
+        "length": "400",
+        "width": "384",
+        "height": "288",
+        "volume": "44.2"
       }
     }
   ],
   "Ncase": [
     {
+      "name": "M1",
+      "type": "ITX",
+      "measurements": {
+        "length": "328",
+        "width": "256",
+        "height": "161",
+        "volume": "13.5"
+      }
+    },
+    {
       "name": "M2",
+      "type": "ITX",
       "measurements": {
         "length": "372",
         "width": "166",
-        "height": "262"
+        "height": "262",
+        "volume": "16.18"
+      }
+    },
+    {
+      "name": "T1 - V2.5",
+      "type": "ITX",
+      "measurements": {
+        "length": "33.5",
+        "width": "135",
+        "height": "220",
+        "volume": "9.95"
       }
     }
   ]

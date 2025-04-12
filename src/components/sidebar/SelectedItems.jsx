@@ -30,9 +30,9 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
       <div className="selected-item-left">
         {item.brand} - {item.name}
         <div>
-          {`${item.measurements.length} ×
-              ${item.measurements.width}  ×
-              ${item.measurements.height}`}
+          {`${item.measurements.length}mm ×
+              ${item.measurements.width}mm ×
+              ${item.measurements.height}mm - ${item.measurements.volume}L`}
         </div>
       </div>
       <div className="selected-item-right">
