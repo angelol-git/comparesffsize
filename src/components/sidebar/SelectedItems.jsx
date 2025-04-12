@@ -28,11 +28,18 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
       style={{ backgroundColor: assignColor() }}
     >
       <div className="selected-item-left">
-        {item.brand} - {item.name}
+        <div className="selected-item-title-row">
+          <div className="selected-item-title">
+            {item.brand} - {item.name}
+          </div>
+          <span className="selected-item-volume">
+            {item.measurements.volume} L
+          </span>
+        </div>
         <div>
           {`${item.measurements.length}mm ×
               ${item.measurements.width}mm ×
-              ${item.measurements.height}mm - ${item.measurements.volume}L`}
+              ${item.measurements.height}mm `}
         </div>
       </div>
       <div className="selected-item-right">

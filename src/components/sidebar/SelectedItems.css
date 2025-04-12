@@ -8,8 +8,25 @@
     cursor: grab;
 }
 
+
+
 .selected-item-right {
     display: flex;
+}
+
+.selected-item-title-row {
+    display: flex;
+    align-items: end;
+    gap: 50px;
+}
+
+.selected-item-title {
+    font-weight: bold;
+}
+
+.selected-item-volume {
+    font-size: 14px;
+    font-weight: normal;
 }
 
 .selected-item-button {
