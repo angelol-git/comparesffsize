@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import "./SearchSelect.css";
 function SearchSelect({
   data,
   selectedItem,
@@ -46,12 +45,15 @@ function SearchSelect({
   }
 
   return (
-    <div className="add-form-category-row search-select-wrapper">
+    <div className="flex items-center gap-[15px]">
       <label htmlFor="search-select" className="add-form-subheader">
         Name:{" "}
       </label>
-      <div className="search-select-container" ref={SearchSelectRef}>
-        <div className="search-select-row">
+      <div
+        className="flex flex-col w-full cursor-pointer"
+        ref={SearchSelectRef}
+      >
+        <div className="flex items-center relative">
           <input
             type="text"
             placeholder="Select..."
@@ -70,7 +72,7 @@ function SearchSelect({
                 ? searchInput
                 : `${selectedItem.brand} - ${selectedItem.name}`
             }
-            className="search-input"
+            className="px-[10px] py-[10px] w-full border-1 border-solid border-black"
           />
           {!isSelectedItemEmpty() ? (
             <button
@@ -80,7 +82,7 @@ function SearchSelect({
                 clearCurrentItem();
                 setSearchInput("");
               }}
-              className="search-input-button-container search-input-close-button"
+              className="absolute right-[40px] z-10 cursor-pointer"
             >
               <XSvg height={"18px"} width={"18px"} />
             </button>
@@ -88,7 +90,7 @@ function SearchSelect({
           {!isOpen ? (
             <button
               type="button"
-              className="search-input-button-container"
+              className="absolute z-10 right-[10px] cursor-pointer"
               onClick={(event) => {
                 event.stopPropagation();
                 setIsOpen(true);
@@ -99,7 +101,7 @@ function SearchSelect({
           ) : (
             <button
               type="button"
-              className="search-input-button-container"
+              className="absolute z-10 right-[10px] cursor-pointer"
               onClick={(event) => {
                 event.stopPropagation();
                 setIsOpen(false);
@@ -109,7 +111,7 @@ function SearchSelect({
             </button>
           )}
           {isOpen && (
-            <div className="select-options-wrapper">
+            <div className="absolute top-[100%] z-10 px-[5px] py-[10px] w-full bg-gray-100">
               {searchInput.length > 1 &&
               Object.entries(filteredData).length === 0 ? (
                 <p>No cases found</p>
@@ -158,7 +160,7 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
       }}
       className="select-option-container"
     >
-      <div className="select-option-row">
+      <div className="flex items-center gap-[5px]">
         {!isOpen ? (
           <RightArrowSvg height={"16px"} width={"16px"} />
         ) : (
@@ -171,7 +173,7 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
           cases.map((item) => (
             <div
               key={item.name}
-              className="select-option"
+              className="pl-[40px] hover:bg-gray-200"
               onClick={() => {
                 setSelectedItem({
                   brand: brand,

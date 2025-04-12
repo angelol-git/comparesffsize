@@ -17,7 +17,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <main className="grid grid-rows-[auto_1fr] h-full">
         <h1 className="text-2xl font-bold">ComparePcSize</h1>
-        <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-[minmax(0,1fr)] md:grid-cols-[1.5fr_1fr]">
+        <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1.5fr)_1fr]">
           <section id="canvas-wrapper" className="h-fill bg-black">
             <Canvas camera={{ position: [10, 15, 20], fov: 75 }}>
               {selectedItems.length > 0 && (
@@ -29,7 +29,7 @@ function App() {
             </Canvas>
           </section>
           <section id="sidebar-wrapper" className="h-fill bg-white">
-            <div className="flex flex-col h-full p-5  overflow-y-auto">
+            <div className="flex flex-col h-full p-5 overflow-y-auto">
               <header className="flex justify-between items-center">
                 <h2 className="text-xl font-bold">Items</h2>
                 <button

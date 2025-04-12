@@ -25,16 +25,16 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
       className="flex justify-between items-center p-[10px] text-white cursor-grab"
       style={{ backgroundColor: assignColor() }}
     >
-      <div className="text-base flex flex-col gap-1">
+      <div className="text-base flex flex-col gap-2">
         <div className="flex items-center gap-[60px]">
-          <div className="font-bold font-base">
+          <div className="font-base">
             {item.brand} - {item.name}
           </div>
           <span className="text-sm font-light">
             {item.measurements.volume} L
           </span>
         </div>
-        <div className="font-light">
+        <div className="text-sm font-light">
           {`${item.measurements.length}mm ×
               ${item.measurements.width}mm ×
               ${item.measurements.height}mm `}
