@@ -1,18 +1,11 @@
 import "./SelectedItems.css";
 
-function SelectedItems({
-  item,
-  index,
-  selectedItems,
-  setSelectedItems,
-  colors,
-}) {
-  function assignColor(index) {
+function SelectedItems({ item, selectedItems, setSelectedItems }) {
+  function assignColor() {
     if (item.hide) {
       return "grey";
     }
-
-    return colors[index % colors.length];
+    return item.color;
   }
 
   function handleHideClick(id) {
@@ -32,7 +25,7 @@ function SelectedItems({
   return (
     <li
       className="items-list-selected-item"
-      style={{ backgroundColor: assignColor(index) }}
+      style={{ backgroundColor: assignColor() }}
     >
       <div className="selected-item-left">
         {item.brand} - {item.name}

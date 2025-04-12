@@ -12,9 +12,23 @@ async function fetchCases() {
   return data;
 }
 
-function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
+function AddItemForm({
+  setShowAddItemForm,
+  selectedItems,
+  setSelectedItems,
+  itemCounter,
+  setItemCounter,
+}) {
   const [category, setCategory] = useState("case");
   const categories = ["case", "custom", "other"];
+  const colors = [
+    "#8B0000", // dark red
+    "#00008B", // dark blue
+    "#B8860B", // dark goldenrod (instead of bright yellow)
+    "#006400", // dark green
+    "#FF8C00", // dark orange
+    "#8B008B", // dark magenta (deep pink-ish)
+  ];
   const { isLoading, error, data } = useQuery({
     queryKey: ["cases"],
     queryFn: fetchCases,
@@ -45,12 +59,18 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
     clearCurrentItem();
   }
 
+  function assignColor() {
+    return colors[itemCounter % colors.length];
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     if (category === "case") {
       if (!isSelectedItemEmpty()) {
         selectedItem.id = uuidv4();
         selectedItem.hide = false;
+        selectedItem.color = assignColor();
+        setItemCounter((prevCount) => prevCount + 1);
         setSelectedItems([...selectedItems, selectedItem]);
         clearCurrentItem();
         setShowAddItemForm(false);

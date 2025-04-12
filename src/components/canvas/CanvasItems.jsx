@@ -1,6 +1,6 @@
 import React from "react";
 
-function CanvasItems({ selectedItems, colors }) {
+function CanvasItems({ selectedItems }) {
   const filteredData = selectedItems.filter((item) => {
     return item.hide === false;
   });
@@ -34,11 +34,7 @@ function CanvasItems({ selectedItems, colors }) {
     return [xAxis / 30, yAxis / 30, zAxis / 30];
   }
 
-  function assignColor(index) {
-    return colors[index % colors.length];
-  }
-
-  return selectedItems.map((item, index) => {
+  return filteredData.map((item, index) => {
     const width = item.measurements.width;
     const height = item.measurements.height;
     const length = item.measurements.length;
@@ -58,7 +54,7 @@ function CanvasItems({ selectedItems, colors }) {
               item.measurements.length / 30,
             ]}
           />
-          <meshStandardMaterial color={assignColor(index)} />
+          <meshStandardMaterial color={item.color} />
         </mesh>
       );
   });

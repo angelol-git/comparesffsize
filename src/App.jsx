@@ -12,14 +12,7 @@ const queryClient = new QueryClient();
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [showAddItemForm, setShowAddItemForm] = useState(false);
-  const colors = [
-    "#8B0000", // dark red
-    "#00008B", // dark blue
-    "#B8860B", // dark goldenrod (instead of bright yellow)
-    "#006400", // dark green
-    "#FF8C00", // dark orange
-    "#8B008B", // dark magenta (deep pink-ish)
-  ];
+  const [itemCounter, setItemCounter] = useState(0);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -29,7 +22,7 @@ function App() {
           <section id="canvas-wrapper" className="canvas-wrapper">
             <Canvas camera={{ position: [10, 15, 20], fov: 75 }}>
               {selectedItems.length > 0 && (
-                <CanvasItems selectedItems={selectedItems} colors={colors} />
+                <CanvasItems selectedItems={selectedItems} />
               )}
               <directionalLight position={[10, 10, 1]} />
               <ambientLight intensity={2.5} />
@@ -51,15 +44,15 @@ function App() {
               </header>
               <ul className="items-list">
                 {selectedItems.length > 0 &&
-                  selectedItems.map((item, index) => {
+                  selectedItems.map((item) => {
                     return (
                       <SelectedItems
                         key={item.id}
                         item={item}
-                        index={index}
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
-                        colors={colors}
+                        itemCounter={itemCounter}
+                        setItemCounter={setItemCounter}
                       />
                     );
                   })}
@@ -68,6 +61,8 @@ function App() {
                     setShowAddItemForm={setShowAddItemForm}
                     selectedItems={selectedItems}
                     setSelectedItems={setSelectedItems}
+                    itemCounter={itemCounter}
+                    setItemCounter={setItemCounter}
                   />
                 )}
               </ul>
