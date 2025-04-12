@@ -47,12 +47,9 @@ function App() {
                   selectedItems.map((item) => {
                     return (
                       <SelectedItems
-                        key={item.id}
                         item={item}
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
-                        itemCounter={itemCounter}
-                        setItemCounter={setItemCounter}
                       />
                     );
                   })}

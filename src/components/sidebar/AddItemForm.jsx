@@ -173,7 +173,7 @@ function AddItemForm({
                 <button
                   type="button"
                   onClick={() => {
-                    clearCurrentItem(true);
+                    setShowAddItemForm(false);
                   }}
                   className="add-item-form-button cancel-item-button"
                 >
