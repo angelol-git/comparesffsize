@@ -1,16 +1,6 @@
 {
   "Cooler Master": [
     {
-      "name": "NR200P",
-      "type": "ITX",
-      "measurements": {
-        "length": "376",
-        "width": "185",
-        "height": "292",
-        "volume": "18.2"
-      }
-    },
-    {
       "name": "NCore 100 Air",
       "type": "ITX",
       "measurements": {
@@ -28,6 +18,16 @@
         "width": "212",
         "height": "45757575757",
         "volume": "17.5"
+      }
+    },
+    {
+      "name": "NR200P",
+      "type": "ITX",
+      "measurements": {
+        "length": "376",
+        "width": "185",
+        "height": "292",
+        "volume": "18.2"
       }
     },
     {
@@ -65,16 +65,6 @@
   ],
   "Dan": [
     {
-      "name": "C4-SFX v1",
-      "type": "ITX",
-      "measurements": {
-        "length": "350.2",
-        "width": "166",
-        "height": "273",
-        "volume": "14.7"
-      }
-    },
-    {
       "name": "A4-SFX v4.1",
       "type": "ITX",
       "measurements": {
@@ -82,6 +72,16 @@
         "width": "112",
         "height": "205",
         "volume": "7.25"
+      }
+    },
+    {
+      "name": "C4-SFX v1",
+      "type": "ITX",
+      "measurements": {
+        "length": "350.2",
+        "width": "166",
+        "height": "273",
+        "volume": "14.7"
       }
     }
   ],
@@ -191,33 +191,13 @@
       }
     },
     {
-      "name": "TU150",
-      "type": "ITX",
-      "measurements": {
-        "length": "375",
-        "width": "202",
-        "height": "312",
-        "volume": "23.6"
-      }
-    },
-    {
-      "name": "Q58",
-      "type": "ITX",
-      "measurements": {
-        "length": "342",
-        "width": "170",
-        "height": "250",
-        "volume": "14.5"
-      }
-    },
-    {
-      "name": "O11 Dynamic Mini",
+      "name": "O11 Air Mini",
       "type": "ATX",
       "measurements": {
-        "length": "420",
-        "width": "380",
-        "height": "270",
-        "volume": "43.1"
+        "length": "400",
+        "width": "384",
+        "height": "288",
+        "volume": "44.2"
       }
     },
     {
@@ -231,13 +211,33 @@
       }
     },
     {
-      "name": "O11 Air Mini",
+      "name": "O11 Dynamic Mini",
       "type": "ATX",
       "measurements": {
-        "length": "400",
-        "width": "384",
-        "height": "288",
-        "volume": "44.2"
+        "length": "420",
+        "width": "380",
+        "height": "270",
+        "volume": "43.1"
+      }
+    },
+    {
+      "name": "Q58",
+      "type": "ITX",
+      "measurements": {
+        "length": "342",
+        "width": "170",
+        "height": "250",
+        "volume": "14.5"
+      }
+    },
+    {
+      "name": "TU150",
+      "type": "ITX",
+      "measurements": {
+        "length": "375",
+        "width": "202",
+        "height": "312",
+        "volume": "23.6"
       }
     }
   ],
