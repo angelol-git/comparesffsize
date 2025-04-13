@@ -1,4 +1,90 @@
 {
+  "Cooler Master": [
+    {
+      "name": "NR200P",
+      "type": "ITX",
+      "measurements": {
+        "length": "376",
+        "width": "185",
+        "height": "292",
+        "volume": "18.2"
+      }
+    },
+    {
+      "name": "NCore 100 Air",
+      "type": "ITX",
+      "measurements": {
+        "length": "155",
+        "width": "212",
+        "height": "449",
+        "volume": "16.1"
+      }
+    },
+    {
+      "name": "NCore 100 Max",
+      "type": "ITX",
+      "measurements": {
+        "length": "172",
+        "width": "212",
+        "height": "45757575757",
+        "volume": "17.5"
+      }
+    },
+    {
+      "name": "NR200P V2",
+      "type": "ITX",
+      "measurements": {
+        "length": "372",
+        "width": "185",
+        "height": "292",
+        "volume": "18.25"
+      }
+    }
+  ],
+  "Corsair": [
+    {
+      "name": "2000D",
+      "type": "ITX",
+      "measurements": {
+        "length": "271",
+        "width": "200",
+        "height": "458",
+        "volume": "24.4"
+      }
+    },
+    {
+      "name": "2500X",
+      "type": "mATX",
+      "measurements": {
+        "length": "479",
+        "width": "304",
+        "height": "376",
+        "volume": ""
+      }
+    }
+  ],
+  "Dan": [
+    {
+      "name": "C4-SFX v1",
+      "type": "ITX",
+      "measurements": {
+        "length": "350.2",
+        "width": "166",
+        "height": "273",
+        "volume": "14.7"
+      }
+    },
+    {
+      "name": "A4-SFX v4.1",
+      "type": "ITX",
+      "measurements": {
+        "length": "327",
+        "width": "112",
+        "height": "205",
+        "volume": "7.25"
+      }
+    }
+  ],
   "Fractal Design": [
     {
       "name": "Era 2",
@@ -58,6 +144,18 @@
         "width": "153",
         "height": "218",
         "volume": "11.4"
+      }
+    }
+  ],
+  "Hyte": [
+    {
+      "name": "Revolt 3",
+      "type": "ITX",
+      "measurements": {
+        "length": "253",
+        "width": "178",
+        "height": "409",
+        "volume": "18.4"
       }
     }
   ],
@@ -143,6 +241,80 @@
       }
     }
   ],
+  "Louqe": [
+    {
+      "name": "Ghost R1",
+      "type": "ITX",
+      "measurements": {
+        "length": "354",
+        "width": "187",
+        "height": "265",
+        "volume": "17.5"
+      }
+    },
+    {
+      "name": "Ghost S1",
+      "type": "ITX",
+      "measurements": {
+        "length": "322",
+        "width": "140",
+        "height": "184",
+        "volume": "8.3"
+      }
+    },
+    {
+      "name": "Raw S1",
+      "type": "ITX",
+      "measurements": {
+        "length": "190",
+        "width": "171",
+        "height": "378",
+        "volume": "12.3"
+      }
+    }
+  ],
+  "NZXT": [
+    {
+      "name": "H1 v1",
+      "type": "ITX",
+      "measurements": {
+        "length": "188",
+        "width": "187",
+        "height": "405",
+        "volume": "13"
+      }
+    },
+    {
+      "name": "H1 v2",
+      "type": "ITX",
+      "measurements": {
+        "length": "196",
+        "width": "196",
+        "height": "405",
+        "volume": "15.6"
+      }
+    },
+    {
+      "name": "NCore 100 Max",
+      "type": "ITX",
+      "measurements": {
+        "length": "172",
+        "width": "212",
+        "height": "45757575757",
+        "volume": "17.5"
+      }
+    },
+    {
+      "name": "NR200P V2",
+      "type": "ITX",
+      "measurements": {
+        "length": "372",
+        "width": "185",
+        "height": "292",
+        "volume": "18.25"
+      }
+    }
+  ],
   "Ncase": [
     {
       "name": "M1",
@@ -172,6 +344,62 @@
         "width": "135",
         "height": "220",
         "volume": "9.95"
+      }
+    }
+  ],
+  "Phanteks": [
+    {
+      "name": "Evolv Shift 2",
+      "type": "ITX",
+      "measurements": {
+        "length": "274",
+        "width": "170",
+        "height": "490",
+        "volume": "22.9"
+      }
+    }
+  ],
+  "Thermaltake": [
+    {
+      "name": "TR100",
+      "type": "ITX",
+      "measurements": {
+        "length": "391",
+        "width": "179",
+        "height": "294",
+        "volume": "18.9"
+      }
+    }
+  ],
+  "ssupd": [
+    {
+      "name": "Meshilicious",
+      "type": "ITX",
+      "measurements": {
+        "length": "310",
+        "width": "220",
+        "height": "415",
+        "volume": "14.67"
+      }
+    },
+    {
+      "name": "Meshroom S",
+      "type": "ITX",
+      "measurements": {
+        "length": "247",
+        "width": "167",
+        "height": "362",
+        "volume": "14.93"
+      }
+    },
+    {
+      "name": "Meshroom S D",
+      "type": "ITX",
+      "measurements": {
+        "length": "363",
+        "width": "167",
+        "height": "247",
+        "volume": "14.97"
       }
     }
   ]

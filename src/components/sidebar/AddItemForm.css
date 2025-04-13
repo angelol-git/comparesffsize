@@ -1,65 +1,5 @@
-.add-item-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-}
-
-.add-item-form-row {
-    display: flex;
-}
-
-.add-item-form-category-label {
-    cursor: pointer;
-}
-
 label>input[type=radio] {
     visibility: hidden;
-}
-
-.selected {
-    color: blue;
-}
-
-.add-item-form-subheader {
-    font-size: 16px;
-    /* font-weight: bold; */
-}
-
-.add-item-form-data-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.add-item-form-measurements {
-    gap: 15px;
-}
-
-.measurement-form {
-    display: flex;
-    gap: 10px;
-}
-
-.measurement-input-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-}
-
-.measurement-input {
-    text-align: right;
-    padding-right: 5px;
-    width: 50px;
-}
-
-.add-item-form-buttons-row {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    height: 100%;
-    gap: 15px;
 }
 
 .add-item-form-button {
@@ -71,12 +11,6 @@ label>input[type=radio] {
     width: 85px;
     font-size: 14px;
     cursor: pointer;
-}
-
-.add-item-button {
-    border: 1px solid blue;
-    color: white;
-    background-color: blue;
 }
 
 .add-item-button:hover {

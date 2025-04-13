@@ -79,13 +79,13 @@ function AddItemForm({
   }
 
   return (
-    <li className="items-list-item">
+    <li>
       <form
         id="add-item-form"
-        className="add-item-form"
+        className="flex flex-col gap-[10px] w-full"
         onSubmit={handleSubmit}
       >
-        <div className="add-item-form-row">
+        <div className="flex">
           <div className="add-item-form-subheader">Category:</div>
           <div>
             {categories.map((categoryItem) => (
@@ -93,8 +93,8 @@ function AddItemForm({
                 key={categoryItem}
                 htmlFor={categoryItem}
                 className={`${
-                  category === categoryItem && "selected"
-                } add-item-form-category-label`}
+                  category === categoryItem && "text-blue"
+                } cursor-pointer`}
               >
                 <input
                   type="radio"
@@ -114,7 +114,7 @@ function AddItemForm({
           {isLoading && "Loading cases..."}
           {error && "Error fetching cases"}
           {data && (
-            <div className="add-item-form-data-container">
+            <div className="flex flex-col gap-[15px]">
               <SearchSelect
                 data={data}
                 selectedItem={selectedItem}
@@ -124,35 +124,35 @@ function AddItemForm({
                 setShowAddItemForm={setShowAddItemForm}
               />
               {!isSelectedItemEmpty() && (
-                <div className="add-item-form-row add-item-form-measurements">
-                  <div className="add-item-form-subheader">Measurements: </div>
-                  <div className="measurement-form">
-                    <div className="measurement-input-row">
+                <div className="add-item-form-row gap-[15px]">
+                  <div className="text-base">Measurements: </div>
+                  <div className="flex gap-[10px]">
+                    <div className="flex justify-between items-center gap-[5px]">
                       <label htmlFor="length">L: </label>
                       <input
                         type="text"
                         name="length"
-                        className="measurement-input"
+                        className="text-right pr-[5px] w-[50px]"
                         value={selectedItem.measurements?.length ?? ""}
                         readOnly
                       />
                     </div>
-                    <div className="measurement-input-row">
+                    <div className="flex justify-between items-center gap-[5px]">
                       <label htmlFor="width">W: </label>
                       <input
                         type="text"
                         name="width"
-                        className="measurement-input"
+                        className="text-right pr-[5px] w-[50px]"
                         value={selectedItem.measurements?.width ?? ""}
                         readOnly
                       />
                     </div>
-                    <div className="measurement-input-row">
+                    <div className="flex justify-between items-center gap-[5px]">
                       <label htmlFor="height">H: </label>
                       <input
                         type="text"
                         name="height"
-                        className="measurement-input"
+                        className="text-right pr-[5px] w-[50px]t"
                         value={selectedItem.measurements?.height ?? ""}
                         readOnly
                       />
@@ -163,18 +163,18 @@ function AddItemForm({
                     <input
                       type="text"
                       name="volume"
-                      className="measurement-input"
+                      className="text-right pr-[5px] w-[50px]"
                       value={selectedItem.measurements?.volume ?? ""}
                       readOnly
                     />
                   </div>
                 </div>
               )}
-              <div className="add-item-form-buttons-row">
+              <div className="flex items-center justify-end h-full gap-[15px] ">
                 <button
                   type="submit"
                   className="add-item-form-button
-                   add-item-button"
+                  border-solid border-[1px] border-blue-700"
                 >
                   <PlusSvg height={"12px"} width={"12px"} color={"white"} />
                   Add
