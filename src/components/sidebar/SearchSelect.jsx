@@ -111,7 +111,7 @@ function SearchSelect({
             </button>
           )}
           {isOpen && (
-            <div className="absolute top-[100%] z-10 px-[5px] py-[10px] w-full bg-gray-100">
+            <div className="absolute top-[100%] z-10 px-[5px] py-[10px] w-full bg-gray-100 h-[200px] overflow-auto">
               {searchInput.length > 1 &&
               Object.entries(filteredData).length === 0 ? (
                 <p>No cases found</p>

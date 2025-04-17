@@ -85,15 +85,15 @@ function AddItemForm({
         className="flex flex-col gap-[10px] w-full"
         onSubmit={handleSubmit}
       >
-        <div className="flex">
+        <div className="flex gap-[10px]">
           <div className="add-item-form-subheader">Category:</div>
-          <div>
+          <div className="flex gap-[10px]">
             {categories.map((categoryItem) => (
               <label
                 key={categoryItem}
                 htmlFor={categoryItem}
                 className={`${
-                  category === categoryItem && "text-blue"
+                  category === categoryItem && "text-blue-700"
                 } cursor-pointer`}
               >
                 <input
@@ -103,7 +103,7 @@ function AddItemForm({
                   value={categoryItem}
                   checked={category === categoryItem}
                   onChange={handleCategoryClick}
-                  className={`add-item-form-category-radio`}
+                  className={`sr-only`}
                 />
                 {categoryItem.charAt(0).toUpperCase() + categoryItem.slice(1)}
               </label>
@@ -124,7 +124,7 @@ function AddItemForm({
                 setShowAddItemForm={setShowAddItemForm}
               />
               {!isSelectedItemEmpty() && (
-                <div className="add-item-form-row gap-[15px]">
+                <div className="gap-[15px]">
                   <div className="text-base">Measurements: </div>
                   <div className="flex gap-[10px]">
                     <div className="flex justify-between items-center gap-[5px]">
@@ -173,8 +173,8 @@ function AddItemForm({
               <div className="flex items-center justify-end h-full gap-[15px] ">
                 <button
                   type="submit"
-                  className="add-item-form-button
-                  border-solid border-[1px] border-blue-700"
+                  className="flex items-center justify-center gap-[7px] h-[35px] w-[85px] text-sm cursor-pointer
+                  border border-blue-700 text-white bg-blue-700 hover:bg-blue-600 hover:border-blue-600"
                 >
                   <PlusSvg height={"12px"} width={"12px"} color={"white"} />
                   Add
@@ -185,7 +185,7 @@ function AddItemForm({
                   onClick={() => {
                     setShowAddItemForm(false);
                   }}
-                  className="add-item-form-button cancel-item-button"
+                  className="flex items-center justify-center gap-[7px] h-[35px] w-[85px] text-sm cursor-pointer border border-black text-black bg-white hover:bg-gray-100"
                 >
                   <XSvg height={"12px"} width={"12px"} color={"black"} />
                   Cancel
