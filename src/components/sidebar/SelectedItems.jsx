@@ -22,11 +22,11 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
 
   return (
     <li
-      className="flex justify-between items-center p-[10px] text-white cursor-grab"
+      className="flex cursor-grab items-center justify-between p-3 text-white"
       style={{ backgroundColor: assignColor() }}
     >
-      <div className="text-base flex flex-col gap-2">
-        <div className="flex items-center justify-between w-[300px]">
+      <div className="flex flex-col gap-2 text-base">
+        <div className="flex w-[300px] items-center justify-between">
           <div className="font-base">
             {item.brand} - {item.name}
           </div>
@@ -40,8 +40,11 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
               ${item.measurements.height}mm `}
         </div>
       </div>
-      <div className="flex gap-[10px]">
-        <button onClick={handleDeleteClick} className="selected-item-button">
+      <div className="flex gap-3">
+        <button
+          onClick={handleDeleteClick}
+          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center border-none bg-transparent"
+        >
           <EditSvg height={"20px"} width={"20px"} />
         </button>
         {
@@ -49,7 +52,7 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
             onClick={() => {
               handleHideClick(item.id);
             }}
-            className="flex items-center justify-center h-[32px] w-[32px] cursor-pointer bg-transparent border-none"
+            className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center border-none bg-transparent"
           >
             {item.hide ? (
               <UnHideSvg height={"20px"} width={"20px"} color={"white"} />
@@ -62,7 +65,7 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
           onClick={() => {
             handleDeleteClick(item.id);
           }}
-          className="selected-item-button"
+          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center border-none bg-transparent"
         >
           <XSvg height={"14px"} width={"14px"} />
         </button>

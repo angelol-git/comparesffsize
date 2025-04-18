@@ -27,7 +27,7 @@ function SearchSelect({
     const matchedCases = cases.filter(
       (item) =>
         brand.toLowerCase().includes(searchInput.toLowerCase()) ||
-        item.name.toLowerCase().includes(searchInput.toLowerCase())
+        item.name.toLowerCase().includes(searchInput.toLowerCase()),
     );
 
     if (matchedCases.length) {
@@ -45,15 +45,15 @@ function SearchSelect({
   }
 
   return (
-    <div className="flex items-center gap-[20px]">
-      <label htmlFor="search-select" className="add-form-subheader  w-[70px]">
+    <div className="flex items-center gap-3">
+      <label htmlFor="search-select" className="add-form-subheader w-[80px]">
         Name:{" "}
       </label>
       <div
-        className="flex flex-col w-full cursor-pointer"
+        className="flex w-full cursor-pointer flex-col"
         ref={SearchSelectRef}
       >
-        <div className="flex items-center relative">
+        <div className="relative flex items-center">
           <input
             type="text"
             placeholder="Select..."
@@ -72,7 +72,7 @@ function SearchSelect({
                 ? searchInput
                 : `${selectedItem.brand} - ${selectedItem.name}`
             }
-            className="px-[5px] py-[5px] w-full border-1 border-solid border-black text-sm"
+            className="w-full border-1 border-solid border-black px-[5px] py-[5px] text-sm"
           />
           {!isSelectedItemEmpty() ? (
             <button
@@ -90,7 +90,7 @@ function SearchSelect({
           {!isOpen ? (
             <button
               type="button"
-              className="absolute z-10 right-[10px] cursor-pointer"
+              className="absolute right-[10px] z-10 cursor-pointer"
               onClick={(event) => {
                 event.stopPropagation();
                 setIsOpen(true);
@@ -101,7 +101,7 @@ function SearchSelect({
           ) : (
             <button
               type="button"
-              className="absolute z-10 right-[10px] cursor-pointer"
+              className="absolute right-[10px] z-10 cursor-pointer"
               onClick={(event) => {
                 event.stopPropagation();
                 setIsOpen(false);
@@ -111,7 +111,7 @@ function SearchSelect({
             </button>
           )}
           {isOpen && (
-            <div className="absolute top-[100%] z-10 px-[5px] py-[10px] w-full bg-gray-100 h-[200px] overflow-auto">
+            <div className="absolute top-[100%] z-10 h-[200px] w-full overflow-auto bg-gray-200 p-2">
               {searchInput.length > 1 &&
               Object.entries(filteredData).length === 0 ? (
                 <p>No cases found</p>
@@ -160,7 +160,7 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
       }}
       className="select-option-container"
     >
-      <div className="flex items-center gap-[5px]">
+      <div className="flex items-center gap-2">
         {!isOpen ? (
           <RightArrowSvg height={"16px"} width={"16px"} />
         ) : (
@@ -173,7 +173,7 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
           cases.map((item) => (
             <div
               key={item.name}
-              className="pl-[40px] hover:bg-gray-200"
+              className="pl-10 hover:bg-gray-300"
               onClick={() => {
                 setSelectedItem({
                   brand: brand,
