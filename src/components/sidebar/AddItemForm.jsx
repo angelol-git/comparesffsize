@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import SearchSelect from "./SearchSelect";
-import "./AddItemForm.css";
 
 async function fetchCases() {
   console.log("fetching case data");
@@ -79,22 +78,22 @@ function AddItemForm({
   }
 
   return (
-    <li>
+    <li className="p-[10px]">
       <form
         id="add-item-form"
-        className="flex flex-col gap-[10px] w-full"
+        className="flex w-full flex-col gap-[10px]"
         onSubmit={handleSubmit}
       >
-        <div className="flex gap-[10px]">
-          <div className="add-item-form-subheader">Category:</div>
+        <div className="flex">
+          <div className="add-item-form-subheader w-[80px]">Category:</div>
           <div className="flex gap-[10px]">
             {categories.map((categoryItem) => (
               <label
                 key={categoryItem}
                 htmlFor={categoryItem}
                 className={`${
-                  category === categoryItem && "text-blue-700"
-                } cursor-pointer`}
+                  category === categoryItem && "bg-gray-500 text-white"
+                } flex cursor-pointer items-center border border-black px-[10px] text-sm`}
               >
                 <input
                   type="radio"
@@ -124,57 +123,63 @@ function AddItemForm({
                 setShowAddItemForm={setShowAddItemForm}
               />
               {!isSelectedItemEmpty() && (
-                <div className="gap-[15px]">
-                  <div className="text-base">Measurements: </div>
-                  <div className="flex gap-[10px]">
-                    <div className="flex justify-between items-center gap-[5px]">
-                      <label htmlFor="length">L: </label>
-                      <input
-                        type="text"
-                        name="length"
-                        className="text-right pr-[5px] w-[50px]"
-                        value={selectedItem.measurements?.length ?? ""}
-                        readOnly
-                      />
+                <div className="flex">
+                  <div className="w-[80px] text-base">Size: </div>
+                  <div className="flex flex-col gap-[10px]">
+                    <div className="flex gap-[15px] text-sm">
+                      <div className="flex items-center justify-around gap-[10px]">
+                        <label htmlFor="length">L:</label>
+                        <input
+                          type="text"
+                          name="length"
+                          className="w-[50px] border border-black pr-[5px] text-right"
+                          value={selectedItem.measurements?.length ?? ""}
+                          readOnly
+                        />
+                        <div>x</div>
+                      </div>
+                      <div className="flex items-center justify-evenly gap-[10px]">
+                        <label htmlFor="width">W: </label>
+                        <input
+                          type="text"
+                          name="width"
+                          className="w-[50px] border border-black pr-[5px] text-right"
+                          value={selectedItem.measurements?.width ?? ""}
+                          readOnly
+                        />
+                        <div>x</div>
+                      </div>
+                      <div className="flex items-center justify-evenly gap-[5px]">
+                        <label htmlFor="height">H: </label>
+                        <input
+                          type="text"
+                          name="height"
+                          className="w-[50px] border border-black pr-[5px] text-right"
+                          value={selectedItem.measurements?.height ?? ""}
+                          readOnly
+                        />
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center gap-[5px]">
-                      <label htmlFor="width">W: </label>
-                      <input
-                        type="text"
-                        name="width"
-                        className="text-right pr-[5px] w-[50px]"
-                        value={selectedItem.measurements?.width ?? ""}
-                        readOnly
-                      />
-                    </div>
-                    <div className="flex justify-between items-center gap-[5px]">
-                      <label htmlFor="height">H: </label>
-                      <input
-                        type="text"
-                        name="height"
-                        className="text-right pr-[5px] w-[50px]t"
-                        value={selectedItem.measurements?.height ?? ""}
-                        readOnly
-                      />
-                    </div>
-                  </div>
-                  <div className="measurement-input-row">
-                    <label htmlFor="volume">Volume: </label>
-                    <input
-                      type="text"
-                      name="volume"
-                      className="text-right pr-[5px] w-[50px]"
-                      value={selectedItem.measurements?.volume ?? ""}
-                      readOnly
-                    />
                   </div>
                 </div>
               )}
-              <div className="flex items-center justify-end h-full gap-[15px] ">
+              <div className="flex gap-[20px]">
+                <label htmlFor="volume  w-[70px]">Volume: </label>
+                <div className="flex items-end gap-[10px] text-sm">
+                  <input
+                    type="text"
+                    name="volume"
+                    className="w-[50px] border border-black pr-[5px] text-right"
+                    value={selectedItem.measurements?.volume ?? ""}
+                    readOnly
+                  />
+                  <div>litres</div>
+                </div>
+              </div>
+              <div className="flex h-full items-center justify-end gap-[15px]">
                 <button
                   type="submit"
-                  className="flex items-center justify-center gap-[7px] h-[35px] w-[85px] text-sm cursor-pointer
-                  border border-blue-700 text-white bg-blue-700 hover:bg-blue-600 hover:border-blue-600"
+                  className="flex h-[35px] w-[85px] cursor-pointer items-center justify-center gap-[7px] border border-blue-700 bg-blue-700 text-sm text-white hover:border-blue-600 hover:bg-blue-600"
                 >
                   <PlusSvg height={"12px"} width={"12px"} color={"white"} />
                   Add
@@ -185,7 +190,7 @@ function AddItemForm({
                   onClick={() => {
                     setShowAddItemForm(false);
                   }}
-                  className="flex items-center justify-center gap-[7px] h-[35px] w-[85px] text-sm cursor-pointer border border-black text-black bg-white hover:bg-gray-100"
+                  className="flex h-[35px] w-[85px] cursor-pointer items-center justify-center gap-[7px] border border-black bg-white text-sm text-black hover:bg-gray-100"
                 >
                   <XSvg height={"12px"} width={"12px"} color={"black"} />
                   Cancel

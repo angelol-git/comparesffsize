@@ -45,8 +45,8 @@ function SearchSelect({
   }
 
   return (
-    <div className="flex items-center gap-[15px]">
-      <label htmlFor="search-select" className="add-form-subheader">
+    <div className="flex items-center gap-[20px]">
+      <label htmlFor="search-select" className="add-form-subheader  w-[70px]">
         Name:{" "}
       </label>
       <div
@@ -72,7 +72,7 @@ function SearchSelect({
                 ? searchInput
                 : `${selectedItem.brand} - ${selectedItem.name}`
             }
-            className="px-[10px] py-[10px] w-full border-1 border-solid border-black"
+            className="px-[5px] py-[5px] w-full border-1 border-solid border-black text-sm"
           />
           {!isSelectedItemEmpty() ? (
             <button

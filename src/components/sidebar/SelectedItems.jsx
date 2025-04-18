@@ -26,7 +26,7 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
       style={{ backgroundColor: assignColor() }}
     >
       <div className="text-base flex flex-col gap-2">
-        <div className="flex items-center gap-[60px]">
+        <div className="flex items-center justify-between w-[300px]">
           <div className="font-base">
             {item.brand} - {item.name}
           </div>
@@ -40,7 +40,7 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
               ${item.measurements.height}mm `}
         </div>
       </div>
-      <div className="flex">
+      <div className="flex gap-[10px]">
         <button onClick={handleDeleteClick} className="selected-item-button">
           <EditSvg height={"20px"} width={"20px"} />
         </button>
