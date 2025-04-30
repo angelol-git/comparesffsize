@@ -58,6 +58,16 @@ function AddItemForm({
     clearCurrentItem();
   }
 
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setSelectedItem((prevState) => ({
+      ...prevState,
+      measurements: {
+        ...prevState.measurements,
+        [name]: value,
+      },
+    }));
+  }
   function assignColor() {
     return colors[itemCounter % colors.length];
   }
@@ -70,6 +80,7 @@ function AddItemForm({
         selectedItem.hide = false;
         selectedItem.color = assignColor();
         setItemCounter((prevCount) => prevCount + 1);
+        console.log(selectedItem);
         setSelectedItems([...selectedItems, selectedItem]);
         clearCurrentItem();
         setShowAddItemForm(false);
@@ -78,7 +89,7 @@ function AddItemForm({
   }
 
   return (
-    <li className="p-3">
+    <li>
       <form
         id="add-item-form"
         className="flex w-full flex-col gap-3"
@@ -92,7 +103,7 @@ function AddItemForm({
                 key={categoryItem}
                 htmlFor={categoryItem}
                 className={`${
-                  category === categoryItem && "bg-gray-500 text-white"
+                  category === categoryItem && "bg-blue-500 text-white"
                 } flex cursor-pointer items-center border border-black px-2 py-1 text-sm`}
               >
                 <input
@@ -133,8 +144,8 @@ function AddItemForm({
                           type="text"
                           name="length"
                           className="w-[50px] border border-black px-2 py-1 text-right"
-                          value={selectedItem.measurements?.length ?? ""}
-                          readOnly
+                          defaultValue={selectedItem.measurements?.length ?? ""}
+                          onChange={handleChange}
                         />
                       </div>
                       <div>×</div>
@@ -144,8 +155,8 @@ function AddItemForm({
                           type="text"
                           name="width"
                           className="w-[50px] border border-black px-2 py-1 text-right"
-                          value={selectedItem.measurements?.width ?? ""}
-                          readOnly
+                          defaultValue={selectedItem.measurements?.width ?? ""}
+                          onChange={handleChange}
                         />
                       </div>
                       <div>×</div>
@@ -155,9 +166,10 @@ function AddItemForm({
                           type="text"
                           name="height"
                           className="w-[50px] border border-black px-2 py-1 text-right"
-                          value={selectedItem.measurements?.height ?? ""}
-                          readOnly
+                          defaultValue={selectedItem.measurements?.height ?? ""}
+                          onChange={handleChange}
                         />
+                        mm
                       </div>
                     </div>
                   </div>
@@ -170,8 +182,8 @@ function AddItemForm({
                         type="text"
                         name="volume"
                         className="w-[50px] border border-black px-2 py-1 pr-[5px] text-right"
-                        value={selectedItem.measurements?.volume ?? ""}
-                        readOnly
+                        defaultValue={selectedItem.measurements?.volume ?? ""}
+                        onChange={handleChange}
                       />
                       <div>litres</div>
                     </div>

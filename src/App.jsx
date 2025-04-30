@@ -49,6 +49,7 @@ function App() {
                         item={item}
                         selectedItems={selectedItems}
                         setSelectedItems={setSelectedItems}
+                        key={item.id}
                       />
                     );
                   })}
