@@ -22,7 +22,7 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
 
   return (
     <li
-      className="flex cursor-grab items-center justify-between p-3 text-white"
+      className="ease flex cursor-grab items-center justify-between p-3 text-white transition-colors duration-200"
       style={{ backgroundColor: assignColor() }}
     >
       <div className="flex flex-col gap-2 text-base">

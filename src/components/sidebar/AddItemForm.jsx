@@ -19,6 +19,7 @@ function AddItemForm({
   setItemCounter,
 }) {
   const [category, setCategory] = useState("case");
+  const dimensions = ["Length", "Width", "Height"];
   const categories = ["case", "custom", "other"];
   const colors = [
     "#8B0000", // dark red
@@ -80,7 +81,6 @@ function AddItemForm({
         selectedItem.hide = false;
         selectedItem.color = assignColor();
         setItemCounter((prevCount) => prevCount + 1);
-        console.log(selectedItem);
         setSelectedItems([...selectedItems, selectedItem]);
         clearCurrentItem();
         setShowAddItemForm(false);
@@ -92,19 +92,19 @@ function AddItemForm({
     <li>
       <form
         id="add-item-form"
-        className="flex w-full flex-col gap-3"
+        className="flex w-full flex-col gap-3 text-sm"
         onSubmit={handleSubmit}
       >
-        <div className="flex">
-          <div className="add-item-form-subheader w-[80px]">Category:</div>
+        <div className="flex flex-col gap-2">
+          <div className="font-semibold">Category</div>
           <div className="flex gap-2">
             {categories.map((categoryItem) => (
               <label
                 key={categoryItem}
                 htmlFor={categoryItem}
                 className={`${
-                  category === categoryItem && "bg-blue-500 text-white"
-                } flex cursor-pointer items-center border border-black px-2 py-1 text-sm`}
+                  category === categoryItem && "bg-blue-700 text-white"
+                } flex cursor-pointer items-center rounded-md border border-gray-400 px-3 py-2`}
               >
                 <input
                   type="radio"
@@ -135,58 +135,42 @@ function AddItemForm({
               />
               {!isSelectedItemEmpty() && (
                 <div className="flex flex-col gap-3">
-                  <div className="flex">
-                    <div className="w-[80px] text-base">Size: </div>
-                    <div className="flex items-center gap-4 text-sm">
-                      <div className="flex items-center gap-2">
-                        <label htmlFor="length">L:</label>
-                        <input
-                          type="text"
-                          name="length"
-                          className="w-[50px] border border-black px-2 py-1 text-right"
-                          defaultValue={selectedItem.measurements?.length ?? ""}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div>×</div>
-                      <div className="flex items-center gap-2">
-                        <label htmlFor="width">W: </label>
-                        <input
-                          type="text"
-                          name="width"
-                          className="w-[50px] border border-black px-2 py-1 text-right"
-                          defaultValue={selectedItem.measurements?.width ?? ""}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div>×</div>
-                      <div className="flex items-center gap-2">
-                        <label htmlFor="height">H: </label>
-                        <input
-                          type="text"
-                          name="height"
-                          className="w-[50px] border border-black px-2 py-1 text-right"
-                          defaultValue={selectedItem.measurements?.height ?? ""}
-                          onChange={handleChange}
-                        />
-                        mm
-                      </div>
-                    </div>
+                  <div className="font-semibold">Measurements</div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {dimensions.map((item) => {
+                      return (
+                        <div className="flex flex-col gap-3">
+                          <label
+                            htmlFor={item}
+                            className="self-start text-xs font-semibold"
+                          >
+                            {item}
+                          </label>
+                          <input
+                            type="text"
+                            name={item}
+                            className="rounded-md border border-gray-400 px-2 py-2 text-right"
+                            defaultValue={
+                              selectedItem.measurements?.[item.toLowerCase()] ??
+                              ""
+                            }
+                            onChange={handleChange}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div className="flex">
-                    <label htmlFor="volume" className="w-[80px]">
-                      Volume:{" "}
+                  <div className="flex flex-col gap-3">
+                    <label htmlFor="volume" className="font-semibold">
+                      Volume (litres)
                     </label>
-                    <div className="flex items-center gap-2 text-sm">
-                      <input
-                        type="text"
-                        name="volume"
-                        className="w-[50px] border border-black px-2 py-1 pr-[5px] text-right"
-                        defaultValue={selectedItem.measurements?.volume ?? ""}
-                        onChange={handleChange}
-                      />
-                      <div>litres</div>
-                    </div>
+                    <input
+                      type="text"
+                      name="volume"
+                      className="rounded-md border border-gray-400 px-2 py-2"
+                      defaultValue={selectedItem.measurements?.volume ?? ""}
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
               )}
@@ -194,7 +178,7 @@ function AddItemForm({
               <div className="flex h-full items-center justify-end gap-[15px]">
                 <button
                   type="submit"
-                  className="flex h-[35px] w-[85px] cursor-pointer items-center justify-center gap-[7px] border border-blue-700 bg-blue-700 text-sm text-white hover:border-blue-600 hover:bg-blue-600"
+                  className="flex h-[35px] w-[85px] cursor-pointer items-center justify-center gap-[7px] rounded-md border border-blue-700 bg-blue-700 text-sm text-white hover:border-blue-600 hover:bg-blue-600"
                 >
                   <PlusSvg height={"12px"} width={"12px"} color={"white"} />
                   Add
@@ -205,9 +189,8 @@ function AddItemForm({
                   onClick={() => {
                     setShowAddItemForm(false);
                   }}
-                  className="flex h-[35px] w-[85px] cursor-pointer items-center justify-center gap-[7px] border border-black bg-white text-sm text-black hover:bg-gray-100"
+                  className="flex h-[35px] w-[85px] cursor-pointer items-center justify-center gap-[7px] rounded-md border border-gray-400 bg-white text-sm text-black hover:bg-gray-100"
                 >
-                  <XSvg height={"12px"} width={"12px"} color={"black"} />
                   Cancel
                 </button>
               </div>
@@ -231,20 +214,6 @@ function PlusSvg({ height, width, color }) {
       fill={color}
     >
       <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z" />
-    </svg>
-  );
-}
-
-function XSvg({ height, width, color }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      width={width}
-      height={height}
-      fill={color}
-    >
-      <path d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z" />
     </svg>
   );
 }

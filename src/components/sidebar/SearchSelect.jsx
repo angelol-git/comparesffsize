@@ -45,9 +45,9 @@ function SearchSelect({
   }
 
   return (
-    <div className="flex items-center gap-3">
-      <label htmlFor="search-select" className="add-form-subheader w-[80px]">
-        Name:{" "}
+    <div className="flex flex-col gap-3">
+      <label htmlFor="search-select" className="font-semibold">
+        Name
       </label>
       <div
         className="flex w-full cursor-pointer flex-col"
@@ -72,7 +72,7 @@ function SearchSelect({
                 ? searchInput
                 : `${selectedItem.brand} - ${selectedItem.name}`
             }
-            className="w-full border-1 border-solid border-black px-[5px] py-[5px] text-sm"
+            className="w-full rounded-md border-1 border-solid border-gray-400 px-3 py-2"
           />
           {!isSelectedItemEmpty() ? (
             <button
@@ -111,7 +111,7 @@ function SearchSelect({
             </button>
           )}
           {isOpen && (
-            <div className="absolute top-[100%] z-10 h-[200px] w-full overflow-auto bg-gray-200 p-2">
+            <div className="absolute top-[100%] z-10 h-[200px] w-full overflow-auto rounded-md bg-gray-200 p-2">
               {searchInput.length > 1 &&
               Object.entries(filteredData).length === 0 ? (
                 <p>No cases found</p>
@@ -173,7 +173,7 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
           cases.map((item) => (
             <div
               key={item.name}
-              className="pl-10 hover:bg-gray-300"
+              className="rounded-md pl-10 hover:bg-gray-300"
               onClick={() => {
                 setSelectedItem({
                   brand: brand,
