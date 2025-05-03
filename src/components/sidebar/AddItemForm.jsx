@@ -19,15 +19,14 @@ function AddItemForm({
   setItemCounter,
 }) {
   const [category, setCategory] = useState("case");
-  const dimensions = ["Length", "Width", "Height"];
+  const dimensions = ["Length", "Width", "Height", "Volume"];
   const categories = ["case", "custom", "other"];
   const colors = [
     "#8B0000", // dark red
     "#00008B", // dark blue
     "#B8860B", // dark goldenrod (instead of bright yellow)
     "#006400", // dark green
-    "#FF8C00", // dark orange
-    "#8B008B", // dark magenta (deep pink-ish)
+    "#CC7000", // dark orange
   ];
   const { isLoading, error, data } = useQuery({
     queryKey: ["cases"],
@@ -135,7 +134,7 @@ function AddItemForm({
               />
               {!isSelectedItemEmpty() && (
                 <div className="flex flex-col gap-3">
-                  <div className="font-semibold">Measurements</div>
+                  <div className="font-semibold">Measurements (mm)</div>
                   <div className="grid grid-cols-3 gap-3">
                     {dimensions.map((item) => {
                       return (
@@ -145,6 +144,7 @@ function AddItemForm({
                             className="self-start text-xs font-semibold"
                           >
                             {item}
+                            {item === "Volume" ? " (litres)" : ""}
                           </label>
                           <input
                             type="text"
@@ -160,8 +160,8 @@ function AddItemForm({
                       );
                     })}
                   </div>
-                  <div className="flex flex-col gap-3">
-                    <label htmlFor="volume" className="font-semibold">
+                  {/* <div className="flex flex-col gap-1">
+                    <label htmlFor="volume" className="text-sm font-semibold">
                       Volume (litres)
                     </label>
                     <input
@@ -171,7 +171,7 @@ function AddItemForm({
                       defaultValue={selectedItem.measurements?.volume ?? ""}
                       onChange={handleChange}
                     />
-                  </div>
+                  </div> */}
                 </div>
               )}
 

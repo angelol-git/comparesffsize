@@ -1,7 +1,7 @@
 function SelectedItems({ item, selectedItems, setSelectedItems }) {
   function assignColor() {
     if (item.hide) {
-      return "grey";
+      return "#4B4B4B";
     }
     return item.color;
   }
@@ -22,42 +22,39 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
 
   return (
     <li
-      className="ease flex cursor-grab items-center justify-between p-3 text-white transition-colors duration-200"
+      className="ease flex cursor-grab justify-between rounded-md bg-white p-3 text-white transition-colors duration-200"
       style={{ backgroundColor: assignColor() }}
     >
-      <div className="flex flex-col gap-2 text-base">
-        <div className="flex w-[300px] items-center justify-between">
-          <div className="font-base">
-            {item.brand} - {item.name}
-          </div>
-          <span className="text-sm font-light">
-            {item.measurements.volume} L
-          </span>
+      <div className="flex flex-col gap-1">
+        <div className="font-semibold">
+          {item.brand} - {item.name}
         </div>
-        <div className="text-sm font-light">
-          {`${item.measurements.length}mm ×
-              ${item.measurements.width}mm ×
-              ${item.measurements.height}mm `}
+        <div className="text-sm text-gray-200">
+          {`${item.measurements.length} ×
+              ${item.measurements.width} ×
+              ${item.measurements.height} mm 
+              (${item.measurements.volume} L)
+              `}
         </div>
       </div>
-      <div className="flex gap-3">
+      <div className="flex gap-1">
         <button
           onClick={handleDeleteClick}
-          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center border-none bg-transparent"
+          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md border-none transition-colors duration-150 hover:bg-gray-400/30"
         >
-          <EditSvg height={"20px"} width={"20px"} />
+          <EditSvg height={"18px"} width={"18px"} color={"#e5e7eb"} />
         </button>
         {
           <button
             onClick={() => {
               handleHideClick(item.id);
             }}
-            className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center border-none bg-transparent"
+            className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md border-none transition-colors duration-150 hover:bg-gray-400/30"
           >
             {item.hide ? (
-              <UnHideSvg height={"20px"} width={"20px"} color={"white"} />
+              <UnHideSvg height={"18px"} width={"18px"} color={"#e5e7eb"} />
             ) : (
-              <HideSvg height={"20px"} width={"20px"} color={"white"} />
+              <HideSvg height={"18px"} width={"18px"} color={"#e5e7eb"} />
             )}
           </button>
         }
@@ -65,9 +62,9 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
           onClick={() => {
             handleDeleteClick(item.id);
           }}
-          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center border-none bg-transparent"
+          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md border-none transition-colors duration-150 hover:bg-gray-400/30"
         >
-          <XSvg height={"14px"} width={"14px"} />
+          <XSvg height={"12px"} width={"12px"} color={"#e5e7eb"} />
         </button>
       </div>
     </li>
@@ -76,7 +73,7 @@ function SelectedItems({ item, selectedItems, setSelectedItems }) {
 
 export default SelectedItems;
 
-function EditSvg({ height, width }) {
+function EditSvg({ height, width, color }) {
   return (
     <svg
       clipRule="evenodd"
@@ -87,7 +84,7 @@ function EditSvg({ height, width }) {
       xmlns="http://www.w3.org/2000/svg"
       height={height}
       width={width}
-      fill="white"
+      fill={color}
     >
       <path
         d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z"
@@ -139,14 +136,14 @@ function UnHideSvg({ height, width, color }) {
   );
 }
 
-function XSvg({ height, width }) {
+function XSvg({ height, width, color }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       height={height}
       width={width}
-      fill="white"
+      fill={color}
     >
       <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
     </svg>

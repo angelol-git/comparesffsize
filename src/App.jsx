@@ -35,7 +35,7 @@ function App() {
         </section>
         <section
           id="sidebar-wrapper"
-          className={`flex h-full flex-col overflow-y-auto px-4 ${selectedTab === "Items" ? "block" : "hidden"}`}
+          className={`flex h-full flex-col overflow-y-auto bg-gray-100 px-4 ${selectedTab === "Items" ? "block" : "hidden"}`}
         >
           <header className="flex items-center justify-between">
             <h2 className="text-xl font-bold">Items</h2>
