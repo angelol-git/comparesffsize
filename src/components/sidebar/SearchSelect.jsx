@@ -72,7 +72,7 @@ function SearchSelect({
                 ? searchInput
                 : `${selectedItem.brand} - ${selectedItem.name}`
             }
-            className="w-full rounded-md border-1 border-solid border-gray-400 px-3 py-2"
+            className="w-full rounded-md border-1 border-solid border-gray-400/40 px-3 py-2"
           />
           {!isSelectedItemEmpty() ? (
             <button
@@ -111,7 +111,7 @@ function SearchSelect({
             </button>
           )}
           {isOpen && (
-            <div className="absolute top-[100%] z-10 h-[200px] w-full overflow-auto rounded-md bg-gray-200 p-2">
+            <div className="absolute top-[100%] z-10 my-1 h-[200px] w-full overflow-auto rounded-md border border-gray-400/40 bg-white p-2">
               {searchInput.length > 1 &&
               Object.entries(filteredData).length === 0 ? (
                 <p>No cases found</p>
@@ -158,7 +158,7 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
       onClick={() => {
         setIsOpen(!isOpen);
       }}
-      className="select-option-container"
+      className="select-option-container bg-red-500b"
     >
       <div className="flex items-center gap-2">
         {!isOpen ? (
@@ -166,7 +166,7 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
         ) : (
           <DownArrowSvg height={"16px"} width={"16px"} />
         )}
-        <span style={{ fontWeight: "bold" }}>{brand}</span>
+        <span className="font-semibold">{brand}</span>
       </div>
       <div>
         {isOpen &&

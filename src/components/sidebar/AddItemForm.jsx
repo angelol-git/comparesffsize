@@ -26,7 +26,7 @@ function AddItemForm({
     "#00008B", // dark blue
     "#B8860B", // dark goldenrod (instead of bright yellow)
     "#006400", // dark green
-    "#CC7000", // dark orange
+    "#4B0082", // dark purple
   ];
   const { isLoading, error, data } = useQuery({
     queryKey: ["cases"],
@@ -91,10 +91,10 @@ function AddItemForm({
     <li>
       <form
         id="add-item-form"
-        className="flex w-full flex-col gap-3 text-sm"
+        className="flex w-full flex-col gap-3 rounded-md border border-gray-400/40 bg-white p-4 text-sm"
         onSubmit={handleSubmit}
       >
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           <div className="font-semibold">Category</div>
           <div className="flex gap-2">
             {categories.map((categoryItem) => (
@@ -103,7 +103,7 @@ function AddItemForm({
                 htmlFor={categoryItem}
                 className={`${
                   category === categoryItem && "bg-blue-700 text-white"
-                } flex cursor-pointer items-center rounded-md border border-gray-400 px-3 py-2`}
+                } flex cursor-pointer items-center rounded-md border border-gray-400/40 px-3 py-2`}
               >
                 <input
                   type="radio"
@@ -119,69 +119,68 @@ function AddItemForm({
             ))}
           </div>
         </div>
-        <div>
-          {isLoading && "Loading cases..."}
-          {error && "Error fetching cases"}
-          {data && (
-            <div className="flex flex-col gap-3">
-              <SearchSelect
-                data={data}
-                selectedItem={selectedItem}
-                setSelectedItem={setSelectedItem}
-                isSelectedItemEmpty={isSelectedItemEmpty}
-                clearCurrentItem={clearCurrentItem}
-                setShowAddItemForm={setShowAddItemForm}
-              />
-              {!isSelectedItemEmpty() && (
-                <div className="flex flex-col gap-3">
-                  <div className="font-semibold">Measurements (mm)</div>
-                  <div className="grid grid-cols-3 gap-3">
-                    {dimensions.map((item) => {
-                      return (
-                        <div className="flex flex-col gap-1">
-                          <label
-                            htmlFor={item}
-                            className="self-start text-xs font-semibold"
-                          >
-                            {item}
-                            {item === "Volume" ? " (litres)" : ""}
-                          </label>
-                          <input
-                            type="text"
-                            name={item}
-                            className="rounded-md border border-gray-400 px-2 py-2 text-right"
-                            defaultValue={
-                              selectedItem.measurements?.[item.toLowerCase()] ??
-                              ""
-                            }
-                            onChange={handleChange}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                  {/* <div className="flex flex-col gap-1">
+        {isLoading && "Loading cases..."}
+        {error && "Error fetching cases"}
+        {data && (
+          <div className="flex flex-col gap-3">
+            <SearchSelect
+              data={data}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+              isSelectedItemEmpty={isSelectedItemEmpty}
+              clearCurrentItem={clearCurrentItem}
+              setShowAddItemForm={setShowAddItemForm}
+            />
+            {!isSelectedItemEmpty() && (
+              <div className="flex flex-col gap-3">
+                <div className="font-semibold">Measurements (mm)</div>
+                <div className="grid grid-cols-3 gap-3">
+                  {dimensions.map((item) => {
+                    return (
+                      <div className="flex flex-col gap-1" key={item}>
+                        <label
+                          htmlFor={item}
+                          className="self-start text-xs font-semibold"
+                        >
+                          {item}
+                          {item === "Volume" ? " (litres)" : ""}
+                        </label>
+                        <input
+                          type="text"
+                          name={item}
+                          className="rounded-md border border-gray-400/40 px-2 py-2 text-right"
+                          defaultValue={
+                            selectedItem.measurements?.[item.toLowerCase()] ??
+                            ""
+                          }
+                          onChange={handleChange}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+                {/* <div className="flex flex-col gap-1">
                     <label htmlFor="volume" className="text-sm font-semibold">
                       Volume (litres)
                     </label>
                     <input
                       type="text"
                       name="volume"
-                      className="rounded-md border border-gray-400 px-2 py-2"
+                      className="rounded-md border border-gray-400/40 px-2 py-2"
                       defaultValue={selectedItem.measurements?.volume ?? ""}
                       onChange={handleChange}
                     />
                   </div> */}
-                </div>
-              )}
-
-              <div className="flex h-full items-center justify-end gap-[15px]">
+              </div>
+            )}
+            {!isSelectedItemEmpty() && (
+              <div className="flex h-full items-center justify-end gap-3">
                 <button
                   type="submit"
-                  className="flex h-[35px] w-[85px] cursor-pointer items-center justify-center gap-[7px] rounded-md border border-blue-700 bg-blue-700 text-sm text-white hover:border-blue-600 hover:bg-blue-600"
+                  className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-blue-700 bg-blue-700 py-2 text-sm text-white hover:border-blue-600 hover:bg-blue-600"
                 >
                   <PlusSvg height={"12px"} width={"12px"} color={"white"} />
-                  Add
+                  Save
                 </button>
 
                 <button
@@ -189,14 +188,14 @@ function AddItemForm({
                   onClick={() => {
                     setShowAddItemForm(false);
                   }}
-                  className="flex h-[35px] w-[85px] cursor-pointer items-center justify-center gap-[7px] rounded-md border border-gray-400 bg-white text-sm text-black hover:bg-gray-100"
+                  className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-gray-400/40 bg-white py-2 text-sm text-black hover:bg-gray-100"
                 >
                   Cancel
                 </button>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </form>
     </li>
   );
@@ -207,13 +206,30 @@ export default AddItemForm;
 function PlusSvg({ height, width, color }) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      fill={color}
       height={height}
       width={width}
-      fill={color}
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 24 24"
+      enableBackground="new 0 0 24 24"
+      xmlSpace="preserve"
     >
-      <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z" />
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <g id="save">
+          {" "}
+          <path d="M22.083,24H1.917C0.86,24,0,23.14,0,22.083V1.917C0,0.86,0.86,0,1.917,0h16.914L24,5.169v16.914 C24,23.14,23.14,24,22.083,24z M20,22h2V5.998l-3-3V9c0,1.103-0.897,2-2,2H7c-1.103,0-2-0.897-2-2V2H2v20h2v-7c0-1.103,0.897-2,2-2 h12c1.103,0,2,0.897,2,2V22z M6,22h12v-7.001L6,15V22z M7,2v7h10V2H7z"></path>{" "}
+          <path d="M15,8h-4V3h4V8z"></path>{" "}
+        </g>{" "}
+      </g>
     </svg>
   );
 }

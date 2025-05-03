@@ -35,20 +35,21 @@ function App() {
         </section>
         <section
           id="sidebar-wrapper"
-          className={`flex h-full flex-col overflow-y-auto bg-gray-100 px-4 ${selectedTab === "Items" ? "block" : "hidden"}`}
+          className={`flex h-full flex-col overflow-y-auto bg-gray-100 p-4 ${selectedTab === "Items" ? "block" : "hidden"}`}
         >
           <header className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">Items</h2>
+            <h2 className="text-xl font-bold">My Items</h2>
             <button
               onClick={() => {
                 setShowAddItemForm(true);
               }}
-              className="flex h-[35px] w-[35px] cursor-pointer items-center justify-center border-none bg-transparent hover:bg-gray-100"
+              className="flex cursor-pointer items-center justify-center gap-3 rounded-md border border-gray-400/40 bg-white px-4 py-2 hover:bg-gray-100"
             >
-              <PlusSvg height={"14px"} width={"14px"} color="#636363" />
+              <PlusSvg height={"10px"} width={"10px"} color="#636363" />
+              <span className="text-sm">Add New</span>
             </button>
           </header>
-          <ul className="flex h-full list-none flex-col gap-3 px-0 py-2.5">
+          <ul className="flex list-none flex-col gap-3 px-0 py-2.5">
             {selectedItems.length > 0 &&
               selectedItems.map((item) => {
                 return (
@@ -169,7 +170,7 @@ function BoxSvg({ selectedTab, height, width }) {
     </svg>
   );
 }
-function ListSvg({ selectedTab, height, width, color }) {
+function ListSvg({ selectedTab, height, width }) {
   return (
     <svg
       height={height}
