@@ -139,7 +139,7 @@ function AddItemForm({
                   <div className="grid grid-cols-3 gap-3">
                     {dimensions.map((item) => {
                       return (
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-1">
                           <label
                             htmlFor={item}
                             className="self-start text-xs font-semibold"
