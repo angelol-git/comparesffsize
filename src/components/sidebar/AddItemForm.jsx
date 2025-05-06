@@ -11,15 +11,8 @@ async function fetchCases() {
   return data;
 }
 
-function AddItemForm({
-  setShowAddItemForm,
-  selectedItems,
-  setSelectedItems,
-  itemCounter,
-  setItemCounter,
-}) {
+function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
   const [category, setCategory] = useState("case");
-  const dimensions = ["Length", "Width", "Height", "Volume"];
   const categories = ["case", "custom", "other"];
   const colors = [
     "#8B0000", // dark red
@@ -58,18 +51,18 @@ function AddItemForm({
     clearCurrentItem();
   }
 
-  function handleChange(event) {
+  function handleMeasurementChange(event) {
     const { name, value } = event.target;
     setSelectedItem((prevState) => ({
       ...prevState,
       measurements: {
         ...prevState.measurements,
-        [name]: value,
+        [name.toLowerCase()]: value,
       },
     }));
   }
   function assignColor() {
-    return colors[itemCounter % colors.length];
+    return colors[selectedItems.length % colors.length];
   }
 
   function handleSubmit(event) {
@@ -79,11 +72,19 @@ function AddItemForm({
         selectedItem.id = uuidv4();
         selectedItem.hide = false;
         selectedItem.color = assignColor();
-        setItemCounter((prevCount) => prevCount + 1);
         setSelectedItems([...selectedItems, selectedItem]);
+        console.log(selectedItem);
         clearCurrentItem();
         setShowAddItemForm(false);
       }
+    }
+    if (category === "custom") {
+      selectedItem.id = uuidv4();
+      selectedItem.hide = false;
+      selectedItem.color = assignColor();
+      setSelectedItems([...selectedItems, selectedItem]);
+      clearCurrentItem();
+      setShowAddItemForm(false);
     }
   }
 
@@ -102,8 +103,9 @@ function AddItemForm({
                 key={categoryItem}
                 htmlFor={categoryItem}
                 className={`${
-                  category === categoryItem && "bg-blue-700 text-white"
-                } flex cursor-pointer items-center rounded-md border border-gray-400/40 px-3 py-2`}
+                  category === categoryItem &&
+                  "bg-blue-700 text-white hover:!bg-blue-600"
+                } flex cursor-pointer items-center rounded-md border border-gray-400/40 px-3 py-2 hover:bg-gray-100`}
               >
                 <input
                   type="radio"
@@ -121,7 +123,7 @@ function AddItemForm({
         </div>
         {isLoading && "Loading cases..."}
         {error && "Error fetching cases"}
-        {data && (
+        {data && category === "case" && (
           <div className="flex flex-col gap-3">
             <SearchSelect
               data={data}
@@ -132,77 +134,111 @@ function AddItemForm({
               setShowAddItemForm={setShowAddItemForm}
             />
             {!isSelectedItemEmpty() && (
-              <div className="flex flex-col gap-3">
-                <div className="font-semibold">Measurements (mm)</div>
-                <div className="grid grid-cols-3 gap-3">
-                  {dimensions.map((item) => {
-                    return (
-                      <div className="flex flex-col gap-1" key={item}>
-                        <label
-                          htmlFor={item}
-                          className="self-start text-xs font-semibold"
-                        >
-                          {item}
-                          {item === "Volume" ? " (litres)" : ""}
-                        </label>
-                        <input
-                          type="text"
-                          name={item}
-                          className="rounded-md border border-gray-400/40 px-2 py-2 text-right"
-                          defaultValue={
-                            selectedItem.measurements?.[item.toLowerCase()] ??
-                            ""
-                          }
-                          onChange={handleChange}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-                {/* <div className="flex flex-col gap-1">
-                    <label htmlFor="volume" className="text-sm font-semibold">
-                      Volume (litres)
-                    </label>
-                    <input
-                      type="text"
-                      name="volume"
-                      className="rounded-md border border-gray-400/40 px-2 py-2"
-                      defaultValue={selectedItem.measurements?.volume ?? ""}
-                      onChange={handleChange}
-                    />
-                  </div> */}
-              </div>
+              <MeasurementInputs
+                selectedItem={selectedItem}
+                handleMeasurementChange={handleMeasurementChange}
+              />
             )}
             {!isSelectedItemEmpty() && (
-              <div className="flex h-full items-center justify-end gap-3">
-                <button
-                  type="submit"
-                  className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-blue-700 bg-blue-700 py-2 text-sm text-white hover:border-blue-600 hover:bg-blue-600"
-                >
-                  <PlusSvg height={"12px"} width={"12px"} color={"white"} />
-                  Save
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddItemForm(false);
-                  }}
-                  className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-gray-400/40 bg-white py-2 text-sm text-black hover:bg-gray-100"
-                >
-                  Cancel
-                </button>
-              </div>
+              <FormInputs setShowAddItemForm={setShowAddItemForm} />
             )}
+          </div>
+        )}
+        {category === "custom" && (
+          <div className="flex flex-col gap-3">
+            <label htmlFor="search-select" className="font-semibold">
+              Name
+            </label>
+            <div className="flex w-full cursor-pointer flex-col">
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  placeholder="Enter..."
+                  id="search-input"
+                  autoComplete="off"
+                  required
+                  onChange={(event) => {
+                    setSelectedItem((prevState) => ({
+                      ...prevState,
+                      brand: "Custom",
+                      name: event.target.value,
+                    }));
+                  }}
+                  value={selectedItem.name ? selectedItem.name : ""}
+                  className="w-full rounded-md border-1 border-solid border-gray-400/40 px-3 py-2"
+                />
+              </div>
+            </div>
+            <MeasurementInputs
+              selectedItem={selectedItem}
+              handleMeasurementChange={handleMeasurementChange}
+            />
+            <FormInputs setShowAddItemForm={setShowAddItemForm} />
           </div>
         )}
       </form>
     </li>
   );
 }
-
 export default AddItemForm;
 
+function MeasurementInputs({ selectedItem, handleMeasurementChange }) {
+  const dimensions = ["Length", "Width", "Height", "Volume"];
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="font-semibold">Measurements (mm)</div>
+      <div className="grid grid-cols-3 gap-3">
+        {dimensions.map((item) => {
+          return (
+            <div className="flex flex-col gap-1" key={item}>
+              <label
+                htmlFor={item}
+                className="self-start text-xs font-semibold"
+              >
+                {item}
+                {item === "Volume" ? " (litres)" : ""}
+              </label>
+              <input
+                type="text"
+                name={item}
+                className="rounded-md border border-gray-400/40 px-2 py-2 text-right"
+                defaultValue={
+                  selectedItem.measurements?.[item.toLowerCase()] ?? ""
+                }
+                required
+                onChange={handleMeasurementChange}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FormInputs({ setShowAddItemForm }) {
+  return (
+    <div className="flex h-full items-center justify-end gap-3">
+      <button
+        type="submit"
+        className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-blue-700 bg-blue-700 py-2 text-sm text-white hover:border-blue-600 hover:bg-blue-600"
+      >
+        <PlusSvg height={"12px"} width={"12px"} color={"white"} />
+        Save
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setShowAddItemForm(false);
+        }}
+        className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-gray-400/40 bg-white py-2 text-sm text-black hover:bg-gray-100"
+      >
+        Cancel
+      </button>
+    </div>
+  );
+}
 function PlusSvg({ height, width, color }) {
   return (
     <svg

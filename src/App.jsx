@@ -12,7 +12,6 @@ const queryClient = new QueryClient();
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [showAddItemForm, setShowAddItemForm] = useState(false);
-  const [itemCounter, setItemCounter] = useState(0);
   const [selectedTab, setSelectedTab] = useState("View");
   const isMobile = useIsMobile();
 
@@ -66,8 +65,6 @@ function App() {
                 setShowAddItemForm={setShowAddItemForm}
                 selectedItems={selectedItems}
                 setSelectedItems={setSelectedItems}
-                itemCounter={itemCounter}
-                setItemCounter={setItemCounter}
               />
             )}
           </ul>
