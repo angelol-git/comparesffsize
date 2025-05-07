@@ -1,0 +1,106 @@
+{
+  "Everyday Items": [
+    {
+      "name": "Tissue Box - Kleenex",
+      "type": "Other",
+      "measurements": {
+        "length": "228",
+        "width": "114",
+        "height": "51",
+        "volume": "1.33"
+      }
+    },
+    {
+      "name": "Wonder Classic White Bread - 20oz Loaf",
+      "type": "Other",
+      "measurements": {
+        "length": "368",
+        "width": "114",
+        "height": "102",
+        "volume": "4.29"
+      }
+    }
+  ],
+  "Game Consoles": [
+    {
+      "name": "PlayStation 4",
+      "type": "Other",
+      "measurements": {
+        "length": "305",
+        "width": "276",
+        "height": "53",
+        "volume": "4.45"
+      }
+    },
+    {
+      "name": "PlayStation 4 Pro",
+      "type": "Other",
+      "measurements": {
+        "length": "327",
+        "width": "295",
+        "height": "55",
+        "volume": "5.3"
+      }
+    },
+    {
+      "name": "PlayStation 4 Slim",
+      "type": "Other",
+      "measurements": {
+        "length": "288",
+        "width": "265",
+        "height": "39",
+        "volume": "2.98"
+      }
+    },
+    {
+      "name": "PlayStation 5 Disc",
+      "type": "Other",
+      "measurements": {
+        "length": "260",
+        "width": "104",
+        "height": "390",
+        "volume": "10.5"
+      }
+    },
+    {
+      "name": "PlayStation 5 Pro",
+      "type": "Other",
+      "measurements": {
+        "length": "216",
+        "width": "89",
+        "height": "388",
+        "volume": "7.45"
+      }
+    },
+    {
+      "name": "PlayStation 5 Slim Disc",
+      "type": "Other",
+      "measurements": {
+        "length": "216",
+        "width": "96",
+        "height": "358",
+        "volume": "7.41"
+      }
+    },
+    {
+      "name": "Xbox Series S",
+      "type": "Other",
+      "measurements": {
+        "length": "151",
+        "width": "65",
+        "height": "275",
+        "volume": "2.7"
+      }
+    },
+    {
+      "name": "Xbox Series X",
+      "type": "Other",
+      "measurements": {
+        "length": "151",
+        "width": "151",
+        "height": "301",
+        "volume": "6.86"
+      }
+    }
+  ]
+}
