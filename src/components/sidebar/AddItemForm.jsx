@@ -11,6 +11,14 @@ async function fetchCases() {
   return data;
 }
 
+async function fetchOther() {
+  console.log("fetching other data");
+  const response = await fetch("/other.json");
+  if (!response.ok) throw new Error("Network response was not ok");
+  const otherData = await response.json();
+  return otherData;
+}
+
 function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
   const [category, setCategory] = useState("case");
   const categories = ["case", "custom", "other"];
@@ -21,9 +29,16 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
     "#006400", // dark green
     "#4B0082", // dark purple
   ];
-  const { isLoading, error, data } = useQuery({
+  const casesQuery = useQuery({
     queryKey: ["cases"],
     queryFn: fetchCases,
+    refetchOnMount: false,
+  });
+
+  const otherQuery = useQuery({
+    queryKey: ["other"],
+    queryFn: fetchOther,
+    refetchOnMount: false,
   });
 
   const [selectedItem, setSelectedItem] = useState({
@@ -61,31 +76,19 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
       },
     }));
   }
+
   function assignColor() {
     return colors[selectedItems.length % colors.length];
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (category === "case") {
-      if (!isSelectedItemEmpty()) {
-        selectedItem.id = uuidv4();
-        selectedItem.hide = false;
-        selectedItem.color = assignColor();
-        setSelectedItems([...selectedItems, selectedItem]);
-        console.log(selectedItem);
-        clearCurrentItem();
-        setShowAddItemForm(false);
-      }
-    }
-    if (category === "custom") {
-      selectedItem.id = uuidv4();
-      selectedItem.hide = false;
-      selectedItem.color = assignColor();
-      setSelectedItems([...selectedItems, selectedItem]);
-      clearCurrentItem();
-      setShowAddItemForm(false);
-    }
+    selectedItem.id = uuidv4();
+    selectedItem.hide = false;
+    selectedItem.color = assignColor();
+    setSelectedItems([...selectedItems, selectedItem]);
+    clearCurrentItem();
+    setShowAddItemForm(false);
   }
 
   return (
@@ -121,12 +124,12 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
             ))}
           </div>
         </div>
-        {isLoading && "Loading cases..."}
-        {error && "Error fetching cases"}
-        {data && category === "case" && (
+        {casesQuery.isLoading && "Loading cases..."}
+        {casesQuery.error && "Error fetching cases"}
+        {casesQuery.data && category === "case" && (
           <div className="flex flex-col gap-3">
             <SearchSelect
-              data={data}
+              data={casesQuery.data}
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
               isSelectedItemEmpty={isSelectedItemEmpty}
@@ -134,19 +137,19 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
               setShowAddItemForm={setShowAddItemForm}
             />
             {!isSelectedItemEmpty() && (
-              <MeasurementInputs
-                selectedItem={selectedItem}
-                handleMeasurementChange={handleMeasurementChange}
-              />
-            )}
-            {!isSelectedItemEmpty() && (
-              <FormInputs setShowAddItemForm={setShowAddItemForm} />
+              <>
+                <MeasurementInputs
+                  selectedItem={selectedItem}
+                  handleMeasurementChange={handleMeasurementChange}
+                />
+                <FormInputs setShowAddItemForm={setShowAddItemForm} />
+              </>
             )}
           </div>
         )}
         {category === "custom" && (
           <div className="flex flex-col gap-3">
-            <label htmlFor="search-select" className="font-semibold">
+            <label htmlFor="search-input" className="font-semibold">
               Name
             </label>
             <div className="flex w-full cursor-pointer flex-col">
@@ -176,6 +179,29 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
             <FormInputs setShowAddItemForm={setShowAddItemForm} />
           </div>
         )}
+        {otherQuery.isLoading && "Loading other..."}
+        {otherQuery.error && "Error loading other"}
+        {otherQuery.data && category === "other" && (
+          <div className="flex flex-col gap-3">
+            <SearchSelect
+              data={otherQuery.data}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+              isSelectedItemEmpty={isSelectedItemEmpty}
+              clearCurrentItem={clearCurrentItem}
+              setShowAddItemForm={setShowAddItemForm}
+            />
+            {!isSelectedItemEmpty() && (
+              <>
+                <MeasurementInputs
+                  selectedItem={selectedItem}
+                  handleMeasurementChange={handleMeasurementChange}
+                />
+                <FormInputs setShowAddItemForm={setShowAddItemForm} />
+              </>
+            )}
+          </div>
+        )}
       </form>
     </li>
   );
@@ -200,6 +226,7 @@ function MeasurementInputs({ selectedItem, handleMeasurementChange }) {
               </label>
               <input
                 type="text"
+                id={item}
                 name={item}
                 className="rounded-md border border-gray-400/40 px-2 py-2 text-right"
                 defaultValue={

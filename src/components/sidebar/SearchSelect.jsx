@@ -46,7 +46,7 @@ function SearchSelect({
 
   return (
     <div className="flex flex-col gap-3">
-      <label htmlFor="search-select" className="font-semibold">
+      <label htmlFor="search-input" className="font-semibold">
         Name
       </label>
       <div
