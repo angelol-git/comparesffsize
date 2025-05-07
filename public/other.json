@@ -1,5 +1,5 @@
 {
-  "Everyday Items": [
+  "Everyday": [
     {
       "name": "Tissue Box - Kleenex",
       "type": "Other",
@@ -21,7 +21,7 @@
       }
     }
   ],
-  "Game Consoles": [
+  "Console": [
     {
       "name": "PlayStation 4",
       "type": "Other",
