@@ -9,7 +9,6 @@ import SearchSelect from "./SearchSelect";
 import FormActions from "./FormActions";
 
 function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
-  console.log(DIMENSIONS);
   const [category, setCategory] = useState("case");
   const [selectedItem, setSelectedItem] = useState({
     brand: null,
