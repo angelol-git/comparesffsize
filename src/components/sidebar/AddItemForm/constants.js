@@ -7,5 +7,3 @@ export const COLORS = [
     "#4B0082", // dark purple
 ];
 
-
-export const DIMENSIONS = ["Length", "Width", "Height", "Volume"];

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
-import { CATEGORIES, COLORS, DIMENSIONS } from "./constants";
+import { CATEGORIES, COLORS } from "./constants";
 import fetchCases from "../../../queries/fetchCases";
 import fetchOther from "../../../queries/fetchOther";
 import MeasurementInputs from "./MeasurementInputs";
@@ -119,7 +119,6 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
             {!isSelectedItemEmpty() && (
               <>
                 <MeasurementInputs
-                  dimensions={DIMENSIONS}
                   selectedItem={selectedItem}
                   handleMeasurementChange={handleMeasurementChange}
                 />
@@ -154,7 +153,6 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
               </div>
             </div>
             <MeasurementInputs
-              dimensions={DIMENSIONS}
               selectedItem={selectedItem}
               handleMeasurementChange={handleMeasurementChange}
             />
@@ -176,7 +174,6 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
             {!isSelectedItemEmpty() && (
               <>
                 <MeasurementInputs
-                  dimensions={DIMENSIONS}
                   selectedItem={selectedItem}
                   handleMeasurementChange={handleMeasurementChange}
                 />
