@@ -5,7 +5,7 @@ function MeasurementInputs({ selectedItem, handleMeasurementChange }) {
     <div className="flex flex-col gap-3">
       <div className="font-semibold">Measurements (mm)</div>
       <div className="grid grid-cols-3 gap-3">
-        {Object.entries(selectedItem.measurements).map(([key, value]) => {
+        {Object.entries(selectedItem?.measurements).map(([key, value]) => {
           return (
             <div className="relative flex flex-col" key={key}>
               <label htmlFor={key} className="self-start text-xs font-semibold">
@@ -19,6 +19,7 @@ function MeasurementInputs({ selectedItem, handleMeasurementChange }) {
                 className="rounded-md border border-gray-400/40 px-2 py-2 text-right"
                 defaultValue={value ? value : ""}
                 required
+                autoComplete="off"
                 onChange={handleMeasurementChange}
               />
             </div>
@@ -26,16 +27,16 @@ function MeasurementInputs({ selectedItem, handleMeasurementChange }) {
         })}
         <div className="flex items-center">
           <button
-            className="cursor-pointer"
+            className="cursor-pointer rounded-md p-1 hover:bg-gray-100"
             type="button"
             onClick={() => {
               setVolumeIsLinked(!volumeIsLinked);
             }}
           >
             {volumeIsLinked ? (
-              <LinkSvg height={"24px"} width={"24px"} />
+              <LinkSvg height={"20px"} width={"20px"} />
             ) : (
-              <UnLinkSvg height={"24px"} width={"24px"} />
+              <UnLinkSvg height={"20px"} width={"20px"} />
             )}
           </button>
         </div>

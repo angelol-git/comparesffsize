@@ -13,7 +13,12 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
   const [selectedItem, setSelectedItem] = useState({
     brand: null,
     name: null,
-    measurements: null,
+    measurements: {
+      length: null,
+      width: null,
+      height: null,
+      volume: null,
+    },
   });
   const casesQuery = useQuery({
     queryKey: ["cases"],
@@ -29,7 +34,12 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
 
   function isSelectedItemEmpty() {
     return (
-      !selectedItem.brand && !selectedItem.name && !selectedItem.measurements
+      !selectedItem.brand &&
+      !selectedItem.name &&
+      !selectedItem.measurements.length &&
+      !selectedItem.measurements.width &&
+      !selectedItem.measurements.height &&
+      !selectedItem.measurements.volume
     );
   }
 
@@ -37,7 +47,12 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
     setSelectedItem({
       brand: null,
       name: null,
-      measurements: null,
+      measurements: {
+        length: null,
+        width: null,
+        height: null,
+        volume: null,
+      },
     });
   }
 
