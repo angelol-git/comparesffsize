@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useIsMobile } from "./hooks/useIsMobile";
-import AddItemForm from "./components/sidebar/AddItemForm";
+import AddItemForm from "./components/sidebar/AddItemForm/AddItemForm";
 import SelectedItems from "./components/sidebar/SelectedItems";
 import CanvasItems from "./components/canvas/CanvasItems";
 import "./reset.css";

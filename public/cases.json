@@ -130,9 +130,9 @@
       "name": "Ridge",
       "type": "ITX",
       "measurements": {
-        "length": "426",
-        "width": "167",
-        "height": "431",
+        "length": "374",
+        "width": "110",
+        "height": "395",
         "volume": "12.6"
       }
     },
