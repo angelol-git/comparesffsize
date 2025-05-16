@@ -1,6 +1,35 @@
 import { useState } from "react";
-function MeasurementInputs({ selectedItem, handleMeasurementChange }) {
+function MeasurementInputs({ selectedItem, setSelectedItem }) {
   const [volumeIsLinked, setVolumeIsLinked] = useState(true);
+
+  function handleMeasurementChange(event) {
+    const { name, value } = event.target;
+
+    setSelectedItem((prevState) => {
+      const updatedMeasurements = {
+        ...prevState.measurements,
+        [name]: value,
+      };
+
+      if (volumeIsLinked) {
+        const { length, width, height } = updatedMeasurements;
+        if (length && width && height) {
+          updatedMeasurements.volume = (
+            (length * width * height) /
+            1_000_000
+          ).toFixed(2);
+        } else {
+          updatedMeasurements.volume = "";
+        }
+      }
+
+      return {
+        ...prevState,
+        measurements: updatedMeasurements,
+      };
+    });
+  }
+
   return (
     <div className="flex flex-col gap-3">
       <div className="font-semibold">Measurements (mm)</div>
@@ -17,7 +46,7 @@ function MeasurementInputs({ selectedItem, handleMeasurementChange }) {
                 id={key}
                 name={key}
                 className="rounded-md border border-gray-400/40 px-2 py-2 text-right"
-                defaultValue={value ? value : ""}
+                value={value ? value : ""}
                 required
                 autoComplete="off"
                 onChange={handleMeasurementChange}

@@ -61,17 +61,6 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
     clearCurrentItem();
   }
 
-  function handleMeasurementChange(event) {
-    const { name, value } = event.target;
-    setSelectedItem((prevState) => ({
-      ...prevState,
-      measurements: {
-        ...prevState.measurements,
-        [name.toLowerCase()]: value,
-      },
-    }));
-  }
-
   function assignColor() {
     return COLORS[selectedItems.length % COLORS.length];
   }
@@ -135,7 +124,7 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
               <>
                 <MeasurementInputs
                   selectedItem={selectedItem}
-                  handleMeasurementChange={handleMeasurementChange}
+                  setSelectedItem={setSelectedItem}
                 />
                 <FormActions setShowAddItemForm={setShowAddItemForm} />
               </>
@@ -169,7 +158,7 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
             </div>
             <MeasurementInputs
               selectedItem={selectedItem}
-              handleMeasurementChange={handleMeasurementChange}
+              setSelectedItem={setSelectedItem}
             />
             <FormActions setShowAddItemForm={setShowAddItemForm} />
           </div>
@@ -190,7 +179,7 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
               <>
                 <MeasurementInputs
                   selectedItem={selectedItem}
-                  handleMeasurementChange={handleMeasurementChange}
+                  setSelectedItem={setSelectedItem}
                 />
                 <FormActions setShowAddItemForm={setShowAddItemForm} />
               </>
