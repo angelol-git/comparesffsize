@@ -59,7 +59,15 @@ function ItemForm({
     );
   }
 
-  function clearCurrentItem() {
+  function handleAddSelectedItem(item, brand) {
+    setSelectedItem((prevState) => ({
+      ...prevState,
+      brand: brand,
+      name: item.name,
+      measurements: item.measurements,
+    }));
+  }
+  function clearSelectedItem() {
     setSelectedItem({
       brand: null,
       name: null,
@@ -77,7 +85,7 @@ function ItemForm({
 
   function handleCategoryClick(event) {
     setCategory(event.target.value);
-    clearCurrentItem();
+    clearSelectedItem();
   }
 
   function assignColor() {
@@ -95,7 +103,7 @@ function ItemForm({
       selectedItem.color = assignColor();
       handleAddItem(selectedItem);
     }
-    clearCurrentItem();
+    clearSelectedItem();
     setShowItemForm(false);
   }
 
@@ -104,7 +112,7 @@ function ItemForm({
       <form
         id="add-item-form"
         className="flex w-full flex-col gap-3 rounded-md border border-gray-400/40 bg-white p-4 text-sm"
-        style={mode === "edit" ? { borderColor: editItem.color } : ""}
+        style={mode === "edit" ? { borderColor: editItem.color } : {}}
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col gap-3">
@@ -140,9 +148,9 @@ function ItemForm({
             <SearchSelect
               data={casesQuery.data}
               selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
+              handleAddSelectedItem={handleAddSelectedItem}
               isSelectedItemEmpty={isSelectedItemEmpty}
-              clearCurrentItem={clearCurrentItem}
+              clearSelectedItem={clearSelectedItem}
               setShowItemForm={setShowItemForm}
             />
             {!isSelectedItemEmpty() && (
@@ -203,10 +211,9 @@ function ItemForm({
             <SearchSelect
               data={otherQuery.data}
               selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
+              handleAddSelectedItem={handleAddSelectedItem}
               isSelectedItemEmpty={isSelectedItemEmpty}
-              clearCurrentItem={clearCurrentItem}
-              setShowItemForm={setShowItemForm}
+              clearSelectedItem={clearSelectedItem}
             />
             {!isSelectedItemEmpty() && (
               <>

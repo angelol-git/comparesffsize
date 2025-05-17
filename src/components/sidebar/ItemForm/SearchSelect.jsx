@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 function SearchSelect({
   data,
   selectedItem,
-  setSelectedItem,
+  handleAddSelectedItem,
   isSelectedItemEmpty,
-  clearCurrentItem,
+  clearSelectedItem,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const SearchSelectRef = useRef(null);
@@ -23,8 +23,8 @@ function SearchSelect({
     };
   }, [isOpen]);
 
-  const filteredData = Object.entries(data).reduce((acc, [brand, cases]) => {
-    const matchedCases = cases.filter(
+  const filteredData = Object.entries(data).reduce((acc, [brand, items]) => {
+    const matchedCases = items.filter(
       (item) =>
         brand.toLowerCase().includes(searchInput.toLowerCase()) ||
         item.name.toLowerCase().includes(searchInput.toLowerCase()),
@@ -39,7 +39,7 @@ function SearchSelect({
   function handleKeyDown(event) {
     if (!isSelectedItemEmpty()) {
       if (event.key === "Backspace") {
-        clearCurrentItem();
+        clearSelectedItem();
       }
     }
   }
@@ -77,9 +77,8 @@ function SearchSelect({
           {!isSelectedItemEmpty() ? (
             <button
               type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                clearCurrentItem();
+              onClick={() => {
+                clearSelectedItem();
                 setSearchInput("");
               }}
               className="absolute right-[40px] z-10 cursor-pointer"
@@ -91,8 +90,7 @@ function SearchSelect({
             <button
               type="button"
               className="absolute right-[10px] z-10 cursor-pointer"
-              onClick={(event) => {
-                event.stopPropagation();
+              onClick={() => {
                 setIsOpen(true);
               }}
             >
@@ -102,8 +100,7 @@ function SearchSelect({
             <button
               type="button"
               className="absolute right-[10px] z-10 cursor-pointer"
-              onClick={(event) => {
-                event.stopPropagation();
+              onClick={() => {
                 setIsOpen(false);
               }}
             >
@@ -116,22 +113,22 @@ function SearchSelect({
               Object.entries(filteredData).length === 0 ? (
                 <p>No cases found</p>
               ) : (
-                Object.entries(filteredData).map(([brand, cases]) => {
+                Object.entries(filteredData).map(([brand, items]) => {
                   return (
                     <div key={brand} className="brand-name">
                       {searchInput.length === 0 ? (
                         <SelectOptions
                           brand={brand}
-                          cases={cases}
+                          items={items}
                           open={false}
-                          setSelectedItem={setSelectedItem}
+                          handleAddSelectedItem={handleAddSelectedItem}
                         />
                       ) : (
                         <SelectOptions
                           brand={brand}
-                          cases={cases}
+                          items={items}
                           open={true}
-                          setSelectedItem={setSelectedItem}
+                          handleAddSelectedItem={handleAddSelectedItem}
                         />
                       )}
                     </div>
@@ -146,7 +143,7 @@ function SearchSelect({
   );
 }
 
-function SelectOptions({ brand, cases, open, setSelectedItem }) {
+function SelectOptions({ brand, items, open, handleAddSelectedItem }) {
   const [isOpen, setIsOpen] = useState(open);
 
   useEffect(() => {
@@ -158,7 +155,6 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
       onClick={() => {
         setIsOpen(!isOpen);
       }}
-      className="select-option-container bg-red-500b"
     >
       <div className="flex items-center gap-2">
         {!isOpen ? (
@@ -170,17 +166,12 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
       </div>
       <div>
         {isOpen &&
-          cases.map((item) => (
+          items.map((item) => (
             <div
               key={item.name}
               className="rounded-md pl-10 hover:bg-gray-300"
               onClick={() => {
-                setSelectedItem((prevState) => ({
-                  ...prevState,
-                  brand: brand,
-                  name: item.name,
-                  measurements: item.measurements,
-                }));
+                handleAddSelectedItem(item, brand);
               }}
             >
               {item.name}
