@@ -56,7 +56,7 @@ function CanvasItems({ selectedItems }) {
             ]}
           />
           <meshStandardMaterial color={item.color} />
-          <Edges linewidth={0.5} threshold={15} color="gray" />
+          <Edges linewidth={1} threshold={15} color="gray" />
         </mesh>
       );
   });
