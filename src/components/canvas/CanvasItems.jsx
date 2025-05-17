@@ -1,4 +1,5 @@
 import React from "react";
+import { Edges } from "@react-three/drei";
 
 function CanvasItems({ selectedItems }) {
   const filteredData = selectedItems.filter((item) => {
@@ -13,7 +14,7 @@ function CanvasItems({ selectedItems }) {
 
   function calculateShortestLength() {
     return Math.min(
-      ...filteredData.map((item) => Number(item.measurements.length))
+      ...filteredData.map((item) => Number(item.measurements.length)),
     );
   }
 
@@ -55,6 +56,7 @@ function CanvasItems({ selectedItems }) {
             ]}
           />
           <meshStandardMaterial color={item.color} />
+          <Edges linewidth={0.5} threshold={15} color="gray" />
         </mesh>
       );
   });
