@@ -175,11 +175,12 @@ function SelectOptions({ brand, cases, open, setSelectedItem }) {
               key={item.name}
               className="rounded-md pl-10 hover:bg-gray-300"
               onClick={() => {
-                setSelectedItem({
+                setSelectedItem((prevState) => ({
+                  ...prevState,
                   brand: brand,
                   name: item.name,
                   measurements: item.measurements,
-                });
+                }));
               }}
             >
               {item.name}

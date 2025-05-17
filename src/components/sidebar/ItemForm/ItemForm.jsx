@@ -8,18 +8,34 @@ import MeasurementInputs from "./MeasurementInputs";
 import SearchSelect from "./SearchSelect";
 import FormActions from "./FormActions";
 
-function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
+function ItemForm({
+  mode = "add",
+  setShowItemForm,
+  selectedItems,
+  handleAddItem,
+  handleEditItem,
+  editItem,
+  setEditMode,
+}) {
   const [category, setCategory] = useState("case");
-  const [selectedItem, setSelectedItem] = useState({
-    brand: null,
-    name: null,
-    measurements: {
-      length: null,
-      width: null,
-      height: null,
-      volume: null,
-    },
-  });
+  const [selectedItem, setSelectedItem] = useState(
+    mode === "edit"
+      ? editItem
+      : {
+          brand: null,
+          name: null,
+          color: null,
+          hide: null,
+          id: null,
+          measurements: {
+            length: null,
+            width: null,
+            height: null,
+            volume: null,
+          },
+        },
+  );
+
   const casesQuery = useQuery({
     queryKey: ["cases"],
     queryFn: fetchCases,
@@ -47,6 +63,9 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
     setSelectedItem({
       brand: null,
       name: null,
+      color: null,
+      hide: null,
+      id: null,
       measurements: {
         length: null,
         width: null,
@@ -67,16 +86,21 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    selectedItem.id = uuidv4();
-    selectedItem.hide = false;
-    selectedItem.color = assignColor();
-    setSelectedItems([...selectedItems, selectedItem]);
+    if (mode === "edit") {
+      handleEditItem(selectedItem);
+      setEditMode(false);
+    } else {
+      selectedItem.id = uuidv4();
+      selectedItem.hide = false;
+      selectedItem.color = assignColor();
+      handleAddItem(selectedItem);
+    }
     clearCurrentItem();
-    setShowAddItemForm(false);
+    setShowItemForm(false);
   }
 
   return (
-    <li>
+    <li className={`w-full`}>
       <form
         id="add-item-form"
         className="flex w-full flex-col gap-3 rounded-md border border-gray-400/40 bg-white p-4 text-sm"
@@ -118,7 +142,7 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
               setSelectedItem={setSelectedItem}
               isSelectedItemEmpty={isSelectedItemEmpty}
               clearCurrentItem={clearCurrentItem}
-              setShowAddItemForm={setShowAddItemForm}
+              setShowItemForm={setShowItemForm}
             />
             {!isSelectedItemEmpty() && (
               <>
@@ -126,7 +150,11 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
                   selectedItem={selectedItem}
                   setSelectedItem={setSelectedItem}
                 />
-                <FormActions setShowAddItemForm={setShowAddItemForm} />
+                <FormActions
+                  mode={mode}
+                  setShowItemForm={setShowItemForm}
+                  setEditMode={setEditMode}
+                />
               </>
             )}
           </div>
@@ -160,7 +188,11 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
             />
-            <FormActions setShowAddItemForm={setShowAddItemForm} />
+            <FormActions
+              mode={mode}
+              setShowItemForm={setShowItemForm}
+              setEditMode={setEditMode}
+            />
           </div>
         )}
         {otherQuery.isLoading && "Loading other..."}
@@ -173,7 +205,7 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
               setSelectedItem={setSelectedItem}
               isSelectedItemEmpty={isSelectedItemEmpty}
               clearCurrentItem={clearCurrentItem}
-              setShowAddItemForm={setShowAddItemForm}
+              setShowItemForm={setShowItemForm}
             />
             {!isSelectedItemEmpty() && (
               <>
@@ -181,7 +213,11 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
                   selectedItem={selectedItem}
                   setSelectedItem={setSelectedItem}
                 />
-                <FormActions setShowAddItemForm={setShowAddItemForm} />
+                <FormActions
+                  mode={mode}
+                  setShowItemForm={setShowItemForm}
+                  setEditMode={setEditMode}
+                />
               </>
             )}
           </div>
@@ -190,4 +226,4 @@ function AddItemForm({ setShowAddItemForm, selectedItems, setSelectedItems }) {
     </li>
   );
 }
-export default AddItemForm;
+export default ItemForm;

@@ -1,4 +1,4 @@
-function FormActions({ setShowAddItemForm }) {
+function FormActions({ mode, setShowItemForm, setEditMode }) {
   return (
     <div className="flex h-full items-center justify-end gap-3">
       <button
@@ -12,7 +12,7 @@ function FormActions({ setShowAddItemForm }) {
       <button
         type="button"
         onClick={() => {
-          setShowAddItemForm(false);
+          mode === "edit" ? setEditMode(false) : setShowItemForm(false);
         }}
         className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-gray-400/40 bg-white py-2 text-sm text-black hover:bg-gray-100"
       >

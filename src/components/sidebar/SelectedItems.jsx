@@ -1,71 +1,74 @@
-function SelectedItems({ item, selectedItems, setSelectedItems }) {
+import { useState } from "react";
+import ItemForm from "./ItemForm/ItemForm";
+
+function SelectedItems({
+  item,
+  setShowItemForm,
+  selectedItems,
+  setSelectedItems,
+  handleAddItem,
+  handleEditItem,
+  handleHideItem,
+  handleDeleteItem,
+}) {
+  const [editMode, setEditMode] = useState(false);
+
   function assignColor() {
-    if (item.hide) {
-      return "#4B4B4B";
-    }
-    return item.color;
+    return item.hide ? "#4B4B4B" : item.color;
   }
 
-  function handleHideClick(id) {
-    const newSelectedItemsData = selectedItems.map((prevItem) => {
-      return prevItem.id === id
-        ? { ...prevItem, hide: !prevItem.hide }
-        : prevItem;
-    });
-    setSelectedItems(newSelectedItemsData);
-  }
-
-  function handleDeleteClick(id) {
-    const newSelectedItemsData = selectedItems.filter((data) => data.id !== id);
-    setSelectedItems(newSelectedItemsData);
-  }
-
-  return (
+  return editMode ? (
+    <ItemForm
+      mode={"edit"}
+      setShowItemForm={setShowItemForm}
+      selectedItems={selectedItems}
+      setSelectedItems={setSelectedItems}
+      handleAddItem={handleAddItem}
+      handleEditItem={handleEditItem}
+      editItem={item}
+      setEditMode={setEditMode}
+    />
+  ) : (
     <li
-      className="ease flex cursor-grab justify-between rounded-md bg-white p-3 text-white transition-colors duration-200"
+      className={`ease flex w-full cursor-grab rounded-md bg-white p-3 text-white transition-colors duration-200`}
       style={{ backgroundColor: assignColor() }}
     >
-      <div className="flex flex-col gap-1">
-        <div className="font-semibold">
-          {item.brand} - {item.name}
+      <div className="flex w-full justify-between">
+        <div className="flex flex-col gap-1">
+          <div className="font-semibold">
+            {item.brand} - {item.name}
+          </div>
+          <div className="text-sm text-gray-200">
+            {`${item.measurements.length} ×
+            ${item.measurements.width} ×
+            ${item.measurements.height} mm 
+            (${item.measurements.volume} L)`}
+          </div>
         </div>
-        <div className="text-sm text-gray-200">
-          {`${item.measurements.length} ×
-              ${item.measurements.width} ×
-              ${item.measurements.height} mm 
-              (${item.measurements.volume} L)
-              `}
-        </div>
-      </div>
-      <div className="flex gap-1">
-        <button
-          onClick={handleDeleteClick}
-          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md border-none transition-colors duration-150 hover:bg-gray-400/30"
-        >
-          <EditSvg height={"18px"} width={"18px"} color={"#e5e7eb"} />
-        </button>
-        {
+        <div className="flex gap-1">
           <button
-            onClick={() => {
-              handleHideClick(item.id);
-            }}
-            className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md border-none transition-colors duration-150 hover:bg-gray-400/30"
+            onClick={() => setEditMode(true)}
+            className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
+          >
+            <EditSvg height="18px" width="18px" color="#e5e7eb" />
+          </button>
+          <button
+            onClick={() => handleHideItem(item.id)}
+            className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
           >
             {item.hide ? (
-              <UnHideSvg height={"18px"} width={"18px"} color={"#e5e7eb"} />
+              <UnHideSvg height="18px" width="18px" color="#e5e7eb" />
             ) : (
-              <HideSvg height={"18px"} width={"18px"} color={"#e5e7eb"} />
+              <HideSvg height="18px" width="18px" color="#e5e7eb" />
             )}
           </button>
-        }
-        <button
-          onClick={() => {
-            handleDeleteClick(item.id);
-          }}
-          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md border-none transition-colors duration-150 hover:bg-gray-400/30"
-        >
-          <XSvg height={"12px"} width={"12px"} color={"#e5e7eb"} />
-        </button>
+          <button
+            onClick={() => handleDeleteItem(item.id)}
+            className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
+          >
+            <XSvg height="12px" width="12px" color="#e5e7eb" />
+          </button>
+        </div>
       </div>
     </li>
   );

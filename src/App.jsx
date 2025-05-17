@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useIsMobile } from "./hooks/useIsMobile";
-import AddItemForm from "./components/sidebar/AddItemForm/AddItemForm";
+import ItemForm from "./components/sidebar/ItemForm/ItemForm";
 import SelectedItems from "./components/sidebar/SelectedItems";
 import CanvasItems from "./components/canvas/CanvasItems";
 import "./reset.css";
@@ -11,9 +11,32 @@ import "./reset.css";
 const queryClient = new QueryClient();
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [showAddItemForm, setShowAddItemForm] = useState(false);
+  const [showItemForm, setShowItemForm] = useState(false);
   const [selectedTab, setSelectedTab] = useState("View");
   const isMobile = useIsMobile();
+
+  function handleAddItem(item) {
+    setSelectedItems([...selectedItems, item]);
+  }
+
+  function handleDeleteItem(id) {
+    const updatedItems = selectedItems.filter((data) => data.id !== id);
+    setSelectedItems(updatedItems);
+  }
+
+  function handleEditItem(updatedItem) {
+    const updatedItems = selectedItems.map((prevItem) =>
+      prevItem.id === updatedItem.id ? updatedItem : prevItem,
+    );
+    setSelectedItems(updatedItems);
+  }
+
+  function handleHideItem(id) {
+    const updatedItems = selectedItems.map((prevItem) =>
+      prevItem.id === id ? { ...prevItem, hide: !prevItem.hide } : prevItem,
+    );
+    setSelectedItems(updatedItems);
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -40,7 +63,7 @@ function App() {
             <h2 className="text-xl font-bold">My Items</h2>
             <button
               onClick={() => {
-                setShowAddItemForm(true);
+                setShowItemForm(true);
               }}
               className="flex cursor-pointer items-center justify-center gap-3 rounded-md border border-gray-400/40 bg-white px-4 py-2 hover:bg-gray-100"
             >
@@ -54,17 +77,23 @@ function App() {
                 return (
                   <SelectedItems
                     item={item}
+                    setShowItemForm={setShowItemForm}
                     selectedItems={selectedItems}
                     setSelectedItems={setSelectedItems}
+                    handleAddItem={handleAddItem}
+                    handleDeleteItem={handleDeleteItem}
+                    handleEditItem={handleEditItem}
+                    handleHideItem={handleHideItem}
                     key={item.id}
                   />
                 );
               })}
-            {showAddItemForm === true && (
-              <AddItemForm
-                setShowAddItemForm={setShowAddItemForm}
+            {showItemForm === true && (
+              <ItemForm
+                setShowItemForm={setShowItemForm}
                 selectedItems={selectedItems}
-                setSelectedItems={setSelectedItems}
+                handleAddItem={handleAddItem}
+                handleEditItem={handleEditItem}
               />
             )}
           </ul>
