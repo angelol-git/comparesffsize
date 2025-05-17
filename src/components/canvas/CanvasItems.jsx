@@ -1,4 +1,3 @@
-import React from "react";
 import { Edges } from "@react-three/drei";
 
 function CanvasItems({ selectedItems }) {

@@ -104,6 +104,7 @@ function ItemForm({
       <form
         id="add-item-form"
         className="flex w-full flex-col gap-3 rounded-md border border-gray-400/40 bg-white p-4 text-sm"
+        style={mode === "edit" ? { borderColor: editItem.color } : ""}
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col gap-3">
