@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useIsMobile } from "./hooks/useIsMobile";
 import ItemForm from "./components/sidebar/ItemForm/ItemForm";
@@ -14,7 +14,8 @@ function App() {
   const [showItemForm, setShowItemForm] = useState(false);
   const [selectedTab, setSelectedTab] = useState("View");
   const isMobile = useIsMobile();
-
+  const dragListItem = useRef(0);
+  const dragOverListItem = useRef(0);
   function handleAddItem(item) {
     setSelectedItems([...selectedItems, item]);
   }
@@ -36,6 +37,17 @@ function App() {
       prevItem.id === id ? { ...prevItem, hide: !prevItem.hide } : prevItem,
     );
     setSelectedItems(updatedItems);
+  }
+
+  function handleDragEndSort() {
+    const selectedItemsClone = [...selectedItems];
+
+    const temp = selectedItemsClone[dragListItem.current];
+    selectedItemsClone[dragListItem.current] =
+      selectedItemsClone[dragOverListItem.current];
+    selectedItemsClone[dragOverListItem.current] = temp;
+
+    setSelectedItems(selectedItemsClone);
   }
 
   return (
@@ -73,7 +85,7 @@ function App() {
           </header>
           <ul className="flex list-none flex-col gap-3 px-0 py-2.5">
             {selectedItems.length > 0 &&
-              selectedItems.map((item) => {
+              selectedItems.map((item, index) => {
                 return (
                   <SelectedItems
                     item={item}
@@ -85,6 +97,10 @@ function App() {
                     handleEditItem={handleEditItem}
                     handleHideItem={handleHideItem}
                     key={item.id}
+                    index={index}
+                    dragListItem={dragListItem}
+                    dragOverListItem={dragOverListItem}
+                    handleDragEndSort={handleDragEndSort}
                   />
                 );
               })}

@@ -40,7 +40,6 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
             event.preventDefault();
             setIsModalOpen((prev) => !prev);
           }}
-          onHover
           className="cursor-pointer"
         >
           <InfoSvg height={"16px"} width={"16px"} />
@@ -82,9 +81,9 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
             }}
           >
             {volumeIsLinked ? (
-              <LinkSvg height={"20px"} width={"20px"} />
+              <LinkSvg height={"18px"} width={"18px"} />
             ) : (
-              <UnLinkSvg height={"20px"} width={"20px"} />
+              <UnLinkSvg height={"18px"} width={"18px"} />
             )}
           </button>
         </div>

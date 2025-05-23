@@ -10,11 +10,23 @@ function SelectedItems({
   handleEditItem,
   handleHideItem,
   handleDeleteItem,
+  index,
+  dragListItem,
+  dragOverListItem,
+  handleDragEndSort,
 }) {
   const [editMode, setEditMode] = useState(false);
 
   function assignColor() {
     return item.hide ? "#4B4B4B" : item.color;
+  }
+
+  function handleDragStart(index) {
+    dragListItem.current = index;
+  }
+
+  function handleDragEnter(index) {
+    dragOverListItem.current = index;
   }
 
   return editMode ? (
@@ -32,6 +44,14 @@ function SelectedItems({
     <li
       className={`ease flex w-full cursor-grab rounded-md bg-white p-3 text-white transition-colors duration-200`}
       style={{ backgroundColor: assignColor() }}
+      draggable="true"
+      onDragStart={() => {
+        handleDragStart(index);
+      }}
+      onDragEnter={() => {
+        handleDragEnter(index);
+      }}
+      onDragEnd={handleDragEndSort}
     >
       <div className="flex w-full justify-between">
         <div className="flex flex-col gap-1">
