@@ -6,4 +6,16 @@ export const COLORS = [
     "#006400", // dark green
     "#4B0082", // dark purple
 ];
-
+export const EMPTY_ITEM = {
+    brand: null,
+    name: null,
+    color: null,
+    hide: null,
+    id: null,
+    measurements: {
+        length: null,
+        width: null,
+        height: null,
+        volume: null,
+    },
+};

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
-import { CATEGORIES, COLORS } from "./constants";
+import { CATEGORIES, COLORS, EMPTY_ITEM } from "./constants";
 import fetchCases from "../../../queries/fetchCases";
 import fetchOther from "../../../queries/fetchOther";
 import MeasurementInputs from "./MeasurementInputs";
@@ -19,21 +19,7 @@ function ItemForm({
 }) {
   const [category, setCategory] = useState("case");
   const [selectedItem, setSelectedItem] = useState(
-    mode === "edit"
-      ? editItem
-      : {
-          brand: null,
-          name: null,
-          color: null,
-          hide: null,
-          id: null,
-          measurements: {
-            length: null,
-            width: null,
-            height: null,
-            volume: null,
-          },
-        },
+    mode === "edit" ? editItem : EMPTY_ITEM,
   );
 
   const casesQuery = useQuery({
@@ -49,14 +35,9 @@ function ItemForm({
   });
 
   function isSelectedItemEmpty() {
-    return (
-      !selectedItem.brand &&
-      !selectedItem.name &&
-      !selectedItem.measurements.length &&
-      !selectedItem.measurements.width &&
-      !selectedItem.measurements.height &&
-      !selectedItem.measurements.volume
-    );
+    const { brand, name, measurements } = selectedItem;
+    const { length, width, height, volume } = measurements || {};
+    return !brand && !name && !length && !width && !height && !volume;
   }
 
   function handleAddSelectedItem(item, brand) {
@@ -67,20 +48,9 @@ function ItemForm({
       measurements: item.measurements,
     }));
   }
+
   function clearSelectedItem() {
-    setSelectedItem({
-      brand: null,
-      name: null,
-      color: null,
-      hide: null,
-      id: null,
-      measurements: {
-        length: null,
-        width: null,
-        height: null,
-        volume: null,
-      },
-    });
+    setSelectedItem(EMPTY_ITEM);
   }
 
   function handleCategoryClick(event) {
@@ -98,10 +68,13 @@ function ItemForm({
       handleEditItem(selectedItem);
       setEditMode(false);
     } else {
-      selectedItem.id = uuidv4();
-      selectedItem.hide = false;
-      selectedItem.color = assignColor();
-      handleAddItem(selectedItem);
+      const newItem = {
+        ...selectedItem,
+        id: uuidv4(),
+        hide: false,
+        color: assignColor(),
+      };
+      handleAddItem(newItem);
     }
     clearSelectedItem();
     setShowItemForm(false);
@@ -115,32 +88,10 @@ function ItemForm({
         style={mode === "edit" ? { borderColor: editItem.color } : {}}
         onSubmit={handleSubmit}
       >
-        <div className="flex flex-col gap-3">
-          <div className="font-semibold">Category</div>
-          <div className="flex gap-2">
-            {CATEGORIES.map((categoryItem) => (
-              <label
-                key={categoryItem}
-                htmlFor={categoryItem}
-                className={`${
-                  category === categoryItem &&
-                  "bg-blue-700 text-white hover:!bg-blue-600"
-                } flex cursor-pointer items-center rounded-md border border-gray-400/40 px-3 py-2 hover:bg-gray-100`}
-              >
-                <input
-                  type="radio"
-                  id={categoryItem}
-                  name="category"
-                  value={categoryItem}
-                  checked={category === categoryItem}
-                  onChange={handleCategoryClick}
-                  className={`sr-only`}
-                />
-                {categoryItem.charAt(0).toUpperCase() + categoryItem.slice(1)}
-              </label>
-            ))}
-          </div>
-        </div>
+        <CategorySelector
+          category={category}
+          handleCategoryClick={handleCategoryClick}
+        />
         {casesQuery.isLoading && "Loading cases..."}
         {casesQuery.error && "Error fetching cases"}
         {casesQuery.data && category === "case" && (
@@ -176,7 +127,7 @@ function ItemForm({
             <div className="flex w-full cursor-pointer flex-col">
               <div className="relative flex items-center">
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Enter..."
                   id="search-input"
                   autoComplete="off"
@@ -235,3 +186,34 @@ function ItemForm({
   );
 }
 export default ItemForm;
+
+function CategorySelector({ category, handleCategoryClick }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <h3 className="font-semibold">Category</h3>
+      <div className="flex gap-2">
+        {CATEGORIES.map((categoryItem) => (
+          <label
+            key={categoryItem}
+            htmlFor={categoryItem}
+            className={`${
+              category === categoryItem &&
+              "bg-blue-700 text-white hover:!bg-blue-600"
+            } flex cursor-pointer items-center rounded-md border border-gray-400/40 px-3 py-2 hover:bg-gray-100`}
+          >
+            <input
+              type="radio"
+              id={categoryItem}
+              name="category"
+              value={categoryItem}
+              checked={category === categoryItem}
+              onChange={handleCategoryClick}
+              className={`sr-only`}
+            />
+            {categoryItem.charAt(0).toUpperCase() + categoryItem.slice(1)}
+          </label>
+        ))}
+      </div>
+    </div>
+  );
+}

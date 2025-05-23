@@ -1,7 +1,7 @@
 import { useState } from "react";
 function MeasurementInputs({ selectedItem, setSelectedItem }) {
   const [volumeIsLinked, setVolumeIsLinked] = useState(true);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   function handleMeasurementChange(event) {
     const { name, value } = event.target;
 
@@ -31,8 +31,27 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="font-semibold">Measurements (mm)</div>
+    <div className="flex w-full flex-col gap-3">
+      <div className="relative flex w-full gap-2">
+        <h3 className="font-semibold">Measurements (mm)</h3>
+        <button
+          type="button"
+          onMouseOver={(event) => {
+            event.preventDefault();
+            setIsModalOpen((prev) => !prev);
+          }}
+          onHover
+          className="cursor-pointer"
+        >
+          <InfoSvg height={"16px"} width={"16px"} />
+          {isModalOpen && (
+            <div className="absolute left-0 z-10 rounded-md bg-gray-700 p-2 text-left text-xs text-white opacity-90">
+              The default measurements are provided by the manufacturer and
+              reflect the case’s largest supported configuration.
+            </div>
+          )}
+        </button>
+      </div>
       <div className="grid grid-cols-3 gap-3">
         {Object.entries(selectedItem?.measurements).map(([key, value]) => {
           return (
@@ -42,7 +61,7 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
                 {key === "volume" ? " (litres)" : ""}
               </label>
               <input
-                type="text"
+                type="number"
                 id={key}
                 name={key}
                 className="rounded-md border border-gray-400/40 px-2 py-2 text-right"
@@ -102,6 +121,48 @@ function UnLinkSvg({ height, width }) {
       clipRule="evenodd"
     >
       <path d="M8.82 20.829c-1.56 1.561-4.094 1.562-5.656 0-.801-.8-1.184-1.854-1.165-2.901.018-.999.403-1.994 1.165-2.756l3.856-3.903-.707-.707-3.856 3.903c-.957.957-1.439 2.207-1.457 3.463-.019 1.304.463 2.614 1.457 3.608.975.976 2.255 1.464 3.535 1.464 1.28 0 2.56-.488 3.535-1.464l3.856-3.903-.707-.707-3.856 3.903zm9.16-5.671l3.712.995.259-.967-3.712-.994-.259.966zm-1.767 1.768l2.717 2.717.707-.707-2.717-2.717-.707.707zm-2.027 1.319l.994 3.713.966-.259-.994-3.713-.966.259zm-8.227-9.451l-3.712-.995-.259.966 3.712.995.259-.966zm9.214-5.623c1.561-1.563 4.095-1.562 5.657 0 1.563 1.562 1.563 4.095 0 5.657l-3.91 3.855.707.707 3.909-3.855c.976-.976 1.464-2.256 1.464-3.536 0-1.28-.488-2.559-1.464-3.535-.974-.976-2.311-1.464-3.589-1.464-1.28 0-2.507.488-3.481 1.464l-3.911 3.855.707.707 3.911-3.855zm-7.446 3.855l-2.718-2.717-.707.707 2.718 2.717.707-.707zm1.061-1.06l-.995-3.713.966-.259.995 3.713-.966.259z" />
+    </svg>
+  );
+}
+
+function InfoSvg({ height, width }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      height={height}
+      width={width}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="cursor-pointer"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <path
+          d="M12 17V11"
+          stroke="#1C274C"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        ></path>{" "}
+        <circle
+          cx="1"
+          cy="1"
+          r="1"
+          transform="matrix(1 0 0 -1 11 9)"
+          fill="#1C274C"
+        ></circle>{" "}
+        <path
+          d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
+          stroke="#1C274C"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        ></path>{" "}
+      </g>
     </svg>
   );
 }
