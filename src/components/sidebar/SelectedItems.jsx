@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ItemForm from "./ItemForm/ItemForm";
-
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 function SelectedItems({
   item,
   setShowItemForm,
@@ -10,24 +11,16 @@ function SelectedItems({
   handleEditItem,
   handleHideItem,
   handleDeleteItem,
-  index,
-  dragListItem,
-  dragOverListItem,
-  handleDragEndSort,
 }) {
   const [editMode, setEditMode] = useState(false);
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: item.id });
 
   function assignColor() {
     return item.hide ? "#4B4B4B" : item.color;
   }
 
-  function handleDragStart(index) {
-    dragListItem.current = index;
-  }
-
-  function handleDragEnter(index) {
-    dragOverListItem.current = index;
-  }
+  const style = { transition, transform: CSS.Transform.toString(transform) };
 
   return editMode ? (
     <ItemForm
@@ -42,16 +35,11 @@ function SelectedItems({
     />
   ) : (
     <li
-      className={`ease flex w-full cursor-grab rounded-md bg-white p-3 text-white transition-colors duration-200`}
-      style={{ backgroundColor: assignColor() }}
-      draggable="true"
-      onDragStart={() => {
-        handleDragStart(index);
-      }}
-      onDragEnter={() => {
-        handleDragEnter(index);
-      }}
-      onDragEnd={handleDragEndSort}
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={{ ...style, backgroundColor: assignColor() }}
+      className={`ease selected-list-item flex w-full cursor-grab touch-none rounded-md bg-black p-3 text-white transition-colors duration-200`}
     >
       <div className="flex w-full justify-between">
         <div className="flex flex-col gap-1">

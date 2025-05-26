@@ -1,12 +1,27 @@
 import { Canvas } from "@react-three/fiber";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useIsMobile } from "./hooks/useIsMobile";
+import {
+  closestCorners,
+  DndContext,
+  KeyboardSensor,
+  TouchSensor,
+  useSensor,
+  PointerSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import ItemForm from "./components/sidebar/ItemForm/ItemForm";
 import SelectedItems from "./components/sidebar/SelectedItems";
 import CanvasItems from "./components/canvas/CanvasItems";
 import "./reset.css";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
 
 const queryClient = new QueryClient();
 function App() {
@@ -14,8 +29,13 @@ function App() {
   const [showItemForm, setShowItemForm] = useState(false);
   const [selectedTab, setSelectedTab] = useState("View");
   const isMobile = useIsMobile();
-  const dragListItem = useRef(0);
-  const dragOverListItem = useRef(0);
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
   function handleAddItem(item) {
     setSelectedItems([...selectedItems, item]);
   }
@@ -39,15 +59,22 @@ function App() {
     setSelectedItems(updatedItems);
   }
 
-  function handleDragEndSort() {
-    const selectedItemsClone = [...selectedItems];
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    if (active.id === over.id) return;
 
-    const temp = selectedItemsClone[dragListItem.current];
-    selectedItemsClone[dragListItem.current] =
-      selectedItemsClone[dragOverListItem.current];
-    selectedItemsClone[dragOverListItem.current] = temp;
+    setSelectedItems((items) => {
+      const originalPosition = getSelectedItemPosition(active.id);
+      const newPosition = getSelectedItemPosition(over.id);
+      return arrayMove(items, originalPosition, newPosition);
+    });
+  }
 
-    setSelectedItems(selectedItemsClone);
+  function getSelectedItemPosition(id) {
+    const position = selectedItems.findIndex((item) => {
+      return item.id === id;
+    });
+    return position;
   }
 
   return (
@@ -83,36 +110,45 @@ function App() {
               <span className="text-sm">Add New</span>
             </button>
           </header>
-          <ul className="flex list-none flex-col gap-3 px-0 py-2.5">
-            {selectedItems.length > 0 &&
-              selectedItems.map((item, index) => {
-                return (
-                  <SelectedItems
-                    item={item}
-                    setShowItemForm={setShowItemForm}
-                    selectedItems={selectedItems}
-                    setSelectedItems={setSelectedItems}
-                    handleAddItem={handleAddItem}
-                    handleDeleteItem={handleDeleteItem}
-                    handleEditItem={handleEditItem}
-                    handleHideItem={handleHideItem}
-                    key={item.id}
-                    index={index}
-                    dragListItem={dragListItem}
-                    dragOverListItem={dragOverListItem}
-                    handleDragEndSort={handleDragEndSort}
-                  />
-                );
-              })}
-            {showItemForm === true && (
-              <ItemForm
-                setShowItemForm={setShowItemForm}
-                selectedItems={selectedItems}
-                handleAddItem={handleAddItem}
-                handleEditItem={handleEditItem}
-              />
-            )}
-          </ul>
+          <DndContext
+            onDragEnd={(event) => {
+              handleDragEnd(event);
+            }}
+            sensors={sensors}
+            collisionDetection={closestCorners}
+          >
+            <ul className="flex list-none flex-col gap-3 px-0 py-2.5">
+              {selectedItems.length > 0 && (
+                <SortableContext
+                  items={selectedItems}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {selectedItems.map((item) => (
+                    <SelectedItems
+                      key={item.id}
+                      item={item}
+                      setShowItemForm={setShowItemForm}
+                      selectedItems={selectedItems}
+                      setSelectedItems={setSelectedItems}
+                      handleAddItem={handleAddItem}
+                      handleDeleteItem={handleDeleteItem}
+                      handleEditItem={handleEditItem}
+                      handleHideItem={handleHideItem}
+                    />
+                  ))}
+                </SortableContext>
+              )}
+
+              {showItemForm === true && (
+                <ItemForm
+                  setShowItemForm={setShowItemForm}
+                  selectedItems={selectedItems}
+                  handleAddItem={handleAddItem}
+                  handleEditItem={handleEditItem}
+                />
+              )}
+            </ul>
+          </DndContext>
         </section>
         {isMobile ? (
           <nav className="w-full bg-white p-4">
