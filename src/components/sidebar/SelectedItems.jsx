@@ -55,13 +55,13 @@ function SelectedItems({
         </div>
         <div className="flex gap-1">
           <button
-            onClick={() => setEditMode(true)}
+            onMouseDown={() => setEditMode(true)}
             className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
           >
             <EditSvg height="18px" width="18px" color="#e5e7eb" />
           </button>
           <button
-            onClick={() => handleHideItem(item.id)}
+            onMouseDown={() => handleHideItem(item.id)}
             className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
           >
             {item.hide ? (
@@ -71,7 +71,7 @@ function SelectedItems({
             )}
           </button>
           <button
-            onClick={() => handleDeleteItem(item.id)}
+            onMouseDown={() => handleDeleteItem(item.id)}
             className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
           >
             <XSvg height="12px" width="12px" color="#e5e7eb" />
