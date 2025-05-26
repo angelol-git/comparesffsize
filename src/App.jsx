@@ -83,7 +83,7 @@ function App() {
         <h1 className="p-3 text-xl font-bold">ComparePcSize</h1>
         <section
           id="canvas-wrapper"
-          className={`grid h-full bg-black ${selectedTab === "View" ? "block" : "hidden"}`}
+          className={`relative min-h-0 min-w-0 bg-black ${selectedTab === "View" ? "grid" : "hidden"}`}
         >
           <Canvas camera={{ position: [10, 15, 20], fov: 75 }}>
             {selectedItems.length > 0 && (
