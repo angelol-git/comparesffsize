@@ -127,7 +127,7 @@ function ItemForm({
             <div className="flex w-full cursor-pointer flex-col">
               <div className="relative flex items-center">
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Enter..."
                   id="search-input"
                   autoComplete="off"
