@@ -1,5 +1,6 @@
 import { Edges } from "@react-three/drei";
 
+const GAP = 2;
 function CanvasItems({ selectedItems }) {
   const filteredData = selectedItems.filter((item) => {
     return item.hide === false;
@@ -7,7 +8,7 @@ function CanvasItems({ selectedItems }) {
 
   function calculateTotalWidth() {
     return filteredData.reduce((total, item) => {
-      return total + Number(item.measurements.width);
+      return total + Number(item.measurements.width) + GAP;
     }, 0);
   }
 
@@ -21,10 +22,9 @@ function CanvasItems({ selectedItems }) {
     const totalWidth = calculateTotalWidth();
     const shortestLength = calculateShortestLength();
     const start = -(totalWidth / 2);
-
     let cumulativeWidth = 0;
     for (let i = 0; i < index; i++) {
-      cumulativeWidth += Number(filteredData[i].measurements.width);
+      cumulativeWidth += Number(filteredData[i].measurements.width) + GAP;
     }
 
     const xAxis = start + cumulativeWidth + width / 2;
@@ -55,7 +55,7 @@ function CanvasItems({ selectedItems }) {
             ]}
           />
           <meshStandardMaterial color={item.color} />
-          <Edges linewidth={1} threshold={15} color="gray" />
+          <Edges linewidth={1} threshold={20} color="white" />
         </mesh>
       );
   });
