@@ -97,59 +97,61 @@ function App() {
           </section>
           <section
             id="sidebar-wrapper"
-            className={`flex h-full flex-col overflow-y-auto bg-gray-100 p-4 ${isMobile && isCanvasView ? "hidden" : "flex"}`}
+            className={`flex h-full flex-col bg-slate-100 p-4 ${isMobile && isCanvasView ? "hidden" : "flex"}`}
           >
-            <header className="flex items-center justify-between">
-              <h2 className="text-xl font-bold">My Items</h2>
-              <button
-                onClick={() => {
-                  setShowItemForm(true);
+            <div className="h-full overflow-y-auto rounded-md border-1 border-gray-300 bg-slate-100 p-4">
+              <header className="flex items-center justify-between">
+                <h2 className="text-xl font-bold">My Items</h2>
+                <button
+                  onClick={() => {
+                    setShowItemForm(true);
+                  }}
+                  className="flex cursor-pointer items-center justify-center gap-3 rounded-md border border-gray-400/40 bg-white px-4 py-2 hover:bg-gray-100"
+                >
+                  <PlusSvg height={"10px"} width={"10px"} color="#636363" />
+                  <span className="text-sm">Add New</span>
+                </button>
+              </header>
+              <DndContext
+                onDragEnd={(event) => {
+                  handleDragEnd(event);
                 }}
-                className="flex cursor-pointer items-center justify-center gap-3 rounded-md border border-gray-400/40 bg-white px-4 py-2 hover:bg-gray-100"
+                sensors={sensors}
+                collisionDetection={closestCorners}
               >
-                <PlusSvg height={"10px"} width={"10px"} color="#636363" />
-                <span className="text-sm">Add New</span>
-              </button>
-            </header>
-            <DndContext
-              onDragEnd={(event) => {
-                handleDragEnd(event);
-              }}
-              sensors={sensors}
-              collisionDetection={closestCorners}
-            >
-              <ul className="flex list-none flex-col gap-3 px-0 py-2.5">
-                {selectedItems.length > 0 && (
-                  <SortableContext
-                    items={selectedItems}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    {selectedItems.map((item) => (
-                      <SelectedItems
-                        key={item.id}
-                        item={item}
-                        setShowItemForm={setShowItemForm}
-                        selectedItems={selectedItems}
-                        setSelectedItems={setSelectedItems}
-                        handleAddItem={handleAddItem}
-                        handleDeleteItem={handleDeleteItem}
-                        handleEditItem={handleEditItem}
-                        handleHideItem={handleHideItem}
-                      />
-                    ))}
-                  </SortableContext>
-                )}
+                <ul className="flex list-none flex-col gap-3 px-0 py-2.5">
+                  {selectedItems.length > 0 && (
+                    <SortableContext
+                      items={selectedItems}
+                      strategy={verticalListSortingStrategy}
+                    >
+                      {selectedItems.map((item) => (
+                        <SelectedItems
+                          key={item.id}
+                          item={item}
+                          setShowItemForm={setShowItemForm}
+                          selectedItems={selectedItems}
+                          setSelectedItems={setSelectedItems}
+                          handleAddItem={handleAddItem}
+                          handleDeleteItem={handleDeleteItem}
+                          handleEditItem={handleEditItem}
+                          handleHideItem={handleHideItem}
+                        />
+                      ))}
+                    </SortableContext>
+                  )}
 
-                {showItemForm === true && (
-                  <ItemForm
-                    setShowItemForm={setShowItemForm}
-                    selectedItems={selectedItems}
-                    handleAddItem={handleAddItem}
-                    handleEditItem={handleEditItem}
-                  />
-                )}
-              </ul>
-            </DndContext>
+                  {showItemForm === true && (
+                    <ItemForm
+                      setShowItemForm={setShowItemForm}
+                      selectedItems={selectedItems}
+                      handleAddItem={handleAddItem}
+                      handleEditItem={handleEditItem}
+                    />
+                  )}
+                </ul>
+              </DndContext>
+            </div>
           </section>
           {isMobile ? (
             <nav className="w-full bg-white p-4">

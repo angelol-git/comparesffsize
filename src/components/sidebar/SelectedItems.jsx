@@ -38,44 +38,53 @@ function SelectedItems({
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      style={{ ...style, backgroundColor: assignColor() }}
-      className={`ease selected-list-item flex w-full cursor-grab touch-none rounded-md bg-black p-3 text-white transition-colors duration-200`}
+      style={style}
+      // style={{ ...style, borderColor: assignColor() }}
+      className={`ease selected-list-item flex w-full cursor-grab touch-none rounded-md border-1 border-gray-300 bg-white px-4 py-5 transition-colors duration-200`}
     >
       <div className="flex w-full justify-between">
-        <div className="flex flex-col gap-1">
-          <div className="font-semibold">
-            {item.brand} - {item.name}
-          </div>
-          <div className="text-sm text-gray-200">
-            {`${item.measurements.length} ×
+        <div className="flex items-start gap-3">
+          <button
+            type="button"
+            style={{ backgroundColor: assignColor() }}
+            className="h-[20px] w-[20px] cursor-pointer rounded-md"
+          ></button>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-3 font-semibold">
+              {item.brand} - {item.name}
+            </div>
+            <div className="text-sm text-gray-600">
+              {`${item.measurements.length} ×
             ${item.measurements.width} ×
-            ${item.measurements.height} mm 
+            ${item.measurements.height} mm
             (${item.measurements.volume} L)`}
+            </div>
           </div>
         </div>
-        <div className="flex gap-1">
+        <div className="flex items-center gap-1">
           <button
             onMouseDown={() => setEditMode(true)}
-            className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
+            className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
           >
-            <EditSvg height="18px" width="18px" color="#e5e7eb" />
+            <EditSvg height="18px" width="18px" color="#D3D3D3" />
           </button>
           <button
             onMouseDown={() => handleHideItem(item.id)}
-            className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
+            className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
           >
             {item.hide ? (
-              <UnHideSvg height="18px" width="18px" color="#e5e7eb" />
+              <UnHideSvg height="18px" width="18px" color="#D3D3D3" />
             ) : (
-              <HideSvg height="18px" width="18px" color="#e5e7eb" />
+              <HideSvg height="18px" width="18px" color="#D3D3D3" />
             )}
           </button>
           <button
             onMouseDown={() => handleDeleteItem(item.id)}
-            className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-400/30"
+            className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
           >
-            <XSvg height="12px" width="12px" color="#e5e7eb" />
+            <XSvg height="12px" width="12px" color="red" />
           </button>
+          <DragSvg height="22px" width="22px" color="gray" />
         </div>
       </div>
     </li>
@@ -157,6 +166,31 @@ function XSvg({ height, width, color }) {
       fill={color}
     >
       <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
+    </svg>
+  );
+}
+
+function DragSvg({ height, width, color }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      height={height}
+      width={width}
+      fill={color}
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          d="M7 2a2 2 0 10.001 4.001A2 2 0 007 2zm0 6a2 2 0 10.001 4.001A2 2 0 007 8zm0 6a2 2 0 10.001 4.001A2 2 0 007 14zm6-8a2 2 0 10-.001-4.001A2 2 0 0013 6zm0 2a2 2 0 10.001 4.001A2 2 0 0013 8zm0 6a2 2 0 10.001 4.001A2 2 0 0013 14z"
+          fill={color}
+        ></path>
+      </g>
     </svg>
   );
 }
