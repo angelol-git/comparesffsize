@@ -99,7 +99,7 @@ function App() {
             id="sidebar-wrapper"
             className={`flex h-full flex-col bg-slate-100 p-4 ${isMobile && isCanvasView ? "hidden" : "flex"}`}
           >
-            <div className="h-full overflow-y-auto rounded-md border-1 border-gray-300 bg-slate-100 p-4">
+            <div className="h-full rounded-md border-1 border-gray-300 bg-slate-100 p-4">
               <header className="flex items-center justify-between">
                 <h2 className="text-xl font-bold">My Items</h2>
                 <button
@@ -119,7 +119,7 @@ function App() {
                 sensors={sensors}
                 collisionDetection={closestCorners}
               >
-                <ul className="flex list-none flex-col gap-3 px-0 py-2.5">
+                <ul className="flex h-full list-none flex-col gap-3 overflow-y-scroll py-2">
                   {selectedItems.length > 0 && (
                     <SortableContext
                       items={selectedItems}
