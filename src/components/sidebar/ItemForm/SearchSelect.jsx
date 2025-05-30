@@ -6,22 +6,8 @@ function SearchSelect({
   isSelectedItemEmpty,
   clearSelectedItem,
 }) {
-  const [isOpen, setIsOpen] = useState(false);
   const SearchSelectRef = useRef(null);
   const [searchInput, setSearchInput] = useState("");
-
-  useEffect(() => {
-    function handleWindowClose(event) {
-      if (isOpen && !SearchSelectRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    }
-    window.addEventListener("click", handleWindowClose);
-
-    return () => {
-      window.removeEventListener("click", handleWindowClose);
-    };
-  }, [isOpen]);
 
   const filteredData = Object.entries(data).reduce((acc, [brand, items]) => {
     const matchedCases = items.filter(
@@ -53,16 +39,12 @@ function SearchSelect({
         className="flex w-full cursor-pointer flex-col"
         ref={SearchSelectRef}
       >
-        <div className="relative flex items-center">
+        <div className="relative flex flex-col items-center">
           <input
             type="text"
             placeholder="Select..."
             id="search-input"
             autoComplete="off"
-            onClick={(event) => {
-              event.stopPropagation();
-              setIsOpen(true);
-            }}
             onChange={(event) => {
               setSearchInput(event.target.value);
             }}
@@ -81,62 +63,40 @@ function SearchSelect({
                 clearSelectedItem();
                 setSearchInput("");
               }}
-              className="absolute right-[40px] z-10 cursor-pointer"
+              className="absolute top-[10px] right-[10px] z-10 cursor-pointer"
             >
               <XSvg height={"18px"} width={"18px"} />
             </button>
           ) : null}
-          {!isOpen ? (
-            <button
-              type="button"
-              className="absolute right-[10px] z-10 cursor-pointer"
-              onClick={() => {
-                setIsOpen(true);
-              }}
-            >
-              <DownArrowSvg height={"24px"} width={"24px"} />
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="absolute right-[10px] z-10 cursor-pointer"
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            >
-              <UpArrowSvg height={"24px"} width={"24px"} />
-            </button>
-          )}
-          {isOpen && (
-            <div className="absolute top-[100%] z-10 my-1 h-[200px] w-full overflow-auto rounded-md border border-gray-400/40 bg-white p-2">
-              {searchInput.length > 1 &&
-              Object.entries(filteredData).length === 0 ? (
-                <p>No cases found</p>
-              ) : (
-                Object.entries(filteredData).map(([brand, items]) => {
-                  return (
-                    <div key={brand} className="brand-name">
-                      {searchInput.length === 0 ? (
-                        <SelectOptions
-                          brand={brand}
-                          items={items}
-                          open={false}
-                          handleAddSelectedItem={handleAddSelectedItem}
-                        />
-                      ) : (
-                        <SelectOptions
-                          brand={brand}
-                          items={items}
-                          open={true}
-                          handleAddSelectedItem={handleAddSelectedItem}
-                        />
-                      )}
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          )}
+
+          <div className="my-1 h-[150px] w-full overflow-auto rounded-md border border-gray-400/40 bg-white p-2">
+            {searchInput.length > 1 &&
+            Object.entries(filteredData).length === 0 ? (
+              <p>No cases found</p>
+            ) : (
+              Object.entries(filteredData).map(([brand, items]) => {
+                return (
+                  <div key={brand} className="brand-name">
+                    {searchInput.length === 0 ? (
+                      <SelectOptions
+                        brand={brand}
+                        items={items}
+                        open={false}
+                        handleAddSelectedItem={handleAddSelectedItem}
+                      />
+                    ) : (
+                      <SelectOptions
+                        brand={brand}
+                        items={items}
+                        open={true}
+                        handleAddSelectedItem={handleAddSelectedItem}
+                      />
+                    )}
+                  </div>
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     </div>

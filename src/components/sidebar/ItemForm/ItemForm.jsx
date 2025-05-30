@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import { CATEGORIES, COLORS, EMPTY_ITEM } from "./constants";
@@ -16,6 +16,7 @@ function ItemForm({
   handleEditItem,
   editItem,
   setEditMode,
+  itemFormRef,
 }) {
   const [category, setCategory] = useState("case");
   const [selectedItem, setSelectedItem] = useState(
@@ -33,6 +34,17 @@ function ItemForm({
     queryFn: fetchOther,
     refetchOnMount: false,
   });
+
+  useEffect(() => {
+    if (itemFormRef?.current) {
+      itemFormRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+      const input = itemFormRef.current.querySelector("input");
+      if (input) input.focus();
+    }
+  }, [itemFormRef]);
 
   function isSelectedItemEmpty() {
     const { brand, name, measurements } = selectedItem;
@@ -81,7 +93,7 @@ function ItemForm({
   }
 
   return (
-    <li className={`w-full`}>
+    <li className={`w-full`} ref={itemFormRef}>
       <form
         id="add-item-form"
         className="flex w-full flex-col gap-3 rounded-md border border-gray-400/40 bg-white p-4 text-sm"

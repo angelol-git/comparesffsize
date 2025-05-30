@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useIsMobile } from "./hooks/useIsMobile";
 import {
@@ -37,6 +37,7 @@ function App() {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+  const itemFormRef = useRef(null);
   function handleAddItem(item) {
     setSelectedItems([...selectedItems, item]);
   }
@@ -148,6 +149,7 @@ function App() {
                       selectedItems={selectedItems}
                       handleAddItem={handleAddItem}
                       handleEditItem={handleEditItem}
+                      itemFormRef={itemFormRef}
                     />
                   )}
                 </ul>
