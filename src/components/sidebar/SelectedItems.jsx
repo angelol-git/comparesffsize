@@ -53,7 +53,7 @@ function SelectedItems({
             className="h-[20px] w-[20px] cursor-pointer rounded-md"
           ></button>
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-3 font-semibold">
+            <div className="flex items-center gap-3 font-semibold break-all">
               {item.brand} - {item.name}
             </div>
             <div className="text-sm text-gray-600">
@@ -105,8 +105,8 @@ function DragSvg({ height, width, color }) {
   return (
     <svg
       fill={color}
-      width={height}
-      height={width}
+      height={height}
+      width={width}
       viewBox="0 0 1920 1920"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -129,9 +129,9 @@ function DragSvg({ height, width, color }) {
 function OptionsSvg({ height, width, color }) {
   return (
     <svg
-      fill={color}
-      width={height}
-      height={width}
+      height={height}
+      width={width}
+      color={color}
       viewBox="0 0 32 32"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"

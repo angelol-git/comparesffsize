@@ -2,9 +2,10 @@ export const CATEGORIES = ["case", "custom", "other"];
 export const COLORS = [
     "#8B0000", // dark red
     "#00008B", // dark blue
-    "#B8860B", // dark goldenrod (instead of bright yellow)
+    "#B8860B", // dark goldenrod 
     "#006400", // dark green
-    "#4B0082", // dark purple
+    "#C71585", // dark pink 
+    "#008B8B",// teal
 ];
 export const EMPTY_ITEM = {
     brand: null,
