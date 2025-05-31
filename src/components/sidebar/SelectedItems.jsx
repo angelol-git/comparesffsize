@@ -53,7 +53,7 @@ function SelectedItems({
             className="h-[20px] w-[20px] cursor-pointer rounded-md"
           ></button>
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-3 font-semibold break-all">
+            <div className="flex items-center gap-3 font-semibold">
               {item.brand} - {item.name}
             </div>
             <div className="text-sm text-gray-600">

@@ -199,6 +199,18 @@
       }
     }
   ],
+  "Formd": [
+    {
+      "name": "T1 - V2.1",
+      "type": "ITX",
+      "measurements": {
+        "length": "335",
+        "width": "135",
+        "height": "220",
+        "volume": "9.95"
+      }
+    }
+  ],
   "Hyte": [
     {
       "name": "Revolt 3",
@@ -267,8 +279,8 @@
       "type": "ATX",
       "measurements": {
         "length": "420",
-        "width": "380",
-        "height": "270",
+        "width": "295.5",
+        "height": "380",
         "volume": "43.10"
       }
     },

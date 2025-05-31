@@ -40,8 +40,6 @@ function ItemForm({
         behavior: "smooth",
         block: "end",
       });
-      const input = itemFormRef.current.querySelector("input");
-      if (input) input.focus();
     }
   }, [itemFormRef]);
 
