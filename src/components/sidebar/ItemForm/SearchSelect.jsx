@@ -35,10 +35,7 @@ function SearchSelect({
       <label htmlFor="search-input" className="font-semibold">
         Name
       </label>
-      <div
-        className="flex w-full cursor-pointer flex-col"
-        ref={SearchSelectRef}
-      >
+      <div className="flex w-full flex-col" ref={SearchSelectRef}>
         <div className="relative flex flex-col items-center">
           <input
             type="text"
@@ -76,7 +73,7 @@ function SearchSelect({
             ) : (
               Object.entries(filteredData).map(([brand, items]) => {
                 return (
-                  <div key={brand} className="brand-name">
+                  <div key={brand} className="brand-name cursor-pointer">
                     {searchInput.length === 0 ? (
                       <SelectOptions
                         brand={brand}
@@ -129,7 +126,7 @@ function SelectOptions({ brand, items, open, handleAddSelectedItem }) {
           items.map((item) => (
             <div
               key={item.name}
-              className="rounded-md pl-10 hover:bg-gray-300"
+              className="rounded-md pl-10 hover:bg-gray-100"
               onClick={() => {
                 handleAddSelectedItem(item, brand);
               }}

@@ -1,8 +1,7 @@
+import { useState, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, useRef } from "react";
 import { OrbitControls } from "@react-three/drei";
-import { useIsMobile } from "./hooks/useIsMobile";
 import {
   closestCorners,
   DndContext,
@@ -12,6 +11,8 @@ import {
   PointerSensor,
   useSensors,
 } from "@dnd-kit/core";
+import { useItems } from "./hooks/useItems";
+import { useIsMobile } from "./hooks/useIsMobile";
 import ItemForm from "./components/sidebar/ItemForm/ItemForm";
 import SelectedItems from "./components/sidebar/SelectedItems";
 import CanvasItems from "./components/canvas/CanvasItems";
@@ -19,14 +20,12 @@ import "./reset.css";
 import {
   SortableContext,
   verticalListSortingStrategy,
-  arrayMove,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import MobileNav from "./components/home/mobileNav";
 
 const queryClient = new QueryClient();
 function App() {
-  const [selectedItems, setSelectedItems] = useState([]);
   const [showItemForm, setShowItemForm] = useState(false);
   const [isCanvasView, setIsCanvasView] = useState(true);
   const isMobile = useIsMobile();
@@ -38,51 +37,22 @@ function App() {
     }),
   );
   const itemFormRef = useRef(null);
-  function handleAddItem(item) {
-    setSelectedItems([...selectedItems, item]);
-  }
-
-  function handleDeleteItem(id) {
-    const updatedItems = selectedItems.filter((data) => data.id !== id);
-    setSelectedItems(updatedItems);
-  }
-
-  function handleEditItem(updatedItem) {
-    const updatedItems = selectedItems.map((prevItem) =>
-      prevItem.id === updatedItem.id ? updatedItem : prevItem,
-    );
-    setSelectedItems(updatedItems);
-  }
-
-  function handleHideItem(id) {
-    const updatedItems = selectedItems.map((prevItem) =>
-      prevItem.id === id ? { ...prevItem, hide: !prevItem.hide } : prevItem,
-    );
-    setSelectedItems(updatedItems);
-  }
-
-  function handleDragEnd(event) {
-    const { active, over } = event;
-    if (active.id === over.id) return;
-
-    setSelectedItems((items) => {
-      const originalPosition = getSelectedItemPosition(active.id);
-      const newPosition = getSelectedItemPosition(over.id);
-      return arrayMove(items, originalPosition, newPosition);
-    });
-  }
-
-  function getSelectedItemPosition(id) {
-    const position = selectedItems.findIndex((item) => {
-      return item.id === id;
-    });
-    return position;
-  }
+  const {
+    selectedItems,
+    handleAddItem,
+    handleDeleteItem,
+    handleEditItem,
+    handleHideItem,
+    handleDragEnd,
+    setSelectedItems,
+  } = useItems();
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="grid h-full min-h-0 grid-rows-[auto_1fr]">
-        <h1 className="p-3 text-xl font-bold">ComparePcSize</h1>
+        <div className="w-full border-b-1 border-gray-400/40">
+          <h1 className="p-3 text-xl font-bold">Compare SFF Size</h1>
+        </div>
         <main className="grid min-h-0 grid-cols-1 grid-rows-[1fr_auto] md:grid-cols-[1.5fr_1fr]">
           <section
             id="canvas-wrapper"
