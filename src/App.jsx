@@ -22,7 +22,7 @@ import {
   verticalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import MobileNav from "./components/home/mobileNav";
+import MobileNav from "./components/home/MobileNav";
 
 const queryClient = new QueryClient();
 function App() {
