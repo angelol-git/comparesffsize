@@ -88,9 +88,9 @@ function App() {
           </section>
           <section
             id="sidebar-wrapper"
-            className={`flex h-full min-h-0 flex-col bg-slate-100 p-4 ${isMobile && isCanvasView ? "hidden" : "flex"}`}
+            className={`flex h-full min-h-0 flex-col bg-slate-100 md:p-4 ${isMobile && isCanvasView ? "hidden" : "flex"}`}
           >
-            <div className="h-full overflow-y-auto rounded-md border-1 border-gray-300 bg-slate-100 p-4">
+            <div className="h-full overflow-y-auto rounded-md border-gray-300 bg-slate-100 p-4 md:border-1">
               <header className="flex items-center justify-between">
                 <h2 className="text-xl font-bold">My Items</h2>
                 <button
