@@ -30,10 +30,15 @@ function App() {
   const [isCanvasView, setIsCanvasView] = useState(true);
   const isMobile = useIsMobile();
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 300,
+        tolerance: 5,
+      },
+    }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 1000,
+        delay: 300,
         tolerance: 5,
       },
     }),
@@ -58,7 +63,7 @@ function App() {
         <div className="w-full border-b-1 border-gray-400/40">
           <h1 className="flex items-center gap-2 px-5 py-3 text-xl font-bold">
             <BoxSvg height="24px" width="24px" />
-            Compare SFF Size - Test 3
+            Compare SFF Size - Test 4
           </h1>
         </div>
         <main className="grid min-h-0 grid-cols-1 grid-rows-[1fr_auto] md:grid-cols-[1.5fr_1fr]">
