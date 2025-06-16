@@ -92,7 +92,7 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
                 type="number"
                 id={key}
                 name={key}
-                className="rounded-md border border-gray-400/40 px-2 py-2 text-right"
+                className="rounded-md border border-gray-400/40 px-2 py-2 text-right text-base"
                 value={value ? value : ""}
                 required
                 autoComplete="off"
