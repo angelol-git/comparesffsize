@@ -45,7 +45,7 @@ function SelectedItems({
       className={`ease selected-list-item @container flex w-full rounded-md border-1 border-gray-300 bg-white py-5 pr-2 pl-1 transition-colors duration-200`}
     >
       <div className="flex w-full justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <DragSvg height="22px" width="22px" color="gray" />
           <button
             type="button"
@@ -109,7 +109,7 @@ function DragSvg({ height, width, color }) {
       width={width}
       viewBox="0 0 1920 1920"
       xmlns="http://www.w3.org/2000/svg"
-      className="cursor-grab touch-none"
+      className="cursor-grab touch-none select-none"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
