@@ -31,7 +31,12 @@ function App() {
   const isMobile = useIsMobile();
   const sensors = useSensors(
     useSensor(PointerSensor),
-    useSensor(TouchSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
@@ -93,6 +98,7 @@ function App() {
                 }}
                 sensors={sensors}
                 collisionDetection={closestCorners}
+                ac
               >
                 <ul className="flex h-full flex-1 list-none flex-col gap-3 py-2">
                   {selectedItems.length > 0 && (
