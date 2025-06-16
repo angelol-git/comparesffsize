@@ -38,6 +38,7 @@ function App() {
       return true;
     } else return false;
   }
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: isTouchDevice()
@@ -108,7 +109,6 @@ function App() {
                 }}
                 sensors={sensors}
                 collisionDetection={closestCorners}
-                ac
               >
                 <ul className="flex h-full flex-1 list-none flex-col gap-3 py-2">
                   {selectedItems.length > 0 && (

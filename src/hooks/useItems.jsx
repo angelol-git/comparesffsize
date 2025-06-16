@@ -26,6 +26,7 @@ export function useItems() {
   }
 
   function handleDragEnd(event) {
+    event.preventDefault();
     const { active, over } = event;
     if (active.id === over.id) return;
 
