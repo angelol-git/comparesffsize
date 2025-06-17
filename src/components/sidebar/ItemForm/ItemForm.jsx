@@ -210,7 +210,7 @@ function CategorySelector({ category, handleCategoryClick }) {
             className={`${
               category === categoryItem &&
               "bg-blue-700 text-white hover:!bg-blue-600"
-            } flex cursor-pointer items-center rounded-md border border-gray-400/40 px-3 py-2 hover:bg-gray-100`}
+            } flex cursor-pointer items-center rounded-md border border-gray-400/40 px-3 py-2 focus-within:ring-2 focus-within:ring-blue-300 hover:bg-gray-100`}
           >
             <input
               type="radio"
@@ -219,7 +219,7 @@ function CategorySelector({ category, handleCategoryClick }) {
               value={categoryItem}
               checked={category === categoryItem}
               onChange={handleCategoryClick}
-              className={`sr-only`}
+              className="sr-only"
             />
             {categoryItem.charAt(0).toUpperCase() + categoryItem.slice(1)}
           </label>

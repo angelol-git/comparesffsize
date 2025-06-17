@@ -23,6 +23,9 @@ function SearchSelect({
   }, {});
 
   function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
     if (!isSelectedItemEmpty()) {
       if (event.key === "Backspace") {
         clearSelectedItem();
@@ -72,24 +75,22 @@ function SearchSelect({
               <p>No cases found</p>
             ) : (
               Object.entries(filteredData).map(([brand, items]) => {
-                return (
-                  <div key={brand} className="brand-name cursor-pointer">
-                    {searchInput.length === 0 ? (
-                      <SelectOptions
-                        brand={brand}
-                        items={items}
-                        open={false}
-                        handleAddSelectedItem={handleAddSelectedItem}
-                      />
-                    ) : (
-                      <SelectOptions
-                        brand={brand}
-                        items={items}
-                        open={true}
-                        handleAddSelectedItem={handleAddSelectedItem}
-                      />
-                    )}
-                  </div>
+                return searchInput.length === 0 ? (
+                  <SelectOptions
+                    brand={brand}
+                    items={items}
+                    open={false}
+                    key={brand}
+                    handleAddSelectedItem={handleAddSelectedItem}
+                  />
+                ) : (
+                  <SelectOptions
+                    brand={brand}
+                    items={items}
+                    open={true}
+                    key={brand}
+                    handleAddSelectedItem={handleAddSelectedItem}
+                  />
                 );
               })
             )}
@@ -108,10 +109,12 @@ function SelectOptions({ brand, items, open, handleAddSelectedItem }) {
   }, [open]);
 
   return (
-    <div
+    <button
+      type="button"
       onClick={() => {
         setIsOpen(!isOpen);
       }}
+      className="flex w-full cursor-pointer flex-col"
     >
       <div className="flex items-center gap-2">
         {!isOpen ? (
@@ -121,21 +124,19 @@ function SelectOptions({ brand, items, open, handleAddSelectedItem }) {
         )}
         <span className="font-semibold">{brand}</span>
       </div>
-      <div>
-        {isOpen &&
-          items.map((item) => (
-            <div
-              key={item.name}
-              className="rounded-md pl-10 hover:bg-gray-100"
-              onClick={() => {
-                handleAddSelectedItem(item, brand);
-              }}
-            >
-              {item.name}
-            </div>
-          ))}
-      </div>
-    </div>
+      {isOpen &&
+        items.map((item) => (
+          <button
+            key={item.name}
+            className="flex w-full cursor-pointer rounded-md pl-10 hover:bg-gray-100"
+            onClick={() => {
+              handleAddSelectedItem(item, brand);
+            }}
+          >
+            {item.name}
+          </button>
+        ))}
+    </button>
   );
 }
 
