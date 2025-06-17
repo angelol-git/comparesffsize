@@ -6,7 +6,6 @@ import {
   closestCorners,
   DndContext,
   KeyboardSensor,
-  TouchSensor,
   useSensor,
   PointerSensor,
   useSensors,
@@ -72,7 +71,7 @@ function App() {
             Compare SFF Size
           </h1>
         </div>
-        <main className="grid min-h-0 grid-cols-1 grid-rows-[1fr_auto] md:grid-cols-[1.5fr_1fr]">
+        <main className="grid min-h-0 grid-cols-1 grid-rows-[1fr_auto] lg:grid-cols-[1.5fr_1fr]">
           <section
             id="canvas-wrapper"
             className={`relative min-h-0 min-w-0 bg-black ${isMobile && !isCanvasView ? "hidden" : "grid"}`}
