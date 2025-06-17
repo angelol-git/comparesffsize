@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ItemForm from "./ItemForm/ItemForm";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -17,6 +17,44 @@ function SelectedItems({
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: item.id });
+
+  const listItemRef = useRef(null);
+  const holdStart = useRef(0);
+  const animationFrameId = useRef(null);
+  const [boxShadow, setBoxShadow] = useState("none");
+
+  function updateShadow() {
+    const duration = Math.min(Date.now() - holdStart.current, 300);
+    const spread = Math.min(duration / 60, 100);
+    setBoxShadow(`0 0 ${spread}px ${spread / 5}px rgba(0, 0, 0, 0.3)`);
+    animationFrameId.current = requestAnimationFrame(updateShadow);
+  }
+
+  function handlePointerDown() {
+    holdStart.current = Date.now();
+    animationFrameId.current = requestAnimationFrame(updateShadow);
+  }
+
+  function stopHolding() {
+    cancelAnimationFrame(animationFrameId.current);
+    setBoxShadow("none");
+  }
+
+  useEffect(() => {
+    const listItem = listItemRef.current;
+    if (!listItem) return;
+
+    listItem.addEventListener("pointerdown", handlePointerDown);
+    listItem.addEventListener("pointerup", stopHolding);
+    listItem.addEventListener("pointerleave", stopHolding);
+    listItem.addEventListener("pointercancel", stopHolding);
+    return () => {
+      listItem.removeEventListener("pointerdown", handlePointerDown);
+      listItem.removeEventListener("pointerup", stopHolding);
+      listItem.removeEventListener("pointerleave", stopHolding);
+      listItem.removeEventListener("pointercancel", stopHolding);
+    };
+  }, []);
 
   function assignColor() {
     return item.hide ? "#4B4B4B" : item.color;
@@ -37,8 +75,12 @@ function SelectedItems({
     />
   ) : (
     <li
-      style={style}
-      // style={{ ...style, borderColor: assignColor() }}
+      ref={listItemRef}
+      // style={style}
+      style={{
+        ...style,
+        boxShadow: boxShadow,
+      }}
       className={`ease @container flex w-full rounded-md border-1 border-gray-300 bg-white py-5 pr-2 pl-1 transition-colors duration-200`}
     >
       <div className="flex w-full justify-between">
