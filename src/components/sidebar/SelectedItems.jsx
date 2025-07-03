@@ -62,7 +62,6 @@ function SelectedItems({
 
   const style = { transition, transform: CSS.Transform.toString(transform) };
 
-  console.log(boxShadow);
   return editMode ? (
     <ItemForm
       mode={"edit"}
