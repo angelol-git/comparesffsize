@@ -18,7 +18,7 @@ function SelectedItems({
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: item.id });
 
-  const listItemRef = useRef(null);
+  const dragHandleRef = useRef(null);
   const holdStart = useRef(0);
   const animationFrameId = useRef(null);
   const [boxShadow, setBoxShadow] = useState("none");
@@ -41,20 +41,20 @@ function SelectedItems({
   }
 
   useEffect(() => {
-    const listItem = listItemRef.current;
-    if (!listItem) return;
+    const dragHandle = dragHandleRef.current;
+    if (!dragHandle) return;
 
-    listItem.addEventListener("pointerdown", handlePointerDown);
-    listItem.addEventListener("pointerup", stopHolding);
-    listItem.addEventListener("pointerleave", stopHolding);
-    listItem.addEventListener("pointercancel", stopHolding);
+    dragHandle.addEventListener("pointerdown", handlePointerDown);
+    dragHandle.addEventListener("pointerup", stopHolding);
+    dragHandle.addEventListener("pointerleave", stopHolding);
+    dragHandle.addEventListener("pointercancel", stopHolding);
     return () => {
-      listItem.removeEventListener("pointerdown", handlePointerDown);
-      listItem.removeEventListener("pointerup", stopHolding);
-      listItem.removeEventListener("pointerleave", stopHolding);
-      listItem.removeEventListener("pointercancel", stopHolding);
+      dragHandle.removeEventListener("pointerdown", handlePointerDown);
+      dragHandle.removeEventListener("pointerup", stopHolding);
+      dragHandle.removeEventListener("pointerleave", stopHolding);
+      dragHandle.removeEventListener("pointercancel", stopHolding);
     };
-  }, []);
+  }, [dragHandleRef.current]);
 
   function assignColor() {
     return item.hide ? "#4B4B4B" : item.color;
@@ -62,6 +62,7 @@ function SelectedItems({
 
   const style = { transition, transform: CSS.Transform.toString(transform) };
 
+  console.log(boxShadow);
   return editMode ? (
     <ItemForm
       mode={"edit"}
@@ -75,7 +76,6 @@ function SelectedItems({
     />
   ) : (
     <li
-      ref={listItemRef}
       // style={style}
       style={{
         ...style,
@@ -86,7 +86,10 @@ function SelectedItems({
       <div className="flex w-full justify-between">
         <div className="flex items-center gap-2 lg:gap-4">
           <div
-            ref={setNodeRef}
+            ref={(el) => {
+              setNodeRef(el);
+              dragHandleRef.current = el;
+            }}
             {...attributes}
             {...listeners}
             className="flex h-full cursor-grab touch-none items-center select-none"
@@ -121,7 +124,8 @@ function SelectedItems({
         </div>
         <div className="relative flex items-center @[440px]:hidden">
           <button
-            onMouseDown={() => {
+            onClick={(event) => {
+              event.stopPropagation();
               setShowSettingsModal((prev) => !prev);
             }}
             className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"

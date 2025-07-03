@@ -109,8 +109,9 @@ function SelectOptions({ brand, items, open, handleAddSelectedItem }) {
   }, [open]);
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={0}
       onClick={() => {
         setIsOpen(!isOpen);
       }}
@@ -136,7 +137,7 @@ function SelectOptions({ brand, items, open, handleAddSelectedItem }) {
             {item.name}
           </button>
         ))}
-    </button>
+    </div>
   );
 }
 
