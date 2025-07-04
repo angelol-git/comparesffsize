@@ -13,6 +13,7 @@ export const EMPTY_ITEM = {
     color: null,
     hide: null,
     id: null,
+    type: null,
     measurements: {
         length: null,
         width: null,

@@ -17,7 +17,9 @@ function ItemForm({
   setEditMode,
   itemFormRef,
 }) {
-  const [category, setCategory] = useState("case");
+  const [category, setCategory] = useState(
+    mode === "edit" ? editItem.type : "case",
+  );
   const [selectedItem, setSelectedItem] = useState(
     mode === "edit" ? editItem : EMPTY_ITEM,
   );
@@ -81,6 +83,7 @@ function ItemForm({
         ...selectedItem,
         id: uuidv4(),
         hide: false,
+        type: category,
         color: assignColor(),
       };
       handleAddItem(newItem);
