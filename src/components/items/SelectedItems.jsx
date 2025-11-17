@@ -43,7 +43,7 @@ function SelectedItems({
         ...style,
         boxShadow: boxShadow,
       }}
-      className={`ease @container flex w-full rounded-md border-1 border-gray-300 bg-white py-5 pr-2 pl-1 transition-colors duration-200`}
+      className={`ease bg-soft-charcoal @container flex w-full rounded-md border py-5 pr-2 pl-1 transition-colors duration-200`}
     >
       <div className="flex w-full justify-between">
         <div className="flex items-center gap-2 lg:gap-4">
@@ -61,10 +61,10 @@ function SelectedItems({
           <button
             type="button"
             style={{ backgroundColor: assignColor() }}
-            className="h-[20px] w-[20px] cursor-pointer rounded-md"
+            className="h-[25px] w-[25px] cursor-pointer"
           ></button>
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-3 font-semibold">
+            <div className="flex gap-3 font-semibold">
               {item.brand} - {item.name}
             </div>
             <div className="text-sm text-gray-600">

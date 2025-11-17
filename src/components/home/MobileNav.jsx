@@ -1,6 +1,6 @@
 function MobileNav({ isCanvasView, setIsCanvasView }) {
   return (
-    <nav className="w-full bg-white p-4">
+    <nav className="w-full bg-white py-4 lg:hidden">
       <div className="flex justify-between rounded-md bg-gray-200 p-1 text-sm">
         <button
           role="tab"

@@ -10,3 +10,13 @@ body {
     height: 100%;
     font-family: "Inter", sans-serif;
 }
+
+@theme {
+    --color-accent: #8DBAFF;
+    --color-accent-dark: #5A8FE6;
+    --color-accent-light: #D9E8FF;
+    --color-dark-gray: #2F2F2F;
+    --color-off-white: #F7F9FC;
+    --color-gridline: #DFE6F2;
+    --color-border: #E1E7F0;
+}
