@@ -53,7 +53,7 @@ function ItemsSection({
   return (
     <section
       id="sidebar-wrapper"
-      className={`h-full min-h-0 flex-col px-4 ${isCanvasView && isMobile ? "hidden" : "flex"}`}
+      className={`h-full min-h-0 flex-col lg:px-4 ${isCanvasView && isMobile ? "hidden" : "flex"}`}
     >
       <div className="h-full overflow-y-auto">
         <div className="flex items-center justify-between">
@@ -62,7 +62,7 @@ function ItemsSection({
             onClick={() => {
               setShowItemForm(true);
             }}
-            className="bg-accent-dark flex cursor-pointer items-center justify-center gap-3 rounded-md px-4 py-2 text-white"
+            className="bg-accent-dark flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white"
           >
             <Plus height="16" width="16" strokeWidth={2} />
             <span className="text-sm">Add New</span>
@@ -93,6 +93,7 @@ function ItemsSection({
                       handleDeleteItem={handleDeleteItem}
                       handleEditItem={handleEditItem}
                       handleHideItem={handleHideItem}
+                      isMobile={isMobile}
                     />
                   ))}
                 </SortableContext>
