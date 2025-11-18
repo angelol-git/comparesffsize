@@ -1,6 +1,16 @@
 {
   "Everyday": [
     {
+      "name": "Milk Carton 1L",
+      "type": "Other",
+      "measurements": {
+        "length": "73",
+        "width": "73",
+        "height": "170",
+        "volume": "1"
+      }
+    },
+    {
       "name": "Tissue Box - Kleenex",
       "type": "Other",
       "measurements": {
@@ -11,7 +21,7 @@
       }
     },
     {
-      "name": "Wonder Classic White Bread - 20oz Loaf",
+      "name": "Wonder Bread - 20oz Loaf",
       "type": "Other",
       "measurements": {
         "length": "368",
