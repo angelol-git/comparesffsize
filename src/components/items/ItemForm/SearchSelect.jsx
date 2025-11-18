@@ -3,7 +3,7 @@ import { X, ChevronDown, ChevronRight, Link } from "lucide-react";
 function SearchSelect({
   data,
   selectedItem,
-  handleAddSelectedItem,
+  setSelectedItem,
   isSelectedItemEmpty,
   clearSelectedItem,
 }) {
@@ -82,7 +82,7 @@ function SearchSelect({
                     items={items}
                     open={false}
                     key={brand}
-                    handleAddSelectedItem={handleAddSelectedItem}
+                    setSelectedItem={setSelectedItem}
                   />
                 ) : (
                   <SelectOptions
@@ -90,7 +90,7 @@ function SearchSelect({
                     items={items}
                     open={true}
                     key={brand}
-                    handleAddSelectedItem={handleAddSelectedItem}
+                    setSelectedItem={setSelectedItem}
                   />
                 );
               })
@@ -102,7 +102,7 @@ function SearchSelect({
   );
 }
 
-function SelectOptions({ brand, items, open, handleAddSelectedItem }) {
+function SelectOptions({ brand, items, open, setSelectedItem }) {
   const [isOpen, setIsOpen] = useState(open);
 
   useEffect(() => {
@@ -132,7 +132,12 @@ function SelectOptions({ brand, items, open, handleAddSelectedItem }) {
             key={item.name}
             className="text-cream flex w-full cursor-pointer rounded-md pl-10"
             onClick={() => {
-              handleAddSelectedItem(item, brand);
+              setSelectedItem((prevState) => ({
+                ...prevState,
+                brand: brand,
+                name: item.name,
+                measurements: item.measurements,
+              }));
             }}
           >
             {item.name}

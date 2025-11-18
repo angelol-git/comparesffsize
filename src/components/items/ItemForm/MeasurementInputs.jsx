@@ -4,6 +4,7 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
   const [volumeIsLinked, setVolumeIsLinked] = useState(true);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+
   function handleMeasurementChange(event) {
     const { name, value } = event.target;
 
@@ -34,8 +35,33 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <div className="relative flex w-full gap-2">
-        <h3 className="font-semibold">Measurements (mm)</h3>
+      <div className="relative flex w-full items-center justify-between gap-2">
+        <div className="flex gap-2">
+          <h3 className="font-semibold">Measurements (mm)</h3>
+          <div
+            onMouseOver={() => {
+              setIsInfoModalOpen(true);
+            }}
+            onMouseLeave={() => {
+              setIsInfoModalOpen(false);
+            }}
+            className="cursor-pointer"
+          >
+            <Info height="18" width="18" />
+            {isInfoModalOpen && (
+              <div className="absolute left-0 z-10 rounded-md bg-gray-700 p-2 text-left text-xs text-white opacity-90">
+                The default measurements are provided by the manufacturer and
+                reflect the case’s largest supported configuration.
+              </div>
+            )}
+            {isLinkModalOpen && (
+              <div className="absolute left-0 z-10 rounded-md bg-gray-700 p-2 text-left text-xs text-white opacity-90">
+                Automatically calculate the item's volume based on the length,
+                width and height.
+              </div>
+            )}
+          </div>
+        </div>
         <button
           className="cursor-pointer rounded-md p-1 hover:bg-gray-100"
           type="button"
@@ -53,30 +79,6 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
             <Link height="18" width="18" />
           ) : (
             <Unlink height="18" width="18" />
-          )}
-        </button>
-        <button
-          type="button"
-          onMouseOver={() => {
-            setIsInfoModalOpen(true);
-          }}
-          onMouseLeave={() => {
-            setIsInfoModalOpen(false);
-          }}
-          className="cursor-pointer"
-        >
-          <Info height="16" width="16" />
-          {isInfoModalOpen && (
-            <div className="absolute left-0 z-10 rounded-md bg-gray-700 p-2 text-left text-xs text-white opacity-90">
-              The default measurements are provided by the manufacturer and
-              reflect the case’s largest supported configuration.
-            </div>
-          )}
-          {isLinkModalOpen && (
-            <div className="absolute left-0 z-10 rounded-md bg-gray-700 p-2 text-left text-xs text-white opacity-90">
-              Automatically calculate the item's volume based on the length,
-              width and height.
-            </div>
           )}
         </button>
       </div>

@@ -27,7 +27,9 @@ function ItemsSection({
   isCanvasView,
   isMobile,
 }) {
-  const [showItemForm, setShowItemForm] = useState(false);
+  const itemFormRef = useRef(null);
+  const [editingCaseId, setEditingCaseId] = useState(null);
+  const [showAddItemForm, setShowAddItemForm] = useState(false);
   function isTouchDevice() {
     if (
       typeof window !== "undefined" &&
@@ -49,7 +51,7 @@ function ItemsSection({
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
-  const itemFormRef = useRef(null);
+
   return (
     <section
       id="sidebar-wrapper"
@@ -60,7 +62,7 @@ function ItemsSection({
           <h2 className="text-xl font-bold">My Items</h2>
           <button
             onClick={() => {
-              setShowItemForm(true);
+              setShowAddItemForm(true);
             }}
             className="bg-accent-dark flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white"
           >
@@ -68,50 +70,49 @@ function ItemsSection({
             <span className="text-sm">Add New</span>
           </button>
         </div>
-        {selectedItems.length > 0 || showItemForm ? (
-          <DndContext
-            onDragEnd={(event) => {
-              handleDragEnd(event);
-            }}
-            sensors={sensors}
-            collisionDetection={closestCorners}
-          >
-            <ul className="flex h-full flex-1 list-none flex-col gap-3 py-4">
-              {selectedItems.length > 0 && (
-                <SortableContext
-                  items={selectedItems}
-                  strategy={verticalListSortingStrategy}
-                >
-                  {selectedItems.map((item) => (
-                    <SelectedItems
-                      key={item.id}
-                      item={item}
-                      setShowItemForm={setShowItemForm}
-                      selectedItems={selectedItems}
-                      setSelectedItems={setSelectedItems}
-                      handleAddItem={handleAddItem}
-                      handleDeleteItem={handleDeleteItem}
-                      handleEditItem={handleEditItem}
-                      handleHideItem={handleHideItem}
-                      isMobile={isMobile}
-                    />
-                  ))}
-                </SortableContext>
-              )}
 
-              {showItemForm === true && (
-                <ItemForm
-                  setShowItemForm={setShowItemForm}
+        {selectedItems.length === 0 && !showAddItemForm && (
+          <div>No items selected yet</div>
+        )}
+
+        <DndContext
+          onDragEnd={(event) => {
+            handleDragEnd(event);
+          }}
+          sensors={sensors}
+          collisionDetection={closestCorners}
+        >
+          <SortableContext
+            items={selectedItems}
+            strategy={verticalListSortingStrategy}
+          >
+            <ul className="flex flex-1 list-none flex-col gap-3 py-4">
+              {selectedItems.map((item) => (
+                <SelectedItems
+                  key={item.id}
+                  item={item}
+                  setShowAddItemForm={setShowAddItemForm}
                   selectedItems={selectedItems}
+                  setSelectedItems={setSelectedItems}
                   handleAddItem={handleAddItem}
+                  handleDeleteItem={handleDeleteItem}
                   handleEditItem={handleEditItem}
-                  itemFormRef={itemFormRef}
+                  handleHideItem={handleHideItem}
+                  isMobile={isMobile}
                 />
-              )}
+              ))}
             </ul>
-          </DndContext>
-        ) : (
-          <div className="py-2">No items selected yet</div>
+          </SortableContext>
+        </DndContext>
+
+        {showAddItemForm && (
+          <ItemForm
+            setShowAddItemForm={setShowAddItemForm}
+            selectedItems={selectedItems}
+            handleAddItem={handleAddItem}
+            handleEditItem={handleEditItem}
+            itemFormRef={itemFormRef}
+          />
         )}
       </div>
     </section>
