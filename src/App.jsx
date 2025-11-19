@@ -14,13 +14,14 @@ function App() {
   const [isCanvasView, setIsCanvasView] = useState(true);
   const {
     selectedItems,
+    setSelectedItems,
     handleAddItem,
     handleDeleteItem,
     handleEditItem,
     handleHideItem,
     handleDragEnd,
-    setSelectedItems,
   } = useItems();
+
   useEffect(() => {
     function handleResize() {
       const mobile = window.innerWidth <= 1024;
@@ -45,6 +46,7 @@ function App() {
           <CanvasSection
             selectedItems={selectedItems}
             isCanvasView={isCanvasView}
+            isMobile={isMobile}
           />
           <ItemsSection
             handleAddItem={handleAddItem}
