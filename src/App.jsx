@@ -49,13 +49,13 @@ function App() {
             isMobile={isMobile}
           />
           <ItemsSection
+            selectedItems={selectedItems}
+            setSelectedItems={setSelectedItems}
             handleAddItem={handleAddItem}
             handleDeleteItem={handleDeleteItem}
             handleEditItem={handleEditItem}
             handleHideItem={handleHideItem}
             handleDragEnd={handleDragEnd}
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
             isMobile={isMobile}
             isCanvasView={isCanvasView}
           />

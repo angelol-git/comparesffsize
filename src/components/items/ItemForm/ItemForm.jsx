@@ -7,22 +7,21 @@ import MeasurementInputs from "./MeasurementInputs";
 import SearchSelect from "./SearchSelect";
 
 function ItemForm({
-  mode = "add",
-  setShowAddItemForm,
-  selectedItems,
+  mode,
+  editItem,
   handleAddItem,
   handleEditItem,
-  editItem,
-  setEditMode,
+  selectedItemsLength,
+  setActiveForm,
   itemFormRef,
 }) {
+  const [selectedItem, setSelectedItem] = useState(
+    mode === "edit" ? editItem : EMPTY_ITEM,
+  );
   const [category, setCategory] = useState(
     mode === "edit" ? editItem.type : "case",
   );
   const { data, isLoading, isError } = useCaseData(category);
-  const [selectedItem, setSelectedItem] = useState(
-    mode === "edit" ? editItem : EMPTY_ITEM,
-  );
 
   useEffect(() => {
     if (itemFormRef?.current) {
@@ -41,21 +40,20 @@ function ItemForm({
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (mode === "edit") {
-      handleEditItem(selectedItem);
-      setEditMode(false);
-    } else {
+    if (mode === "add") {
       const newItem = {
         ...selectedItem,
         id: uuidv7(),
         hide: false,
         type: category,
-        color: COLORS[selectedItems.length % COLORS.length],
+        color: COLORS[selectedItemsLength % COLORS.length],
       };
       handleAddItem(newItem);
+    } else {
+      handleEditItem(selectedItem);
     }
     setSelectedItem(EMPTY_ITEM);
-    setShowAddItemForm(false);
+    setActiveForm(null);
   }
 
   return (
@@ -105,7 +103,6 @@ function ItemForm({
             clearSelectedItem={() => {
               setSelectedItem(EMPTY_ITEM);
             }}
-            setShowAddItemForm={setShowAddItemForm}
           />
         </div>
       )}
@@ -153,7 +150,7 @@ function ItemForm({
         <button
           type="button"
           onClick={() => {
-            mode === "edit" ? setEditMode(false) : setShowAddItemForm(false);
+            setActiveForm(null);
           }}
           className="bg-warm-white col-start-2 w-full cursor-pointer items-center justify-center gap-3 rounded-md border py-2 text-sm text-black"
         >

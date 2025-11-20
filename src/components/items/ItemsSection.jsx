@@ -17,19 +17,17 @@ import ItemForm from "./ItemForm/ItemForm";
 import SelectedItems from "./SelectedItems";
 
 function ItemsSection({
+  selectedItems,
   handleAddItem,
   handleDeleteItem,
   handleEditItem,
   handleHideItem,
   handleDragEnd,
-  selectedItems,
-  setSelectedItems,
   isCanvasView,
   isMobile,
 }) {
   const itemFormRef = useRef(null);
-  const [editingCaseId, setEditingCaseId] = useState(null);
-  const [showAddItemForm, setShowAddItemForm] = useState(false);
+  const [activeForm, setActiveForm] = useState(null);
   function isTouchDevice() {
     if (
       typeof window !== "undefined" &&
@@ -38,6 +36,7 @@ function ItemsSection({
       return true;
     } else return false;
   }
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: isTouchDevice()
@@ -61,9 +60,7 @@ function ItemsSection({
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold">My Items</h2>
           <button
-            onClick={() => {
-              setShowAddItemForm(true);
-            }}
+            onClick={() => setActiveForm({ mode: "add" })}
             className="bg-accent-dark flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white"
           >
             <Plus height="16" width="16" strokeWidth={2} />
@@ -71,7 +68,7 @@ function ItemsSection({
           </button>
         </div>
 
-        {selectedItems.length === 0 && !showAddItemForm && (
+        {selectedItems.length === 0 && !activeForm && (
           <div>No items selected yet</div>
         )}
 
@@ -88,29 +85,36 @@ function ItemsSection({
           >
             <ul className="flex flex-1 list-none flex-col gap-3 py-4">
               {selectedItems.map((item) => (
-                <SelectedItems
+                <li
                   key={item.id}
-                  item={item}
-                  setShowAddItemForm={setShowAddItemForm}
-                  selectedItems={selectedItems}
-                  setSelectedItems={setSelectedItems}
-                  handleAddItem={handleAddItem}
-                  handleDeleteItem={handleDeleteItem}
-                  handleEditItem={handleEditItem}
-                  handleHideItem={handleHideItem}
-                  isMobile={isMobile}
-                />
+                  className={`ease @container flex w-full rounded-md border px-2 py-4 transition-colors duration-200`}
+                >
+                  <SelectedItems
+                    item={item}
+                    activeForm={activeForm}
+                    handleAddItem={handleAddItem}
+                    handleDeleteItem={handleDeleteItem}
+                    handleEditItem={handleEditItem}
+                    handleHideItem={handleHideItem}
+                    isMobile={isMobile}
+                    setActiveForm={setActiveForm}
+                    selectedItemsLength={selectedItems.length}
+                    itemFormRef={itemFormRef}
+                  />
+                </li>
               ))}
             </ul>
           </SortableContext>
         </DndContext>
 
-        {showAddItemForm && (
+        {activeForm && (
           <ItemForm
-            setShowAddItemForm={setShowAddItemForm}
-            selectedItems={selectedItems}
+            mode={activeForm.mode}
+            editItem={activeForm.item}
             handleAddItem={handleAddItem}
             handleEditItem={handleEditItem}
+            setActiveForm={setActiveForm}
+            selectedItemsLength={selectedItems.length}
             itemFormRef={itemFormRef}
           />
         )}

@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { X, SquarePen, EyeOff, Eye, Ellipsis } from "lucide-react";
 function SelectedItemsOptions({
   item,
@@ -5,29 +6,51 @@ function SelectedItemsOptions({
   setEditMode,
   handleHideItem,
   handleDeleteItem,
-  showSettingsModal,
-  setShowSettingsModal,
+  editingCaseId,
+  setEditingCaseId,
 }) {
+  const SelectedItemsOptionRef = useRef(null);
+
+  useEffect(() => {
+    if (!SelectedItemsOptionRef.current) return;
+    function handleClickOutside(e) {
+      if (
+        SelectedItemsOptionRef.current &&
+        !SelectedItemsOptionRef.current.contains(e.target)
+      ) {
+        setEditingCaseId(null);
+      }
+    }
+    if (editingCaseId) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [editingCaseId, setEditingCaseId]);
+
   if (isMobile) {
     return (
       <div className="relative flex items-center">
         <button
-          onClick={() => setShowSettingsModal((prev) => !prev)}
+          ref={SelectedItemsOptionRef}
+          onClick={() => {
+            setEditingCaseId((prev) => (prev === item.id ? null : item.id));
+          }}
           type="button"
-          className="flex h-[32px] w-[32px] items-center justify-center rounded-md transition-colors hover:bg-gray-200/30"
+          className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md transition-colors hover:bg-gray-200/30"
         >
           <Ellipsis height="22" width="22" className="stroke-icon" />
         </button>
 
-        {showSettingsModal && (
-          <div className="absolute right-[40px] rounded-md bg-white p-2 shadow-lg">
+        {editingCaseId === item.id && (
+          <div className="absolute right-[40px] rounded-md border-1 border-black bg-white p-2 shadow-lg">
             <SelectedItemsOptionRow
               item={item}
               setEditMode={setEditMode}
-              setShowSettingsModal={setShowSettingsModal}
               handleHideItem={handleHideItem}
               handleDeleteItem={handleDeleteItem}
-              closeMenu={() => setShowSettingsModal(false)}
+              setEditingCaseId={setEditingCaseId}
             />
           </div>
         )}
@@ -38,10 +61,9 @@ function SelectedItemsOptions({
     <SelectedItemsOptionRow
       item={item}
       setEditMode={setEditMode}
-      setShowSettingsModal={setShowSettingsModal}
       handleHideItem={handleHideItem}
       handleDeleteItem={handleDeleteItem}
-      closeMenu={() => setShowSettingsModal(false)}
+      setEditingCaseId={setEditingCaseId}
     />
   );
 }
@@ -49,16 +71,17 @@ function SelectedItemsOptions({
 function SelectedItemsOptionRow({
   item,
   setEditMode,
-  setShowSettingsModal,
   handleHideItem,
   handleDeleteItem,
+  setEditingCaseId,
 }) {
   return (
     <div className="flex gap-4">
       <button
+        type="button"
         onMouseDown={() => {
           setEditMode(true);
-          setShowSettingsModal((prev) => !prev);
+          setEditingCaseId(null);
         }}
         className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
       >
@@ -67,7 +90,6 @@ function SelectedItemsOptionRow({
       <button
         onMouseDown={() => {
           handleHideItem(item.id);
-          setShowSettingsModal((prev) => !prev);
         }}
         className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
       >
@@ -80,7 +102,6 @@ function SelectedItemsOptionRow({
       <button
         onMouseDown={() => {
           handleDeleteItem(item.id);
-          setShowSettingsModal((prev) => !prev);
         }}
         className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
       >
