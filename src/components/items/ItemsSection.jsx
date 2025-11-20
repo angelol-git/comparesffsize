@@ -1,55 +1,54 @@
 import { useState, useRef } from "react";
 import {
-  closestCorners,
   DndContext,
+  closestCenter,
   KeyboardSensor,
-  useSensor,
   PointerSensor,
+  useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import {
+  arrayMove,
   SortableContext,
   verticalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
+
+import SelectedItem from "./SelectedItem";
 import { Plus } from "lucide-react";
 import ItemForm from "./ItemForm/ItemForm";
-import SelectedItems from "./SelectedItems";
 
 function ItemsSection({
   selectedItems,
+  setSelectedItems,
   handleAddItem,
   handleDeleteItem,
   handleEditItem,
   handleHideItem,
-  handleDragEnd,
   isCanvasView,
   isMobile,
 }) {
   const itemFormRef = useRef(null);
   const [activeForm, setActiveForm] = useState(null);
-  function isTouchDevice() {
-    if (
-      typeof window !== "undefined" &&
-      ("ontouchstart" in window || navigator.maxTouchPoints > 0)
-    ) {
-      return true;
-    } else return false;
-  }
-
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: isTouchDevice()
-        ? {
-            delay: 300,
-            tolerance: 5,
-          }
-        : undefined,
-    }),
+    useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    if (!over) return;
+    if (active.id === over.id) return;
+    if (active.id !== over.id) {
+      setSelectedItems((items) => {
+        const oldIndex = items.findIndex((i) => i.id === active.id);
+        const newIndex = items.findIndex((i) => i.id === over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  }
 
   return (
     <section
@@ -73,23 +72,18 @@ function ItemsSection({
         )}
 
         <DndContext
-          onDragEnd={(event) => {
-            handleDragEnd(event);
-          }}
           sensors={sensors}
-          collisionDetection={closestCorners}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={selectedItems}
+            items={selectedItems.map((item) => item.id)}
             strategy={verticalListSortingStrategy}
           >
             <ul className="flex flex-1 list-none flex-col gap-3 py-4">
               {selectedItems.map((item) => (
-                <li
-                  key={item.id}
-                  className={`ease @container flex w-full rounded-md border px-2 py-4 transition-colors duration-200`}
-                >
-                  <SelectedItems
+                <li key={item.id}>
+                  <SelectedItem
                     item={item}
                     activeForm={activeForm}
                     handleAddItem={handleAddItem}

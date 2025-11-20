@@ -54,16 +54,10 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
                 reflect the case’s largest supported configuration.
               </div>
             )}
-            {isLinkModalOpen && (
-              <div className="absolute left-0 z-10 rounded-md bg-gray-700 p-2 text-left text-xs text-white opacity-90">
-                Automatically calculate the item's volume based on the length,
-                width and height.
-              </div>
-            )}
           </div>
         </div>
         <button
-          className="cursor-pointer rounded-md p-1 hover:bg-gray-100"
+          className="relative cursor-pointer rounded-md p-1 hover:bg-gray-100"
           type="button"
           onClick={() => {
             setVolumeIsLinked(!volumeIsLinked);
@@ -79,6 +73,13 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
             <Link height="18" width="18" />
           ) : (
             <Unlink height="18" width="18" />
+          )}
+
+          {isLinkModalOpen && (
+            <div className="absolute right-0 z-10 rounded-md bg-gray-700 p-2 text-xs text-white opacity-90">
+              Automatically calculate the item's volume based on the length,
+              width and height.
+            </div>
           )}
         </button>
       </div>

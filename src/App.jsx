@@ -19,7 +19,6 @@ function App() {
     handleDeleteItem,
     handleEditItem,
     handleHideItem,
-    handleDragEnd,
   } = useItems();
 
   useEffect(() => {
@@ -55,7 +54,6 @@ function App() {
             handleDeleteItem={handleDeleteItem}
             handleEditItem={handleEditItem}
             handleHideItem={handleHideItem}
-            handleDragEnd={handleDragEnd}
             isMobile={isMobile}
             isCanvasView={isCanvasView}
           />
