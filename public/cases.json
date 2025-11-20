@@ -39,6 +39,16 @@
         "height": "292",
         "volume": "18.25"
       }
+    },
+    {
+      "name": "NR300P V3",
+      "type": "ITX",
+      "measurements": {
+        "length": "378.2",
+        "width": "185",
+        "height": "292",
+        "volume": "18.62"
+      }
     }
   ],
   "Corsair": [

@@ -1,7 +1,16 @@
-import { Edges } from "@react-three/drei";
+import { useEffect } from "react";
+import { Edges, useBounds } from "@react-three/drei";
 
 const GAP = 2;
 function CanvasItems({ selectedItems }) {
+  const bounds = useBounds();
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      console.log("here");
+      bounds.refresh().clip().fit();
+    }
+  }, [bounds, selectedItems]);
+
   const filteredData = selectedItems.filter((item) => {
     return item.hide === false;
   });
