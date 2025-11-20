@@ -1,7 +1,7 @@
-function CanvasLegend({ selectedItems }) {
+function CanvasLegend({ filteredData }) {
   return (
     <ul className="bg-dark-gray/60 pointer-events-none absolute right-0 bottom-0 flex flex-col gap-2 p-4">
-      {selectedItems.map((item) => {
+      {filteredData.map((item) => {
         return (
           <li
             key={item.id}

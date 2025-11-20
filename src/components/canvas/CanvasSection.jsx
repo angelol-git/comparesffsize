@@ -3,6 +3,9 @@ import { Grid, OrbitControls, Bounds } from "@react-three/drei";
 import CanvasItems from "./CanvasItems";
 import CanvasLegend from "./CanvasLegend";
 function CanvasSection({ selectedItems, isCanvasView, isMobile }) {
+  const filteredData = selectedItems.filter((item) => {
+    return item.hide === false;
+  });
   return (
     <section
       id="canvas-wrapper"
@@ -13,7 +16,7 @@ function CanvasSection({ selectedItems, isCanvasView, isMobile }) {
         <ambientLight intensity={2.5} />
 
         <Bounds fit={false} clip observe>
-          <CanvasItems selectedItems={selectedItems} />
+          <CanvasItems filteredData={filteredData} />
         </Bounds>
 
         <OrbitControls makeDefault />
@@ -25,8 +28,8 @@ function CanvasSection({ selectedItems, isCanvasView, isMobile }) {
           sectionSize={2}
         />
       </Canvas>
-      {isMobile && selectedItems.length > 0 && (
-        <CanvasLegend selectedItems={selectedItems} />
+      {isMobile && filteredData.length > 0 && (
+        <CanvasLegend filteredData={filteredData} />
       )}
     </section>
   );

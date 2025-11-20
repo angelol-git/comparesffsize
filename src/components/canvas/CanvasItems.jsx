@@ -2,18 +2,13 @@ import { useEffect } from "react";
 import { Edges, useBounds } from "@react-three/drei";
 
 const GAP = 2;
-function CanvasItems({ selectedItems }) {
+function CanvasItems({ filteredData }) {
   const bounds = useBounds();
   useEffect(() => {
-    if (selectedItems.length > 0) {
-      console.log("here");
+    if (filteredData.length > 0) {
       bounds.refresh().clip().fit();
     }
-  }, [bounds, selectedItems]);
-
-  const filteredData = selectedItems.filter((item) => {
-    return item.hide === false;
-  });
+  }, [bounds, filteredData]);
 
   function calculateTotalWidth() {
     return filteredData.reduce((total, item) => {
