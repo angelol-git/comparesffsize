@@ -22,7 +22,7 @@ function SelectedItem({
       style={{
         ...style,
       }}
-      className="flex w-full justify-between rounded-md border px-2 py-4"
+      className="border-border flex w-full justify-between rounded-md border-1 bg-white px-2 py-4"
     >
       <div className="flex items-center gap-3 lg:gap-4">
         <div
@@ -35,7 +35,7 @@ function SelectedItem({
         </div>
         <div
           style={{ backgroundColor: item.hide ? "#4B4B4B" : item.color }}
-          className="flex h-[20px] w-[20px] shrink-0 lg:h-[24px] lg:w-[24px]"
+          className="flex h-[20px] w-[20px] shrink-0 rounded-md lg:h-[24px] lg:w-[24px]"
         ></div>
         <div>
           <div className="font-bold">

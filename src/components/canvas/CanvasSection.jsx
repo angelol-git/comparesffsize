@@ -9,7 +9,7 @@ function CanvasSection({ selectedItems, isCanvasView, isMobile }) {
   return (
     <section
       id="canvas-wrapper"
-      className={`bg-off-white relative min-h-0 min-w-0 ${isCanvasView ? "grid" : "hidden"}`}
+      className={`bg-off-white relative min-w-0 ${isCanvasView ? "grid" : "hidden"} h-full`}
     >
       <Canvas camera={{ position: [10, 15, 20], fov: 75 }}>
         <directionalLight position={[10, 10, 1]} />

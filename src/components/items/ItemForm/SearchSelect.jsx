@@ -55,7 +55,7 @@ function SearchSelect({
                 ? searchInput
                 : `${selectedItem.brand} - ${selectedItem.name}`
             }
-            className="w-full rounded-md border-1 border-black px-3 py-2"
+            className="border-border w-full rounded-md border-1 px-3 py-2"
           />
           {!isSelectedItemEmpty() ? (
             <button
@@ -70,7 +70,7 @@ function SearchSelect({
             </button>
           ) : null}
 
-          <div className="my-1 h-[150px] w-full overflow-auto rounded-md border p-2">
+          <div className="border-border my-1 h-[150px] w-full overflow-auto rounded-md border p-2">
             {searchInput.length > 1 &&
             Object.entries(filteredData).length === 0 ? (
               <p className="text-gray-200/50">No cases found</p>
@@ -82,6 +82,7 @@ function SearchSelect({
                     items={items}
                     open={false}
                     key={brand}
+                    selectedItem={selectedItem}
                     setSelectedItem={setSelectedItem}
                   />
                 ) : (
@@ -90,6 +91,7 @@ function SearchSelect({
                     items={items}
                     open={true}
                     key={brand}
+                    selectedItem={selectedItem}
                     setSelectedItem={setSelectedItem}
                   />
                 );
@@ -102,7 +104,7 @@ function SearchSelect({
   );
 }
 
-function SelectOptions({ brand, items, open, setSelectedItem }) {
+function SelectOptions({ brand, items, open, selectedItem, setSelectedItem }) {
   const [isOpen, setIsOpen] = useState(open);
 
   useEffect(() => {
@@ -118,7 +120,9 @@ function SelectOptions({ brand, items, open, setSelectedItem }) {
       }}
       className="flex w-full cursor-pointer flex-col"
     >
-      <div className="flex items-center gap-2">
+      <div
+        className={`flex items-center gap-2 rounded-md ${selectedItem.brand === brand ? "bg-gray-200/50" : null}`}
+      >
         {!isOpen ? (
           <ChevronRight height="16" width="16" />
         ) : (
@@ -130,7 +134,7 @@ function SelectOptions({ brand, items, open, setSelectedItem }) {
         items.map((item) => (
           <button
             key={item.name}
-            className="text-cream flex w-full cursor-pointer rounded-md pl-10"
+            className={`text-cream flex w-full cursor-pointer rounded-md pl-10 ${selectedItem.name === item.name ? "bg-gray-100/70" : null}`}
             onClick={() => {
               setSelectedItem((prevState) => ({
                 ...prevState,

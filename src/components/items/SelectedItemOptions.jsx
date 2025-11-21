@@ -48,7 +48,7 @@ function SelectedItemsOptions({
         {activeOptionId === item.id && (
           <div
             ref={OptionsModalRef}
-            className="absolute right-[40px] rounded-md border-1 border-black bg-white p-2 shadow-lg"
+            className="border-border absolute right-[40px] rounded-md border-1 bg-white p-2 shadow-lg"
           >
             <SelectedItemsOptionRow
               item={item}

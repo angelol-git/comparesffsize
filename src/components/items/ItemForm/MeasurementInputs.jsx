@@ -95,7 +95,7 @@ function MeasurementInputs({ selectedItem, setSelectedItem }) {
                 type="number"
                 id={key}
                 name={key}
-                className="rounded-md border px-2 py-2 text-right text-sm"
+                className="border-border rounded-md border-1 px-2 py-2 text-right text-sm"
                 value={value ? value : ""}
                 required
                 autoComplete="off"

@@ -59,7 +59,7 @@ function ItemForm({
   return (
     <form
       id="add-item-form"
-      className="border-border flex w-full flex-col gap-4 rounded-md border-1 p-4 text-sm"
+      className="border-border flex w-full flex-col gap-4 rounded-md border-1 bg-white p-4 text-sm"
       // style={mode === "edit" ? { borderColor: editItem.color } : {}}
       onSubmit={handleSubmit}
     >
@@ -72,7 +72,7 @@ function ItemForm({
               htmlFor={categoryItem}
               className={`${
                 category === categoryItem && "bg-black text-white"
-              } flex cursor-pointer items-center rounded-md border-1 px-3 py-2`}
+              } border-border flex cursor-pointer items-center rounded-md border-1 px-3 py-2`}
             >
               <input
                 type="radio"
@@ -126,7 +126,7 @@ function ItemForm({
                 }));
               }}
               value={selectedItem.name ? selectedItem.name : ""}
-              className="relative w-full rounded-md border-1 border-black px-3 py-2 text-sm"
+              className="border-border relative w-full rounded-md border-1 px-3 py-2 text-sm"
             />
           </div>
         </div>
@@ -152,7 +152,7 @@ function ItemForm({
           onClick={() => {
             setActiveForm(null);
           }}
-          className="bg-warm-white col-start-2 w-full cursor-pointer items-center justify-center gap-3 rounded-md border py-2 text-sm text-black"
+          className="bg-warm-white border-border col-start-2 w-full cursor-pointer items-center justify-center gap-3 rounded-md border-1 py-2 text-sm text-black"
         >
           Cancel
         </button>

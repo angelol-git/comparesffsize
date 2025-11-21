@@ -39,9 +39,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="container mx-auto flex h-full flex-col">
+      <div className="container mx-auto flex h-full flex-col py-4">
         <Header />
-        <main className="grid h-full grid-cols-1 grid-rows-1 px-4 pb-4 lg:grid-cols-[1.5fr_1fr] lg:gap-6">
+        <main className="grid h-full grid-cols-1 grid-rows-1 lg:grid-cols-[1.5fr_1fr] lg:gap-6">
           <CanvasSection
             selectedItems={selectedItems}
             isCanvasView={isCanvasView}
