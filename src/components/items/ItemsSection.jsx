@@ -28,8 +28,9 @@ function ItemsSection({
   isCanvasView,
   isMobile,
 }) {
+  const [activeForm, setActiveForm] = useState({ item: null, mode: null });
+  const [activeOptionId, setActiveOptionId] = useState(null);
   const itemFormRef = useRef(null);
-  const [activeForm, setActiveForm] = useState(null);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -59,7 +60,7 @@ function ItemsSection({
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold">My Items</h2>
           <button
-            onClick={() => setActiveForm({ mode: "add" })}
+            onClick={() => setActiveForm({ item: null, mode: "add" })}
             className="bg-accent-dark flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white"
           >
             <Plus height="16" width="16" strokeWidth={2} />
@@ -83,25 +84,35 @@ function ItemsSection({
             <ul className="flex flex-1 list-none flex-col gap-3 py-4">
               {selectedItems.map((item) => (
                 <li key={item.id}>
-                  <SelectedItem
-                    item={item}
-                    activeForm={activeForm}
-                    handleAddItem={handleAddItem}
-                    handleDeleteItem={handleDeleteItem}
-                    handleEditItem={handleEditItem}
-                    handleHideItem={handleHideItem}
-                    isMobile={isMobile}
-                    setActiveForm={setActiveForm}
-                    selectedItemsLength={selectedItems.length}
-                    itemFormRef={itemFormRef}
-                  />
+                  {activeForm?.mode === "edit" &&
+                  activeForm.item.id === item.id ? (
+                    <ItemForm
+                      mode={activeForm.mode}
+                      editItem={activeForm.item}
+                      handleAddItem={handleAddItem}
+                      handleEditItem={handleEditItem}
+                      setActiveForm={setActiveForm}
+                      selectedItemsLength={selectedItems.length}
+                      itemFormRef={itemFormRef}
+                    />
+                  ) : (
+                    <SelectedItem
+                      item={item}
+                      handleHideItem={handleHideItem}
+                      handleDeleteItem={handleDeleteItem}
+                      activeOptionId={activeOptionId}
+                      setActiveOptionId={setActiveOptionId}
+                      setActiveForm={setActiveForm}
+                      isMobile={isMobile}
+                    />
+                  )}
                 </li>
               ))}
             </ul>
           </SortableContext>
         </DndContext>
 
-        {activeForm && (
+        {activeForm && activeForm.mode === "add" && (
           <ItemForm
             mode={activeForm.mode}
             editItem={activeForm.item}

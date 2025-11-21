@@ -3,39 +3,41 @@ import { X, SquarePen, EyeOff, Eye, Ellipsis } from "lucide-react";
 function SelectedItemsOptions({
   item,
   isMobile,
-  setEditMode,
   handleHideItem,
   handleDeleteItem,
-  editingCaseId,
-  setEditingCaseId,
+  activeOptionId,
+  setActiveOptionId,
+  setActiveForm,
 }) {
-  const SelectedItemsOptionRef = useRef(null);
-
+  const OptionsModalRef = useRef(null);
+  const buttonRef = useRef(null);
   useEffect(() => {
-    if (!SelectedItemsOptionRef.current) return;
+    if (!OptionsModalRef.current) return;
     function handleClickOutside(e) {
       if (
-        SelectedItemsOptionRef.current &&
-        !SelectedItemsOptionRef.current.contains(e.target)
+        OptionsModalRef.current &&
+        !OptionsModalRef.current.contains(e.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target)
       ) {
-        setEditingCaseId(null);
+        setActiveOptionId(null);
       }
     }
-    if (editingCaseId) {
+    if (activeOptionId) {
       document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [editingCaseId, setEditingCaseId]);
+  }, [activeOptionId, setActiveOptionId]);
 
   if (isMobile) {
     return (
       <div className="relative flex items-center">
         <button
-          ref={SelectedItemsOptionRef}
+          ref={buttonRef}
           onClick={() => {
-            setEditingCaseId((prev) => (prev === item.id ? null : item.id));
+            setActiveOptionId((prev) => (prev === item.id ? null : item.id));
           }}
           type="button"
           className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md transition-colors hover:bg-gray-200/30"
@@ -43,14 +45,18 @@ function SelectedItemsOptions({
           <Ellipsis height="22" width="22" className="stroke-icon" />
         </button>
 
-        {editingCaseId === item.id && (
-          <div className="absolute right-[40px] rounded-md border-1 border-black bg-white p-2 shadow-lg">
+        {activeOptionId === item.id && (
+          <div
+            ref={OptionsModalRef}
+            className="absolute right-[40px] rounded-md border-1 border-black bg-white p-2 shadow-lg"
+          >
             <SelectedItemsOptionRow
               item={item}
-              setEditMode={setEditMode}
               handleHideItem={handleHideItem}
               handleDeleteItem={handleDeleteItem}
-              setEditingCaseId={setEditingCaseId}
+              setActiveOptionId={setActiveOptionId}
+              setActiveForm={setActiveForm}
+              d
             />
           </div>
         )}
@@ -60,35 +66,34 @@ function SelectedItemsOptions({
   return (
     <SelectedItemsOptionRow
       item={item}
-      setEditMode={setEditMode}
       handleHideItem={handleHideItem}
       handleDeleteItem={handleDeleteItem}
-      setEditingCaseId={setEditingCaseId}
+      setActiveOptionId={setActiveOptionId}
+      setActiveForm={setActiveForm}
     />
   );
 }
 
 function SelectedItemsOptionRow({
   item,
-  setEditMode,
   handleHideItem,
   handleDeleteItem,
-  setEditingCaseId,
+  setActiveForm,
+  setActiveOptionId,
 }) {
   return (
     <div className="flex gap-4">
       <button
-        type="button"
-        onMouseDown={() => {
-          setEditMode(true);
-          setEditingCaseId(null);
+        onClick={() => {
+          setActiveForm({ item: item, mode: "edit" });
+          setActiveOptionId(null);
         }}
         className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
       >
         <SquarePen height="18" width="18" className="stroke-icon" />
       </button>
       <button
-        onMouseDown={() => {
+        onClick={() => {
           handleHideItem(item.id);
         }}
         className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
@@ -100,7 +105,7 @@ function SelectedItemsOptionRow({
         )}
       </button>
       <button
-        onMouseDown={() => {
+        onClick={() => {
           handleDeleteItem(item.id);
         }}
         className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
