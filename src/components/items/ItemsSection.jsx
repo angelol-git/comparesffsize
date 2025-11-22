@@ -54,7 +54,10 @@ function ItemsSection({
   return (
     <section
       id="sidebar-wrapper"
-      className={`bg-off-white lg:border-border max-h-screen flex-col rounded-md p-4 lg:border-1 lg:py-4 ${isCanvasView && isMobile ? "hidden" : "flex"} h-full`}
+      className={`bg-off-white lg:border-border flex-col rounded-md p-4 lg:border-1 lg:py-4 ${
+        isCanvasView && isMobile ? "hidden" : "flex"
+      } h-full max-h-full`}
+      // className={`bg-off-white lg:border-border max-h-screen flex-col rounded-md p-4 lg:border-1 lg:py-4 ${isCanvasView && isMobile ? "hidden" : "flex"} h-full`}
     >
       <div className="h-full overflow-y-auto">
         <div className="flex items-center justify-between">

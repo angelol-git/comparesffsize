@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { v7 as uuidv7 } from "uuid";
-import { Save } from "lucide-react";
+import { Save, CircleX } from "lucide-react";
 import { CATEGORIES, COLORS, EMPTY_ITEM } from "./constants";
 import { useCaseData } from "../../../hooks/useCaseData";
 import MeasurementInputs from "./MeasurementInputs";
@@ -140,9 +140,9 @@ function ItemForm({
         {!isSelectedItemEmpty() && (
           <button
             type="submit"
-            className="bg-blue bg-accent-dark flex w-full cursor-pointer items-center justify-center gap-3 rounded-md py-2 text-sm text-white"
+            className="bg-blue bg-accent-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-md py-2 text-sm text-white"
           >
-            <Save height="16" width="16" />
+            <Save size={16} />
             Save
           </button>
         )}
@@ -152,8 +152,9 @@ function ItemForm({
           onClick={() => {
             setActiveForm(null);
           }}
-          className="bg-warm-white border-border col-start-2 w-full cursor-pointer items-center justify-center gap-3 rounded-md border-1 py-2 text-sm text-black"
+          className="border-border flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border-1 py-2 text-sm text-black"
         >
+          <CircleX size={16} />
           Cancel
         </button>
       </div>
