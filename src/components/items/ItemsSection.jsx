@@ -54,17 +54,17 @@ function ItemsSection({
   return (
     <section
       id="sidebar-wrapper"
-      className={`bg-off-white lg:border-border flex-col rounded-md p-4 lg:border-1 lg:py-4 ${
-        isCanvasView && isMobile ? "hidden" : "flex"
-      } h-full max-h-full`}
-      // className={`bg-off-white lg:border-border max-h-screen flex-col rounded-md p-4 lg:border-1 lg:py-4 ${isCanvasView && isMobile ? "hidden" : "flex"} h-full`}
+      // className={`bg-off-white lg:border-border flex-col rounded-md p-4 lg:border-1 lg:py-4 ${
+      //   isCanvasView && isMobile ? "hidden" : "flex"
+      // } h-full max-h-full`}
+      className={`bg-off-white lg:border-border max-h-screen flex-col rounded-md p-4 lg:border-1 lg:py-4 ${isCanvasView && isMobile ? "hidden" : "flex"} h-full`}
     >
       <div className="h-full overflow-y-auto">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold">My Items</h2>
           <button
             onClick={() => setActiveForm({ item: null, mode: "add" })}
-            className="bg-accent-dark flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white"
+            className="hover:bg-accent-hover bg-accent-dark flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white"
           >
             <Plus height="16" width="16" strokeWidth={2} />
             <span className="text-sm">Add New</span>

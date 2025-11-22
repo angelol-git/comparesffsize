@@ -15,10 +15,13 @@ body {
     --color-accent: #8DBAFF;
     --color-accent-dark: #5A8FE6;
     --color-accent-light: #D9E8FF;
+    --color-accent-hover: #4578D1;
     --color-dark-gray: #2F2F2F;
     --color-off-white: #F7F9FC;
     --color-gridline: #DFE6F2;
     --color-border: #CBD4E1;
     --color-icon: #A7B0C0;
     --color-secondary: #6E7685;
+    --color-black-hover: #333333;
+    --color-white-hover: #F2F4F7;
 }

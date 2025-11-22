@@ -121,20 +121,16 @@ function SelectOptions({ brand, items, open, selectedItem, setSelectedItem }) {
       className="flex w-full cursor-pointer flex-col"
     >
       <div
-        className={`flex items-center gap-2 rounded-md ${selectedItem.brand === brand ? "bg-gray-200/50" : null}`}
+        className={`hover:bg-white-hover flex items-center gap-2 rounded-md ${selectedItem.brand === brand ? "bg-accent/50" : null}`}
       >
-        {!isOpen ? (
-          <ChevronRight height="16" width="16" />
-        ) : (
-          <ChevronDown height="16" width="16" />
-        )}
+        {!isOpen ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
         <span className="font-semibold">{brand}</span>
       </div>
       {isOpen &&
         items.map((item) => (
           <button
             key={item.name}
-            className={`text-cream flex w-full cursor-pointer rounded-md pl-10 ${selectedItem.name === item.name ? "bg-gray-100/70" : null}`}
+            className={`hover:bg-white-hover text-cream flex w-full cursor-pointer rounded-md pl-10 ${selectedItem.name === item.name ? "bg-accent-light/50" : null}`}
             onClick={() => {
               setSelectedItem((prevState) => ({
                 ...prevState,

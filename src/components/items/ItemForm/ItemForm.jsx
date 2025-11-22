@@ -70,9 +70,7 @@ function ItemForm({
             <label
               key={categoryItem}
               htmlFor={categoryItem}
-              className={`${
-                category === categoryItem && "bg-black text-white"
-              } border-border flex cursor-pointer items-center rounded-md border-1 px-3 py-2`}
+              className={`border-border flex cursor-pointer items-center rounded-md border-1 px-3 py-2 transition-all duration-150 ${category === categoryItem ? "hover:bg-black-hover bg-black text-white transition-all duration-150" : "hover:bg-white-hover"} `}
             >
               <input
                 type="radio"
@@ -136,11 +134,11 @@ function ItemForm({
         setSelectedItem={setSelectedItem}
       />
 
-      <div className="grid grid-cols-2 items-center justify-end gap-3">
+      <div className="grid grid-cols-2 justify-end gap-3">
         {!isSelectedItemEmpty() && (
           <button
             type="submit"
-            className="bg-blue bg-accent-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-md py-2 text-sm text-white"
+            className="hover:bg-accent-hover bg-blue bg-accent-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-md py-2 text-sm text-white transition-all duration-150"
           >
             <Save size={16} />
             Save
@@ -152,7 +150,7 @@ function ItemForm({
           onClick={() => {
             setActiveForm(null);
           }}
-          className="border-border flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border-1 py-2 text-sm text-black"
+          className="border-border hover:bg-white-hover col-start-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border-1 py-2 text-sm text-black transition-all duration-150"
         >
           <CircleX size={16} />
           Cancel

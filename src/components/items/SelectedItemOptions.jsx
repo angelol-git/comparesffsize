@@ -82,35 +82,38 @@ function SelectedItemsOptionRow({
   setActiveOptionId,
 }) {
   return (
-    <div className="flex gap-4">
+    <div className="flex items-center gap-1">
       <button
         onClick={() => {
           setActiveForm({ item: item, mode: "edit" });
           setActiveOptionId(null);
         }}
-        className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
+        className="hover:bg-white-hover flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150"
       >
-        <SquarePen height="18" width="18" className="stroke-icon" />
+        <SquarePen size={20} className="stroke-icon" />
       </button>
+
       <button
         onClick={() => {
           handleHideItem(item.id);
         }}
-        className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
+        className="hover:bg-white-hover flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150"
       >
         {item.hide ? (
-          <EyeOff height="22" width="22" className="stroke-icon" />
+          <EyeOff size={20} className="stroke-icon" />
         ) : (
-          <Eye height="22" width="22" className="stroke-icon" />
+          <Eye size={20} className="stroke-icon" />
         )}
       </button>
       <button
         onClick={() => {
           handleDeleteItem(item.id);
         }}
-        className="flex cursor-pointer items-center justify-center rounded-md transition-colors duration-150 hover:bg-gray-200/30"
+        className="hover:bg-white-hover flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150"
       >
-        <X height="22" width="22" className="stroke-red-500" />
+        <div className="hover:bg-white-hover flex cursor-pointer items-center justify-center rounded-md p-2 transition-colors duration-150">
+          <X size={20} className="stroke-red-500" />
+        </div>
       </button>
     </div>
   );
