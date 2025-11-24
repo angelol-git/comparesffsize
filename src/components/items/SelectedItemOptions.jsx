@@ -1,14 +1,15 @@
 import { useRef, useEffect } from "react";
 import { X, SquarePen, EyeOff, Eye, Ellipsis } from "lucide-react";
+import useIsMobile from "../../hooks/useIsMobile";
 function SelectedItemsOptions({
   item,
-  isMobile,
   handleHideItem,
   handleDeleteItem,
   activeOptionId,
   setActiveOptionId,
   setActiveForm,
 }) {
+  const isMobile = useIsMobile();
   const OptionsModalRef = useRef(null);
   const buttonRef = useRef(null);
   useEffect(() => {

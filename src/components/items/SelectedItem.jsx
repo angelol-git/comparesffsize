@@ -9,7 +9,6 @@ function SelectedItem({
   activeOptionId,
   setActiveOptionId,
   setActiveForm,
-  isMobile,
 }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: item.id });
@@ -56,7 +55,6 @@ function SelectedItem({
         activeOptionId={activeOptionId}
         setActiveOptionId={setActiveOptionId}
         setActiveForm={setActiveForm}
-        isMobile={isMobile}
       />
     </div>
   );

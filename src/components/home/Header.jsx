@@ -1,6 +1,6 @@
 function Header() {
   return (
-    <header className="border-border w-full border-b-1 md:border-none">
+    <header className="border-border w-full border-b-1 sm:border-none">
       <h1 className="items-center gap-2 px-4 pb-2 text-2xl font-bold">
         <div>
           Compare<span className="text-sage">Sff</span>Size

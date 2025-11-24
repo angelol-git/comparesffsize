@@ -1,8 +1,11 @@
 import { Canvas } from "@react-three/fiber";
 import { Grid, OrbitControls, Bounds } from "@react-three/drei";
+import useIsMobile from "../../hooks/useIsMobile";
 import CanvasItems from "./CanvasItems";
 import CanvasLegend from "./CanvasLegend";
-function CanvasSection({ selectedItems, isCanvasView, isMobile }) {
+
+function CanvasSection({ selectedItems, isCanvasView }) {
+  const isMobile = useIsMobile();
   const filteredData = selectedItems.filter((item) => {
     return item.hide === false;
   });

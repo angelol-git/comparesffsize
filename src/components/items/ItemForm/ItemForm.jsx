@@ -132,6 +132,7 @@ function ItemForm({
       <MeasurementInputs
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
+        category={category}
       />
 
       <div className="grid grid-cols-2 justify-end gap-3">

@@ -13,11 +13,10 @@ import {
   verticalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-
-import SelectedItem from "./SelectedItem";
 import { Plus } from "lucide-react";
+import SelectedItem from "./SelectedItem";
 import ItemForm from "./ItemForm/ItemForm";
-
+import useIsMobile from "../../hooks/useIsMobile";
 function ItemsSection({
   selectedItems,
   setSelectedItems,
@@ -26,8 +25,8 @@ function ItemsSection({
   handleEditItem,
   handleHideItem,
   isCanvasView,
-  isMobile,
 }) {
+  const isMobile = useIsMobile();
   const [activeForm, setActiveForm] = useState({ item: null, mode: null });
   const [activeOptionId, setActiveOptionId] = useState(null);
   const itemFormRef = useRef(null);
@@ -64,7 +63,8 @@ function ItemsSection({
           <h2 className="text-xl font-bold">My Items</h2>
           <button
             onClick={() => setActiveForm({ item: null, mode: "add" })}
-            className="hover:bg-accent-hover bg-accent-dark flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white"
+            disabled={activeForm?.mode === "add"}
+            className={`flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white ${activeForm?.mode === "add" ? "bg-accent hover:bg-accent" : "bg-accent-dark hover:bg-accent-hover"} `}
           >
             <Plus height="16" width="16" strokeWidth={2} />
             <span className="text-sm">Add New</span>
@@ -106,7 +106,6 @@ function ItemsSection({
                       activeOptionId={activeOptionId}
                       setActiveOptionId={setActiveOptionId}
                       setActiveForm={setActiveForm}
-                      isMobile={isMobile}
                     />
                   )}
                 </li>

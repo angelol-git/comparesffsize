@@ -10,7 +10,6 @@ import "./reset.css";
 
 const queryClient = new QueryClient();
 function App() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [isCanvasView, setIsCanvasView] = useState(true);
   const {
     selectedItems,
@@ -21,22 +20,6 @@ function App() {
     handleHideItem,
   } = useItems();
 
-  useEffect(() => {
-    function handleResize() {
-      const mobile = window.innerWidth <= 1024;
-      setIsMobile(mobile);
-
-      if (mobile) {
-        setIsCanvasView(true);
-      }
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <div className="container mx-auto flex h-screen flex-col py-4">
@@ -46,7 +29,6 @@ function App() {
           <CanvasSection
             selectedItems={selectedItems}
             isCanvasView={isCanvasView}
-            isMobile={isMobile}
           />
           <ItemsSection
             selectedItems={selectedItems}
@@ -55,7 +37,6 @@ function App() {
             handleDeleteItem={handleDeleteItem}
             handleEditItem={handleEditItem}
             handleHideItem={handleHideItem}
-            isMobile={isMobile}
             isCanvasView={isCanvasView}
           />
           <MobileNav
