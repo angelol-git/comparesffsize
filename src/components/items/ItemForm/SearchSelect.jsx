@@ -8,6 +8,7 @@ function SearchSelect({
   setSelectedItem,
   isSelectedItemEmpty,
   clearSelectedItem,
+  category,
 }) {
   const SearchSelectRef = useRef(null);
   const [searchInput, setSearchInput] = useState("");
@@ -24,6 +25,10 @@ function SearchSelect({
     }
     return acc;
   }, {});
+
+  useEffect(() => {
+    setSearchInput("");
+  }, [category]);
 
   function handleKeyDown(event) {
     if (event.key === "Enter") {

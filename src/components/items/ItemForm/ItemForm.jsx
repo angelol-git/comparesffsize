@@ -28,7 +28,10 @@ function ItemForm({
 
   //New color will be based off of the previous item color
   function getColor() {
-    const lastColor = selectedItems[selectedItems.length - 1].color;
+    if (selectedItems.length === 0) {
+      return [COLORS[0]];
+    }
+    const lastColor = selectedItems[selectedItems?.length - 1].color;
     const lastIndexColor = COLORS.indexOf(lastColor);
     if (lastIndexColor === COLORS.length - 1) {
       return COLORS[0];
@@ -58,6 +61,19 @@ function ItemForm({
     return !brand && !name && !length && !width && !height && !volume;
   }
 
+  function handleCategoryChange(event) {
+    const newCategory = event.target.value;
+    setCategory(newCategory);
+    if (mode === "edit") {
+      if (newCategory === editItem.type) {
+        setSelectedItem(editItem);
+      } else {
+        setSelectedItem(EMPTY_ITEM);
+      }
+    } else {
+      setSelectedItem(EMPTY_ITEM);
+    }
+  }
   function handleSubmit(event) {
     event.preventDefault();
     if (mode === "add") {
@@ -101,9 +117,8 @@ function ItemForm({
                 name="category"
                 value={categoryItem}
                 checked={category === categoryItem}
-                onChange={() => {
-                  setCategory(event.target.value);
-                  setSelectedItem(EMPTY_ITEM);
+                onChange={(event) => {
+                  handleCategoryChange(event, category);
                 }}
                 className="sr-only"
               />
@@ -127,6 +142,7 @@ function ItemForm({
             clearSelectedItem={() => {
               setSelectedItem(EMPTY_ITEM);
             }}
+            category={category}
           />
         </div>
       )}
