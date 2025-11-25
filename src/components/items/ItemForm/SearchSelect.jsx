@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { X, ChevronDown, ChevronRight, Link } from "lucide-react";
 function SearchSelect({
   data,
+  color,
+  setColor,
   selectedItem,
   setSelectedItem,
   isSelectedItemEmpty,
@@ -39,8 +41,16 @@ function SearchSelect({
       <label htmlFor="search-input" className="font-semibold">
         Name
       </label>
-      <div className="flex w-full flex-col" ref={SearchSelectRef}>
-        <div className="relative flex flex-col items-center">
+      <div className="flex w-full flex-col gap-1" ref={SearchSelectRef}>
+        <div className="relative flex items-center gap-2">
+          <input
+            type="color"
+            value={color}
+            onChange={(event) => {
+              setColor(event.target.value);
+            }}
+            className="h-[30px] w-[28px] shrink-0"
+          />
           <input
             type="text"
             placeholder="Select..."
@@ -64,40 +74,39 @@ function SearchSelect({
                 clearSelectedItem();
                 setSearchInput("");
               }}
-              className="absolute top-[10px] right-[10px] z-10 cursor-pointer"
+              className="absolute right-[10px] z-20 cursor-pointer"
             >
               <X height="18" width="18" />
             </button>
           ) : null}
-
-          <div className="border-border my-1 h-[150px] w-full overflow-auto rounded-md border p-2">
-            {searchInput.length > 1 &&
-            Object.entries(filteredData).length === 0 ? (
-              <p className="text-gray-200/50">No cases found</p>
-            ) : (
-              Object.entries(filteredData).map(([brand, items]) => {
-                return searchInput.length === 0 ? (
-                  <SelectOptions
-                    brand={brand}
-                    items={items}
-                    open={false}
-                    key={brand}
-                    selectedItem={selectedItem}
-                    setSelectedItem={setSelectedItem}
-                  />
-                ) : (
-                  <SelectOptions
-                    brand={brand}
-                    items={items}
-                    open={true}
-                    key={brand}
-                    selectedItem={selectedItem}
-                    setSelectedItem={setSelectedItem}
-                  />
-                );
-              })
-            )}
-          </div>
+        </div>
+        <div className="border-border my-1 h-[150px] w-full overflow-auto rounded-md border p-2">
+          {searchInput.length > 1 &&
+          Object.entries(filteredData).length === 0 ? (
+            <p className="text-gray-200/50">No cases found</p>
+          ) : (
+            Object.entries(filteredData).map(([brand, items]) => {
+              return searchInput.length === 0 ? (
+                <SelectOptions
+                  brand={brand}
+                  items={items}
+                  open={false}
+                  key={brand}
+                  selectedItem={selectedItem}
+                  setSelectedItem={setSelectedItem}
+                />
+              ) : (
+                <SelectOptions
+                  brand={brand}
+                  items={items}
+                  open={true}
+                  key={brand}
+                  selectedItem={selectedItem}
+                  setSelectedItem={setSelectedItem}
+                />
+              );
+            })
+          )}
         </div>
       </div>
     </div>

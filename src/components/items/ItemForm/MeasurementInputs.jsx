@@ -3,8 +3,8 @@ import { Link, Unlink, Info } from "lucide-react";
 import useIsMobile from "../../../hooks/useIsMobile";
 function MeasurementInputs({ selectedItem, setSelectedItem, category }) {
   const isMobile = useIsMobile();
-  const [volumeIsLinked, setVolumeIsLinked] = useState(true);
   const toolTipTimeoutRef = useRef(null);
+  const [volumeIsLinked, setVolumeIsLinked] = useState(true);
   const [toolTip, setTooltip] = useState({
     type: null,
   });
@@ -54,7 +54,7 @@ function MeasurementInputs({ selectedItem, setSelectedItem, category }) {
     return () => {
       if (toolTipTimeoutRef.current) clearTimeout(toolTipTimeoutRef.current);
     };
-  });
+  }, []);
 
   return (
     <div className="flex w-full flex-col gap-2">

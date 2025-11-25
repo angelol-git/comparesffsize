@@ -92,10 +92,10 @@ function ItemsSection({
                     <ItemForm
                       mode={activeForm.mode}
                       editItem={activeForm.item}
+                      selectedItems={selectedItems}
                       handleAddItem={handleAddItem}
                       handleEditItem={handleEditItem}
                       setActiveForm={setActiveForm}
-                      selectedItemsLength={selectedItems.length}
                       itemFormRef={itemFormRef}
                     />
                   ) : (
@@ -118,10 +118,10 @@ function ItemsSection({
           <ItemForm
             mode={activeForm.mode}
             editItem={activeForm.item}
+            selectedItems={selectedItems}
             handleAddItem={handleAddItem}
             handleEditItem={handleEditItem}
             setActiveForm={setActiveForm}
-            selectedItemsLength={selectedItems.length}
             itemFormRef={itemFormRef}
           />
         )}

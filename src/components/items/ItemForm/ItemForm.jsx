@@ -9,9 +9,9 @@ import SearchSelect from "./SearchSelect";
 function ItemForm({
   mode,
   editItem,
+  selectedItems,
   handleAddItem,
   handleEditItem,
-  selectedItemsLength,
   setActiveForm,
   itemFormRef,
 }) {
@@ -21,7 +21,27 @@ function ItemForm({
   const [category, setCategory] = useState(
     mode === "edit" ? editItem.type : "case",
   );
+  const [color, setColor] = useState(() =>
+    mode === "add" ? getColor() : selectedItem.color,
+  );
   const { data, isLoading, isError } = useCaseData(category);
+
+  //New color will be based off of the previous item color
+  function getColor() {
+    const lastColor = selectedItems[selectedItems.length - 1].color;
+    const lastIndexColor = COLORS.indexOf(lastColor);
+    if (lastIndexColor === COLORS.length - 1) {
+      return COLORS[0];
+    }
+
+    //Last item used a custom color
+    if (lastIndexColor === -1) {
+      const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+      return randomColor;
+    }
+
+    return COLORS[(lastIndexColor + 1) % COLORS.length];
+  }
 
   useEffect(() => {
     if (itemFormRef?.current) {
@@ -46,11 +66,15 @@ function ItemForm({
         id: uuidv7(),
         hide: false,
         type: category,
-        color: COLORS[selectedItemsLength % COLORS.length],
+        color: color,
       };
       handleAddItem(newItem);
     } else {
-      handleEditItem(selectedItem);
+      const newItem = {
+        ...selectedItem,
+        color: color,
+      };
+      handleEditItem(newItem);
     }
     setSelectedItem(EMPTY_ITEM);
     setActiveForm(null);
@@ -60,7 +84,6 @@ function ItemForm({
     <form
       id="add-item-form"
       className="border-border flex w-full flex-col gap-4 rounded-md border-1 bg-white p-4 text-sm"
-      // style={mode === "edit" ? { borderColor: editItem.color } : {}}
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col gap-3">
@@ -94,7 +117,10 @@ function ItemForm({
       {data && (category === "case" || category === "other") && (
         <div className="flex flex-col gap-3">
           <SearchSelect
+            mode={mode}
             data={data}
+            color={color}
+            setColor={setColor}
             selectedItem={selectedItem}
             setSelectedItem={setSelectedItem}
             isSelectedItemEmpty={isSelectedItemEmpty}
