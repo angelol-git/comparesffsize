@@ -28,6 +28,7 @@ function App() {
           <CanvasSection
             selectedItems={selectedItems}
             isCanvasView={isCanvasView}
+            setIsCanvasView={setIsCanvasView}
           />
           <ItemsSection
             selectedItems={selectedItems}

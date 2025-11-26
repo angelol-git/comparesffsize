@@ -4,15 +4,15 @@ import useIsMobile from "../../hooks/useIsMobile";
 import CanvasItems from "./CanvasItems";
 import CanvasLegend from "./CanvasLegend";
 
-function CanvasSection({ selectedItems, isCanvasView }) {
-  const isMobile = useIsMobile();
+function CanvasSection({ selectedItems, isCanvasView, setIsCanvasView }) {
+  const isMobile = useIsMobile(setIsCanvasView);
   const filteredData = selectedItems.filter((item) => {
     return item.hide === false;
   });
   return (
     <section
       id="canvas-wrapper"
-      className={`bg-off-white relative min-w-0 ${isCanvasView ? "grid" : "hidden"} h-full`}
+      className={`bg-off-white relative h-full min-w-0 ${isCanvasView ? "grid" : "hidden"}`}
     >
       <Canvas camera={{ position: [10, 15, 20], fov: 75 }}>
         <directionalLight position={[10, 10, 1]} />

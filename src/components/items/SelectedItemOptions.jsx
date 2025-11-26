@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { X, SquarePen, EyeOff, Eye, Ellipsis } from "lucide-react";
+import { Trash2, SquarePen, EyeOff, Eye, Ellipsis } from "lucide-react";
 import useIsMobile from "../../hooks/useIsMobile";
 function SelectedItemsOptions({
   item,
@@ -89,7 +89,7 @@ function SelectedItemsOptionRow({
           setActiveForm({ item: item, mode: "edit" });
           setActiveOptionId(null);
         }}
-        className="hover:bg-white-hover flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150"
+        className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150 ${!item.hide ? "hover:bg-white-hover" : "hover:bg-white"}`}
       >
         <SquarePen size={20} className="stroke-icon" />
       </button>
@@ -98,7 +98,7 @@ function SelectedItemsOptionRow({
         onClick={() => {
           handleHideItem(item.id);
         }}
-        className="hover:bg-white-hover flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150"
+        className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150 ${!item.hide ? "hover:bg-white-hover" : "hover:bg-white"}`}
       >
         {item.hide ? (
           <EyeOff size={20} className="stroke-icon" />
@@ -110,11 +110,9 @@ function SelectedItemsOptionRow({
         onClick={() => {
           handleDeleteItem(item.id);
         }}
-        className="hover:bg-white-hover flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150"
+        className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150 ${!item.hide ? "hover:bg-white-hover" : "hover:bg-white"}`}
       >
-        <div className="hover:bg-white-hover flex cursor-pointer items-center justify-center rounded-md p-2 transition-colors duration-150">
-          <X size={20} className="stroke-red-500" />
-        </div>
+        <Trash2 size={20} className="stroke-red-400" />
       </button>
     </div>
   );

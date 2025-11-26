@@ -1,4 +1,5 @@
 import { Box, List } from "lucide-react";
+
 function MobileNav({ isCanvasView, setIsCanvasView }) {
   return (
     <nav className="w-full bg-white py-2 lg:hidden">
