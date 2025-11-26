@@ -48,6 +48,7 @@ function ItemForm({
 
   useEffect(() => {
     if (itemFormRef?.current) {
+      console.log("here");
       itemFormRef.current.scrollIntoView({
         behavior: "smooth",
         block: "end",
@@ -101,6 +102,7 @@ function ItemForm({
       id="add-item-form"
       className="border-border flex w-full flex-col gap-4 rounded-md border-1 bg-white p-4 text-sm"
       onSubmit={handleSubmit}
+      ref={itemFormRef}
     >
       <div className="flex flex-col gap-3">
         <h3 className="font-semibold">Category</h3>
