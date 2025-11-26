@@ -26,7 +26,6 @@ function ItemForm({
   );
   const { data, isLoading, isError } = useCaseData(category);
 
-  console.log(selectedItems);
   //New color will be based off of the previous item color
   function getColor() {
     if (selectedItems.length === 0) {

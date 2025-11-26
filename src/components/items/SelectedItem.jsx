@@ -21,7 +21,7 @@ function SelectedItem({
       style={{
         ...style,
       }}
-      className="border-border flex w-full justify-between rounded-md border-1 bg-white px-2 py-4"
+      className={`flex w-full justify-between rounded-lg border-1 px-2 py-4 ${!item.hide ? "border-accent bg-accent-light/10" : "border-gray-400 bg-gray-400/10"}`}
     >
       <div className="flex items-center gap-3 lg:gap-4">
         <div
@@ -35,16 +35,17 @@ function SelectedItem({
         <div
           style={{ backgroundColor: item.hide ? "#4B4B4B" : item.color }}
           className="flex h-[20px] w-[20px] shrink-0 rounded-md lg:h-[24px] lg:w-[24px]"
-        ></div>
-        <div>
-          <div className="font-bold">
-            {item.brand} - {item.name}
-          </div>
-          <div className="text-secondary text-sm">
-            {`${item.measurements.length} ×
+        />
+        <div className="flex flex-col">
+          <div className="font-bold">{item.name}</div>
+          <div className="text-secondary flex flex-col gap-1 text-sm">
+            <div className="">{item.brand}</div>
+            <div className="font-mono text-sm">
+              {`${item.measurements.length} ×
             ${item.measurements.width} ×
             ${item.measurements.height} mm
             (${item.measurements.volume} L)`}
+            </div>
           </div>
         </div>
       </div>
