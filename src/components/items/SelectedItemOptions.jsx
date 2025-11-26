@@ -110,9 +110,9 @@ function SelectedItemsOptionRow({
         onClick={() => {
           handleDeleteItem(item.id);
         }}
-        className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150 ${!item.hide ? "hover:bg-white-hover" : "hover:bg-white"}`}
+        className={`group flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150 hover:stroke-red-400 ${!item.hide ? "hover:bg-red-400/10" : "hover:bg-white"}`}
       >
-        <Trash2 size={20} className="stroke-red-400" />
+        <Trash2 size={20} className="stroke-icon group-hover:stroke-red-400" />
       </button>
     </div>
   );

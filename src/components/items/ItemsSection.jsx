@@ -53,25 +53,26 @@ function ItemsSection({
   return (
     <section
       id="sidebar-wrapper"
-      className={`border-border max-h-screen flex-col border-l-1 bg-white p-4 lg:py-4 ${isCanvasView && isMobile ? "hidden" : "flex"} h-full`}
+      className={`border-border flex max-h-full flex-1 flex-col overflow-y-auto border-l-1 p-4 lg:py-4 ${
+        isCanvasView && isMobile ? "hidden" : ""
+      }`}
     >
-      <div className="h-full overflow-y-auto">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold">My Items</h2>
-          <button
-            onClick={() => setActiveForm({ item: null, mode: "add" })}
-            disabled={activeForm?.mode === "add"}
-            className={`flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white ${activeForm?.mode === "add" ? "bg-accent hover:bg-accent" : "bg-accent-dark hover:bg-accent-hover"} `}
-          >
-            <Plus height="16" width="16" strokeWidth={2} />
-            <span className="text-sm">Add New</span>
-          </button>
-        </div>
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-bold">My Items</h2>
+        <button
+          onClick={() => setActiveForm({ item: null, mode: "add" })}
+          disabled={activeForm?.mode === "add"}
+          className={`flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white ${activeForm?.mode === "add" ? "bg-accent hover:bg-accent" : "bg-accent-dark hover:bg-accent-hover"} `}
+        >
+          <Plus height="16" width="16" strokeWidth={2} />
+          <span className="text-sm">Add New</span>
+        </button>
+      </div>
 
-        {selectedItems.length === 0 && !activeForm && (
-          <div>No items selected yet</div>
-        )}
-
+      {selectedItems.length === 0 && !activeForm && (
+        <div>No items selected yet</div>
+      )}
+      <div className="flex flex-1 flex-col gap-3 rounded-md py-4">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -81,7 +82,7 @@ function ItemsSection({
             items={selectedItems.map((item) => item.id)}
             strategy={verticalListSortingStrategy}
           >
-            <ul className="flex flex-1 list-none flex-col gap-3 py-4">
+            <ul className="flex flex-col gap-3">
               {selectedItems.map((item) => (
                 <li key={item.id}>
                   {activeForm?.mode === "edit" &&

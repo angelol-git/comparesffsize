@@ -22,9 +22,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex h-screen flex-col py-4">
+      <div className="flex h-screen flex-col overflow-hidden py-3">
         <Header />
-        <main className="grid h-full grid-cols-1 grid-rows-1 lg:grid-cols-[1.75fr_1fr]">
+        <main className="flex flex-1 flex-col overflow-hidden lg:grid lg:grid-cols-[1.75fr_1fr]">
           <CanvasSection
             selectedItems={selectedItems}
             isCanvasView={isCanvasView}
@@ -39,11 +39,11 @@ function App() {
             handleHideItem={handleHideItem}
             isCanvasView={isCanvasView}
           />
-          <MobileNav
-            isCanvasView={isCanvasView}
-            setIsCanvasView={setIsCanvasView}
-          />
         </main>
+        <MobileNav
+          isCanvasView={isCanvasView}
+          setIsCanvasView={setIsCanvasView}
+        />
       </div>
     </QueryClientProvider>
   );

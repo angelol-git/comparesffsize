@@ -33,14 +33,10 @@ function ItemForm({
     }
     const lastColor = selectedItems[selectedItems?.length - 1].color;
     const lastIndexColor = COLORS.indexOf(lastColor);
-    if (lastIndexColor === COLORS.length - 1) {
-      return COLORS[0];
-    }
 
     //Last item used a custom color
     if (lastIndexColor === -1) {
-      const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-      return randomColor;
+      return COLORS[Math.floor(Math.random() * COLORS.length)];
     }
 
     return COLORS[(lastIndexColor + 1) % COLORS.length];

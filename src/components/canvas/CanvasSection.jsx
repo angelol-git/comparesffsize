@@ -18,7 +18,7 @@ function CanvasSection({ selectedItems, isCanvasView, setIsCanvasView }) {
         <directionalLight position={[10, 10, 1]} />
         <ambientLight intensity={2.5} />
 
-        <Bounds fit={false} clip observe margin={1.5}>
+        <Bounds fit={false} clip observe margin={`${isMobile ? 1 : 1.5}`}>
           <CanvasItems filteredData={filteredData} />
         </Bounds>
 
