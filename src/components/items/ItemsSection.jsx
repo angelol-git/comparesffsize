@@ -69,7 +69,7 @@ function ItemsSection({
         </button>
       </div>
 
-      {selectedItems.length === 0 && !activeForm && (
+      {selectedItems.length === 0 && activeForm?.mode === null && (
         <div>No items selected yet</div>
       )}
       <div className="flex flex-1 flex-col gap-3 rounded-md py-4">

@@ -44,7 +44,6 @@ function ItemForm({
 
   useEffect(() => {
     if (itemFormRef?.current) {
-      console.log("here");
       itemFormRef.current.scrollIntoView({
         behavior: "smooth",
         block: "end",
@@ -90,7 +89,7 @@ function ItemForm({
       handleEditItem(newItem);
     }
     setSelectedItem(EMPTY_ITEM);
-    setActiveForm(null);
+    setActiveForm({ item: null, mode: null });
   }
 
   return (
@@ -107,7 +106,7 @@ function ItemForm({
             <label
               key={categoryItem}
               htmlFor={categoryItem}
-              className={`border-border flex cursor-pointer items-center rounded-md border-1 px-3 py-2 transition-all duration-150 ${category === categoryItem ? "hover:bg-black-hover bg-black text-white transition-all duration-150" : "hover:bg-white-hover"} `}
+              className={`border-border focus-within:outline-accent flex cursor-pointer items-center rounded-md border-1 px-3 py-2 transition-all duration-150 focus-within:outline-2 ${category === categoryItem ? "hover:bg-black-hover bg-black text-white transition-all duration-150" : "hover:bg-white-hover"} `}
             >
               <input
                 type="radio"
@@ -189,7 +188,7 @@ function ItemForm({
         <button
           type="button"
           onClick={() => {
-            setActiveForm(null);
+            setActiveForm({ item: null, mode: null });
           }}
           className="border-border hover:bg-white-hover col-start-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border-1 py-2 text-sm text-black transition-all duration-150"
         >

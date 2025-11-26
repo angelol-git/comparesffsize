@@ -61,7 +61,12 @@ function MeasurementInputs({ selectedItem, setSelectedItem, category }) {
       <div className="relative flex w-full items-center justify-between gap-2">
         <div className="flex gap-2">
           <h3 className="font-semibold">Measurements (mm)</h3>
-          <div
+          <button
+            type="button"
+            aria-label="Info about measurements"
+            aria-describedby="measurement-info-tooltip"
+            onFocus={() => setTooltip({ type: "info" })}
+            onBlur={() => setTooltip({ type: null })}
             onClick={() => {
               isMobile ? handleToolTipWithTimer("info") : undefined;
             }}
@@ -75,16 +80,23 @@ function MeasurementInputs({ selectedItem, setSelectedItem, category }) {
           >
             <Info height="18" width="18" />
             {toolTip.type === "info" && (
-              <div className="absolute left-0 z-10 w-[250px] rounded-md bg-gray-700 p-2 text-left text-xs text-white opacity-90">
+              <div
+                id="measurement-info-tooltip"
+                role="tooltip"
+                className="absolute left-0 z-10 w-[250px] rounded-md bg-gray-700 p-2 text-left text-xs text-white opacity-90"
+              >
                 The default measurements are provided by the manufacturer and
                 reflect the case’s largest supported configuration.
               </div>
             )}
-          </div>
+          </button>
         </div>
         <button
-          className="relative cursor-pointer rounded-md p-1 hover:bg-gray-100"
           type="button"
+          aria-label={volumeIsLinked ? "Unlink volume" : "Link volume"}
+          aria-describedby="volume-link-tooltip"
+          onFocus={() => setTooltip({ type: "link" })}
+          onBlur={() => setTooltip({ type: null })}
           onClick={() => {
             isMobile ? handleToolTipWithTimer("link") : undefined;
             setVolumeIsLinked((prev) => !prev);
@@ -95,6 +107,7 @@ function MeasurementInputs({ selectedItem, setSelectedItem, category }) {
           onMouseLeave={() => {
             !isMobile ? setTooltip({ type: null }) : undefined;
           }}
+          className="relative cursor-pointer rounded-md p-1 hover:bg-gray-100"
         >
           {volumeIsLinked ? (
             <Link height="18" width="18" />
@@ -103,7 +116,11 @@ function MeasurementInputs({ selectedItem, setSelectedItem, category }) {
           )}
 
           {toolTip.type === "link" && (
-            <div className="absolute right-0 z-10 w-[200px] rounded-md bg-gray-700 p-2 text-xs text-white opacity-90">
+            <div
+              id="volume-link-tooltip"
+              role="tooltip"
+              className="absolute right-0 z-10 w-[200px] rounded-md bg-gray-700 p-2 text-xs text-white opacity-90"
+            >
               Automatically calculate the item's volume based on the length,
               width and height.
             </div>

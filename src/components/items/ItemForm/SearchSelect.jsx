@@ -88,7 +88,7 @@ function SearchSelect({
         <div className="border-border my-1 h-[150px] w-full overflow-auto rounded-md border p-2">
           {searchInput.length > 1 &&
           Object.entries(filteredData).length === 0 ? (
-            <p className="text-gray-200/50">No cases found</p>
+            <p>No cases found</p>
           ) : (
             Object.entries(filteredData).map(([brand, items]) => {
               return searchInput.length === 0 ? (
@@ -132,6 +132,11 @@ function SelectOptions({ brand, items, open, selectedItem, setSelectedItem }) {
       onClick={() => {
         setIsOpen(!isOpen);
       }}
+      onKeyDown={(event) => {
+        if (event.key === "Enter") {
+          setIsOpen(!isOpen);
+        }
+      }}
       className="flex w-full cursor-pointer flex-col"
     >
       <div
@@ -152,6 +157,16 @@ function SelectOptions({ brand, items, open, selectedItem, setSelectedItem }) {
                 name: item.name,
                 measurements: item.measurements,
               }));
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                setSelectedItem((prevState) => ({
+                  ...prevState,
+                  brand: brand,
+                  name: item.name,
+                  measurements: item.measurements,
+                }));
+              }
             }}
           >
             {item.name}
