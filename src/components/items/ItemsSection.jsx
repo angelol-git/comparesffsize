@@ -17,7 +17,6 @@ import { Plus } from "lucide-react";
 import Item from "./Item";
 import ItemForm from "./ItemForm/ItemForm";
 import useIsMobile from "../../hooks/useIsMobile";
-import { Return } from "three/src/nodes/TSL.js";
 function ItemsSection({
   items,
   handleAddItem,

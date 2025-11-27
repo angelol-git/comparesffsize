@@ -9,7 +9,7 @@ import SearchSelect from "./SearchSelect";
 function ItemForm({
   mode,
   editItem,
-  selectedItems,
+  items,
   handleAddItem,
   handleEditItem,
   setActiveForm,
@@ -28,10 +28,10 @@ function ItemForm({
 
   //New color will be based off of the previous item color
   function getColor() {
-    if (selectedItems.length === 0) {
+    if (items.length === 0) {
       return COLORS[0];
     }
-    const lastColor = selectedItems[selectedItems?.length - 1].color;
+    const lastColor = items[items?.length - 1].color;
     const lastIndexColor = COLORS.indexOf(lastColor);
 
     //Last item used a custom color
