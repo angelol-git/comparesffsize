@@ -81,7 +81,7 @@ function SearchSelect({
               }}
               className="absolute right-[10px] z-20 cursor-pointer"
             >
-              <X height="18" width="18" />
+              <X size={18} />
             </button>
           ) : null}
         </div>

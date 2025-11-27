@@ -78,7 +78,7 @@ function MeasurementInputs({ selectedItem, setSelectedItem, category }) {
             }}
             className="cursor-pointer"
           >
-            <Info height="18" width="18" />
+            <Info size={18} />
             {toolTip.type === "info" && (
               <div
                 id="measurement-info-tooltip"
@@ -109,11 +109,7 @@ function MeasurementInputs({ selectedItem, setSelectedItem, category }) {
           }}
           className="relative cursor-pointer rounded-md p-1 hover:bg-gray-100"
         >
-          {volumeIsLinked ? (
-            <Link height="18" width="18" />
-          ) : (
-            <Unlink height="18" width="18" />
-          )}
+          {volumeIsLinked ? <Link size={18} /> : <Unlink size={18} />}
 
           {toolTip.type === "link" && (
             <div

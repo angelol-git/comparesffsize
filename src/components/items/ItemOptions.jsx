@@ -43,7 +43,7 @@ function ItemOptions({
           type="button"
           className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md transition-colors hover:bg-gray-200/30"
         >
-          <Ellipsis height="22" width="22" className="stroke-icon" />
+          <Ellipsis size={22} className="stroke-icon" />
         </button>
 
         {activeOptionId === item.id && (

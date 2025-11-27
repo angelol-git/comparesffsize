@@ -63,7 +63,7 @@ function ItemsSection({
           disabled={activeForm?.mode === "add"}
           className={`flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white ${activeForm?.mode === "add" ? "bg-accent hover:bg-accent" : "bg-accent-dark hover:bg-accent-hover"} `}
         >
-          <Plus height="16" width="16" strokeWidth={2} />
+          <Plus size={16} strokeWidth={2} />
           <span className="text-sm">Add New</span>
         </button>
       </div>

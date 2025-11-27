@@ -30,7 +30,7 @@ function Item({
           /* touch-none overrides any browser default touch events like scroll, zoom and etc*/
           className="cursor-grab touch-none"
         >
-          <GripVertical height="22" width="22" className="stroke-icon" />
+          <GripVertical size={22} className="stroke-icon" />
         </div>
         <div
           style={{ backgroundColor: item.hide ? "#4B4B4B" : item.color }}
