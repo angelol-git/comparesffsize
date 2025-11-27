@@ -12,12 +12,12 @@ const queryClient = new QueryClient();
 function App() {
   const [isCanvasView, setIsCanvasView] = useState(true);
   const {
-    selectedItems,
-    setSelectedItems,
+    items,
     handleAddItem,
     handleDeleteItem,
     handleEditItem,
     handleHideItem,
+    handleReorderItems,
   } = useItems();
 
   return (
@@ -26,17 +26,17 @@ function App() {
         <Header />
         <main className="flex flex-1 flex-col overflow-hidden lg:grid lg:grid-cols-[1.75fr_1fr]">
           <CanvasSection
-            selectedItems={selectedItems}
+            items={items}
             isCanvasView={isCanvasView}
             setIsCanvasView={setIsCanvasView}
           />
           <ItemsSection
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
+            items={items}
             handleAddItem={handleAddItem}
             handleDeleteItem={handleDeleteItem}
             handleEditItem={handleEditItem}
             handleHideItem={handleHideItem}
+            handleReorderItems={handleReorderItems}
             isCanvasView={isCanvasView}
           />
         </main>

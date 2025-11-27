@@ -14,16 +14,17 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { Plus } from "lucide-react";
-import SelectedItem from "./SelectedItem";
+import Item from "./Item";
 import ItemForm from "./ItemForm/ItemForm";
 import useIsMobile from "../../hooks/useIsMobile";
+import { Return } from "three/src/nodes/TSL.js";
 function ItemsSection({
-  selectedItems,
-  setSelectedItems,
+  items,
   handleAddItem,
   handleDeleteItem,
   handleEditItem,
   handleHideItem,
+  handleReorderItems,
   isCanvasView,
 }) {
   const isMobile = useIsMobile();
@@ -42,11 +43,9 @@ function ItemsSection({
     if (!over) return;
     if (active.id === over.id) return;
     if (active.id !== over.id) {
-      setSelectedItems((items) => {
-        const oldIndex = items.findIndex((i) => i.id === active.id);
-        const newIndex = items.findIndex((i) => i.id === over.id);
-        return arrayMove(items, oldIndex, newIndex);
-      });
+      const oldIndex = items.findIndex((i) => i.id === active.id);
+      const newIndex = items.findIndex((i) => i.id === over.id);
+      handleReorderItems(arrayMove(items, oldIndex, newIndex));
     }
   }
 
@@ -69,7 +68,7 @@ function ItemsSection({
         </button>
       </div>
 
-      {selectedItems.length === 0 && activeForm?.mode === null && (
+      {items.length === 0 && activeForm?.mode === null && (
         <div>No items selected yet</div>
       )}
       <div className="flex flex-1 flex-col gap-3 rounded-md py-4">
@@ -79,25 +78,25 @@ function ItemsSection({
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={selectedItems.map((item) => item.id)}
+            items={items.map((item) => item.id)}
             strategy={verticalListSortingStrategy}
           >
             <ul className="flex flex-col gap-3">
-              {selectedItems.map((item) => (
+              {items.map((item) => (
                 <li key={item.id}>
                   {activeForm?.mode === "edit" &&
                   activeForm.item.id === item.id ? (
                     <ItemForm
                       mode={activeForm.mode}
                       editItem={activeForm.item}
-                      selectedItems={selectedItems}
+                      items={items}
                       handleAddItem={handleAddItem}
                       handleEditItem={handleEditItem}
                       setActiveForm={setActiveForm}
                       itemFormRef={itemFormRef}
                     />
                   ) : (
-                    <SelectedItem
+                    <Item
                       item={item}
                       handleHideItem={handleHideItem}
                       handleDeleteItem={handleDeleteItem}
@@ -116,7 +115,7 @@ function ItemsSection({
           <ItemForm
             mode={activeForm.mode}
             editItem={activeForm.item}
-            selectedItems={selectedItems}
+            items={items}
             handleAddItem={handleAddItem}
             handleEditItem={handleEditItem}
             setActiveForm={setActiveForm}

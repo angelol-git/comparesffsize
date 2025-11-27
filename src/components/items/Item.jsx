@@ -1,8 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import SelectedItemsOptions from "./SelectedItemOptions";
+import ItemOptions from "./ItemOptions";
 import { GripVertical } from "lucide-react";
-function SelectedItem({
+function Item({
   item,
   handleHideItem,
   handleDeleteItem,
@@ -49,7 +49,7 @@ function SelectedItem({
           </div>
         </div>
       </div>
-      <SelectedItemsOptions
+      <ItemOptions
         item={item}
         handleHideItem={handleHideItem}
         handleDeleteItem={handleDeleteItem}
@@ -61,4 +61,4 @@ function SelectedItem({
   );
 }
 
-export default SelectedItem;
+export default Item;

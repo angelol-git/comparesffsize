@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Trash2, SquarePen, EyeOff, Eye, Ellipsis } from "lucide-react";
 import useIsMobile from "../../hooks/useIsMobile";
-function SelectedItemsOptions({
+function ItemOptions({
   item,
   handleHideItem,
   handleDeleteItem,
@@ -51,7 +51,7 @@ function SelectedItemsOptions({
             ref={OptionsModalRef}
             className="border-border absolute right-[40px] rounded-md border-1 bg-white p-2 shadow-lg"
           >
-            <SelectedItemsOptionRow
+            <ItemOptionRow
               item={item}
               handleHideItem={handleHideItem}
               handleDeleteItem={handleDeleteItem}
@@ -65,7 +65,7 @@ function SelectedItemsOptions({
     );
   }
   return (
-    <SelectedItemsOptionRow
+    <ItemOptionRow
       item={item}
       handleHideItem={handleHideItem}
       handleDeleteItem={handleDeleteItem}
@@ -75,7 +75,7 @@ function SelectedItemsOptions({
   );
 }
 
-function SelectedItemsOptionRow({
+function ItemOptionRow({
   item,
   handleHideItem,
   handleDeleteItem,
@@ -117,4 +117,4 @@ function SelectedItemsOptionRow({
     </div>
   );
 }
-export default SelectedItemsOptions;
+export default ItemOptions;

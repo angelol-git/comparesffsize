@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 export function useItems() {
-  const [selectedItems, setSelectedItems] = useState(() => {
+  const [items, setItems] = useState(() => {
     try {
       const stored = localStorage.getItem("compareSffSize");
       return stored ? JSON.parse(stored) : [];
@@ -11,38 +11,42 @@ export function useItems() {
   });
 
   useEffect(() => {
-    localStorage.setItem("compareSffSize", JSON.stringify(selectedItems));
-  }, [selectedItems]);
+    localStorage.setItem("compareSffSize", JSON.stringify(items));
+  }, [items]);
 
   function handleAddItem(item) {
-    setSelectedItems((prev) => [...prev, item]);
+    setItems((prev) => [...prev, item]);
   }
 
   function handleDeleteItem(id) {
-    const updatedItems = selectedItems.filter((data) => data.id !== id);
-    setSelectedItems(updatedItems);
+    const updatedItems = items.filter((data) => data.id !== id);
+    setItems(updatedItems);
   }
 
   function handleEditItem(updatedItem) {
-    const updatedItems = selectedItems.map((prevItem) =>
+    const updatedItems = items.map((prevItem) =>
       prevItem.id === updatedItem.id ? updatedItem : prevItem,
     );
-    setSelectedItems(updatedItems);
+    setItems(updatedItems);
   }
 
   function handleHideItem(id) {
-    const updatedItems = selectedItems.map((prevItem) =>
+    const updatedItems = items.map((prevItem) =>
       prevItem.id === id ? { ...prevItem, hide: !prevItem.hide } : prevItem,
     );
-    setSelectedItems(updatedItems);
+    setItems(updatedItems);
+  }
+
+  function handleReorderItems(newOrder) {
+    setItems(newOrder);
   }
 
   return {
-    selectedItems,
+    items,
     handleAddItem,
     handleDeleteItem,
     handleEditItem,
     handleHideItem,
-    setSelectedItems,
+    handleReorderItems,
   };
 }

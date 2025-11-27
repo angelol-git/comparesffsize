@@ -4,9 +4,9 @@ import useIsMobile from "../../hooks/useIsMobile";
 import CanvasItems from "./CanvasItems";
 import CanvasLegend from "./CanvasLegend";
 
-function CanvasSection({ selectedItems, isCanvasView, setIsCanvasView }) {
+function CanvasSection({ items, isCanvasView, setIsCanvasView }) {
   const isMobile = useIsMobile(setIsCanvasView);
-  const filteredData = selectedItems.filter((item) => {
+  const filteredData = items.filter((item) => {
     return item.hide === false;
   });
   return (
