@@ -37,8 +37,8 @@ export function useItems() {
     setItems(updatedItems);
   }
 
-  function handleReorderItems(newOrder) {
-    setItems(newOrder);
+  function handleReorderItems(updatedOrder) {
+    setItems(updatedOrder);
   }
 
   return {
