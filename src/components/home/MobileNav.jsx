@@ -2,7 +2,7 @@ import { Box, List } from "lucide-react";
 
 function MobileNav({ isCanvasView, setIsCanvasView }) {
   return (
-    <nav className="w-full bg-white py-2 lg:hidden">
+    <nav className="w-full bg-white px-2 pt-2 lg:hidden">
       <div className="flex justify-between rounded-md bg-gray-200 p-1 text-sm">
         <button
           role="tab"
