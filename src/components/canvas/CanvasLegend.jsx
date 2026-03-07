@@ -6,7 +6,7 @@ function CanvasLegend({ filteredData }) {
           <li key={item.id} className="flex items-center gap-2 text-xs">
             <div
               style={{ backgroundColor: item.color }}
-              className="flex h-[16px] w-[16px] shrink-0 cursor-pointer items-center rounded-md lg:h-[24px] lg:w-[24px]"
+              className="flex h-[16px] w-[16px] shrink-0 items-center rounded-md lg:h-[24px] lg:w-[24px]"
             />
             <div>
               {item.name} -

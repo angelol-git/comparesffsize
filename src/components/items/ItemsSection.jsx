@@ -64,15 +64,15 @@ function ItemsSection({
         <h2 className="text-xl font-bold">My Items</h2>
         <button
           onClick={() => setActiveForm({ item: null, mode: "add" })}
-          disabled={activeForm?.mode === "add"}
-          className={`flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white ${activeForm?.mode === "add" ? "bg-accent hover:bg-accent" : "bg-accent-dark hover:bg-accent-hover"} `}
+          disabled={activeForm.mode === "add"}
+          className={`flex cursor-pointer items-center justify-center gap-3 rounded-md px-3 py-2 text-white ${activeForm.mode === "add" ? "bg-accent hover:bg-accent" : "bg-accent-dark hover:bg-accent-hover"} `}
         >
           <Plus size={16} strokeWidth={2} />
           <span className="text-sm">Add New</span>
         </button>
       </div>
 
-      {items.length === 0 && activeForm?.mode === null && (
+      {items.length === 0 && activeForm.mode === null && (
         <div>No items selected yet</div>
       )}
       <div className="flex flex-1 flex-col gap-3 rounded-md py-4">
@@ -88,7 +88,7 @@ function ItemsSection({
             <ul className="flex flex-col gap-3">
               {items.map((item) => (
                 <li key={item.id}>
-                  {activeForm?.mode === "edit" &&
+                  {activeForm.mode === "edit" &&
                   activeForm.item.id === item.id ? (
                     <ItemForm
                       mode={activeForm.mode}

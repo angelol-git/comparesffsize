@@ -7,7 +7,7 @@ import CanvasLegend from "./CanvasLegend";
 function CanvasSection({ items, isCanvasView, setIsCanvasView }) {
   const isMobile = useIsMobile(setIsCanvasView);
   const filteredData = items.filter((item) => {
-    return item.hide === false;
+    return !item.hide;
   });
   return (
     <section

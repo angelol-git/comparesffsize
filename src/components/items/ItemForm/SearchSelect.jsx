@@ -31,8 +31,7 @@ function SearchSelect({
   }, [category]);
 
   function handleKeyDown(event) {
-    if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
+    if (event.key === "Enter") {
       event.preventDefault();
     }
     if (!isSelectedItemEmpty()) {
@@ -56,7 +55,7 @@ function SearchSelect({
             onChange={(event) => {
               setColor(event.target.value);
             }}
-            className="h-[30px] w-[28px] shrink-0"
+            className="h-[30px] w-[28px] shrink-0 cursor-pointer"
           />
           <input
             type="text"
@@ -162,8 +161,7 @@ function SelectOptions({ brand, items, open, selectedItem, setSelectedItem }) {
               }));
             }}
             onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
+              if (event.key === "Enter") {
                 setSelectedItem((prevState) => ({
                   ...prevState,
                   brand: brand,
