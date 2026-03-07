@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Edges, useBounds } from "@react-three/drei";
 
 const GAP = 2;
@@ -10,21 +10,19 @@ function CanvasItems({ filteredData }) {
     }
   }, [bounds, filteredData]);
 
-  function calculateTotalWidth() {
+  const totalWidth = useMemo(() => {
     return filteredData.reduce((total, item) => {
       return total + Number(item.measurements.width) + GAP;
     }, 0);
-  }
+  }, [filteredData]);
 
-  function calculateShortestLength() {
+  const shortestLength = useMemo(() => {
     return Math.min(
       ...filteredData.map((item) => Number(item.measurements.length)),
     );
-  }
+  }, [filteredData]);
 
   function calculatePosition(width, height, length, index) {
-    const totalWidth = calculateTotalWidth();
-    const shortestLength = calculateShortestLength();
     const start = -(totalWidth / 2);
     let cumulativeWidth = 0;
     for (let i = 0; i < index; i++) {
