@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /icons/
+Disallow: /admin/
+Disallow: /src/
+
+Sitemap: https://comparesffsize.com/sitemap.xml
