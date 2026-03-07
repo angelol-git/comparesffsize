@@ -6,6 +6,7 @@ function MobileNav({ isCanvasView, setIsCanvasView }) {
       <div className="flex justify-between rounded-md bg-gray-200 p-1 text-sm">
         <button
           role="tab"
+          aria-selected={isCanvasView}
           className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-sm py-2 ${isCanvasView ? `bg-white text-black` : "bg-gray-200 text-gray-500"}`}
           onClick={() => {
             setIsCanvasView(true);
@@ -16,6 +17,7 @@ function MobileNav({ isCanvasView, setIsCanvasView }) {
         </button>
         <button
           role="tab"
+          aria-selected={!isCanvasView}
           className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-sm py-2 ${!isCanvasView ? `bg-white text-black` : "bg-gray-200 text-gray-500"}`}
           onClick={() => {
             setIsCanvasView(false);

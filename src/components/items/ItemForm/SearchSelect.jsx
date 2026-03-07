@@ -51,6 +51,7 @@ function SearchSelect({
           <input
             type="color"
             value={color}
+            aria-label="Select color"
             onChange={(event) => {
               setColor(event.target.value);
             }}

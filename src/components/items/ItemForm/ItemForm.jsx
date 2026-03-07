@@ -31,7 +31,7 @@ function ItemForm({
     if (items.length === 0) {
       return COLORS[0];
     }
-    const lastColor = items[items?.length - 1].color;
+    const lastColor = items[items.length - 1].color;
     const lastIndexColor = COLORS.indexOf(lastColor);
 
     //Last item used a custom color
@@ -115,7 +115,7 @@ function ItemForm({
                 value={categoryItem}
                 checked={category === categoryItem}
                 onChange={(event) => {
-                  handleCategoryChange(event, category);
+                  handleCategoryChange(event);
                 }}
                 className="sr-only"
               />
