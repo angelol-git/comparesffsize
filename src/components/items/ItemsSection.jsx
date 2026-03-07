@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import {
   DndContext,
   closestCenter,
@@ -37,16 +37,19 @@ function ItemsSection({
     }),
   );
 
-  function handleDragEnd(event) {
-    const { active, over } = event;
-    if (!over) return;
-    if (active.id === over.id) return;
-    if (active.id !== over.id) {
-      const oldIndex = items.findIndex((i) => i.id === active.id);
-      const newIndex = items.findIndex((i) => i.id === over.id);
-      handleReorderItems(arrayMove(items, oldIndex, newIndex));
-    }
-  }
+  const handleDragEnd = useCallback(
+    (event) => {
+      const { active, over } = event;
+      if (!over) return;
+      if (active.id === over.id) return;
+      if (active.id !== over.id) {
+        const oldIndex = items.findIndex((i) => i.id === active.id);
+        const newIndex = items.findIndex((i) => i.id === over.id);
+        handleReorderItems(arrayMove(items, oldIndex, newIndex));
+      }
+    },
+    [items, handleReorderItems],
+  );
 
   return (
     <section
