@@ -31,7 +31,8 @@ function SearchSelect({
   }, [category]);
 
   function handleKeyDown(event) {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
       event.preventDefault();
     }
     if (!isSelectedItemEmpty()) {
@@ -134,7 +135,8 @@ function SelectOptions({ brand, items, open, selectedItem, setSelectedItem }) {
         setIsOpen(!isOpen);
       }}
       onKeyDown={(event) => {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
           setIsOpen(!isOpen);
         }
       }}
@@ -160,7 +162,8 @@ function SelectOptions({ brand, items, open, selectedItem, setSelectedItem }) {
               }));
             }}
             onKeyDown={(event) => {
-              if (event.key === "Enter") {
+              if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
                 setSelectedItem((prevState) => ({
                   ...prevState,
                   brand: brand,

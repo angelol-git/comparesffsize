@@ -51,6 +51,8 @@ function ItemsSection({
     [items, handleReorderItems],
   );
 
+  const lastColor = items.length > 0 ? items[items.length - 1].color : null;
+
   return (
     <section
       id="sidebar-wrapper"
@@ -91,7 +93,7 @@ function ItemsSection({
                     <ItemForm
                       mode={activeForm.mode}
                       editItem={activeForm.item}
-                      items={items}
+                      lastColor={lastColor}
                       handleAddItem={handleAddItem}
                       handleEditItem={handleEditItem}
                       setActiveForm={setActiveForm}
@@ -117,7 +119,7 @@ function ItemsSection({
           <ItemForm
             mode={activeForm.mode}
             editItem={activeForm.item}
-            items={items}
+            lastColor={lastColor}
             handleAddItem={handleAddItem}
             handleEditItem={handleEditItem}
             setActiveForm={setActiveForm}
