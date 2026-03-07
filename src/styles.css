@@ -12,16 +12,30 @@ body {
 }
 
 @theme {
-    --color-accent: #8DBAFF;
-    --color-accent-dark: #5A8FE6;
-    --color-accent-light: #D9E8FF;
-    --color-accent-hover: #4578D1;
+    --color-accent: #60A5FA;
+    --color-accent-dark: #2563EB;
+    --color-accent-light: #DBEAFE;
+    --color-accent-hover: #1D4ED8;
     --color-dark-gray: #2F2F2F;
     --color-off-white: #F7F9FC;
     --color-gridline: #DFE6F2;
     --color-border: #CBD4E1;
-    --color-icon: #A7B0C0;
-    --color-secondary: #6E7685;
+    --color-icon: #5A6370;
+    --color-secondary: #4A5568;
     --color-black-hover: #333333;
     --color-white-hover: #F2F4F7;
+}
+
+/* Improve placeholder text contrast */
+::placeholder {
+    color: #6B7280;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: #6B7280;
+}
+
+::-ms-input-placeholder {
+    color: #6B7280;
 }

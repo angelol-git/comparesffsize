@@ -60,7 +60,7 @@ function BrandSection({
         >
           {isExpanded ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
           {brand}
-          <span className="ml-2 text-sm font-normal text-gray-500">
+          <span className="ml-2 text-sm font-normal text-gray-700">
             ({cases.length} cases)
           </span>
           {hasNewCase && (
@@ -73,14 +73,14 @@ function BrandSection({
         <div className="flex items-center gap-2">
           <button
             onClick={() => { if (!isExpanded) onToggle(); setIsAdding(true); }}
-            className="flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-sm text-gray-600 hover:bg-gray-200"
+            className="flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-sm text-gray-700 hover:bg-gray-200"
           >
             <Plus size={14} />
             Add Case
           </button>
           <button
             onClick={onDeleteBrand}
-            className="cursor-pointer rounded-md p-1 text-gray-400 hover:bg-red-100 hover:text-red-600"
+            className="cursor-pointer rounded-md p-1 text-gray-700 hover:bg-red-100 hover:text-red-600"
           >
             <Trash2 size={16} />
           </button>

@@ -38,9 +38,10 @@ function ItemOptions({
         <button
           ref={buttonRef}
           onClick={() => {
-            setActiveOptionId((prev) => (prev === item.id ? null : item.id));
+            setActiveOptionId((prev) => (prev === item.id ? null : prev));
           }}
           type="button"
+          aria-label="More options"
           className="flex h-[32px] w-[32px] cursor-pointer items-center justify-center rounded-md transition-colors hover:bg-gray-200/30"
         >
           <Ellipsis size={22} className="stroke-icon" />
@@ -88,6 +89,7 @@ function ItemOptionRow({
           setActiveForm({ item: item, mode: "edit" });
           setActiveOptionId(null);
         }}
+        aria-label="Edit item"
         className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150 ${!item.hide ? "hover:bg-white-hover" : "hover:bg-white"}`}
       >
         <SquarePen size={20} className="stroke-icon" />
@@ -97,6 +99,7 @@ function ItemOptionRow({
         onClick={() => {
           handleHideItem(item.id);
         }}
+        aria-label={item.hide ? "Show item" : "Hide item"}
         className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150 ${!item.hide ? "hover:bg-white-hover" : "hover:bg-white"}`}
       >
         {item.hide ? (
@@ -109,6 +112,7 @@ function ItemOptionRow({
         onClick={() => {
           handleDeleteItem(item.id);
         }}
+        aria-label="Delete item"
         className={`group flex h-9 w-9 cursor-pointer items-center justify-center rounded-md p-2 transition-all duration-150 hover:stroke-red-400 ${!item.hide ? "hover:bg-red-400/10" : "hover:bg-white"}`}
       >
         <Trash2 size={20} className="stroke-icon group-hover:stroke-red-400" />

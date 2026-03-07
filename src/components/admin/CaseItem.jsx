@@ -46,7 +46,7 @@ function CaseItem({ caseItem, onEdit, onDelete, existingCaseNames = [], isNew = 
         {isNew && <Sparkles size={16} className="text-green-600 shrink-0" />}
         <div>
           <h4 className="font-medium text-gray-900">{caseItem.name}</h4>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-700">
             {caseItem.type} • <span className="font-mono">{caseItem.measurements.length}</span> ×{" "}
             <span className="font-mono">{caseItem.measurements.width}</span> ×{" "}
             <span className="font-mono">{caseItem.measurements.height}</span> <span className="font-mono">mm</span> •{" "}
@@ -57,13 +57,13 @@ function CaseItem({ caseItem, onEdit, onDelete, existingCaseNames = [], isNew = 
       <div className="flex gap-1">
         <button
           onClick={() => setIsEditing(true)}
-          className="cursor-pointer rounded-md p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+          className="cursor-pointer rounded-md p-1.5 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
         >
           <Edit2 size={16} />
         </button>
         <button
           onClick={onDelete}
-          className="rounded-md p-1.5 text-gray-400 hover:bg-red-100 hover:text-red-600 cursor-pointer"
+          className="rounded-md p-1.5 text-gray-700 hover:bg-red-100 hover:text-red-600 cursor-pointer"
         >
           <Trash2 size={16} />
         </button>

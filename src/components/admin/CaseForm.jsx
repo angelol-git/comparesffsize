@@ -121,7 +121,7 @@ function CaseForm({
             onChange={(e) => handleChange("length", e.target.value)}
             className="flex-1 rounded-md border border-gray-300 px-3 py-2 font-mono text-sm focus:border-accent-dark focus:outline-none"
           />
-          <span className="font-mono text-xs text-gray-500 shrink-0">mm</span>
+          <span className="font-mono text-xs text-gray-700 shrink-0">mm</span>
         </div>
         <div className="flex items-center gap-1">
           <input
@@ -131,7 +131,7 @@ function CaseForm({
             onChange={(e) => handleChange("width", e.target.value)}
             className="flex-1 rounded-md border border-gray-300 px-3 py-2 font-mono text-sm focus:border-accent-dark focus:outline-none"
           />
-          <span className="font-mono text-xs text-gray-500 shrink-0">mm</span>
+          <span className="font-mono text-xs text-gray-700 shrink-0">mm</span>
         </div>
         <div className="flex items-center gap-1">
           <input
@@ -141,7 +141,7 @@ function CaseForm({
             onChange={(e) => handleChange("height", e.target.value)}
             className="flex-1 rounded-md border border-gray-300 px-3 py-2 font-mono text-sm focus:border-accent-dark focus:outline-none"
           />
-          <span className="font-mono text-xs text-gray-500 shrink-0">mm</span>
+          <span className="font-mono text-xs text-gray-700 shrink-0">mm</span>
         </div>
         <div className="flex items-center gap-1">
           <input
@@ -152,7 +152,7 @@ function CaseForm({
             className="flex-1 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 font-mono text-sm focus:border-accent-dark focus:outline-none"
             title="Auto-calculated from dimensions"
           />
-          <span className="font-mono text-xs text-gray-500 shrink-0">L</span>
+          <span className="font-mono text-xs text-gray-700 shrink-0">L</span>
         </div>
       </div>
       <div className="flex justify-end gap-2">

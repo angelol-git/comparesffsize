@@ -92,8 +92,8 @@ function Admin() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-400">404</h1>
-          <p className="mt-2 text-gray-500">Page not found</p>
+          <h1 className="text-4xl font-bold text-gray-700">404</h1>
+          <p className="mt-2 text-gray-700">Page not found</p>
         </div>
       </div>
     );
@@ -102,7 +102,7 @@ function Admin() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p className="text-gray-500">Loading cases...</p>
+        <p className="text-gray-700">Loading cases...</p>
       </div>
     );
   }

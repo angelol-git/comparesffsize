@@ -27,7 +27,8 @@ function Item({
         <div
           {...attributes}
           {...listeners}
-          /* touch-none overrides any browser default touch events like scroll, zoom and etc*/
+          aria-label="Drag to reorder item"
+          role="button"
           className="cursor-grab touch-none"
         >
           <GripVertical size={22} className="stroke-icon" />

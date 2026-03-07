@@ -76,6 +76,7 @@ function SearchSelect({
           {!isSelectedItemEmpty() ? (
             <button
               type="button"
+              aria-label="Clear selection"
               onClick={() => {
                 clearSelectedItem();
                 setSearchInput("");
