@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 function useIsMobile(setIsCanvasView) {
   const [isMobile, setIsMobile] = useState(
-    window.matchMedia("(max-width:1024px)"),
+    window.matchMedia("(max-width:1024px)").matches,
   );
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width:1024px)");
@@ -14,7 +14,7 @@ function useIsMobile(setIsCanvasView) {
     }
     handleChange(mediaQuery);
     mediaQuery.addEventListener("change", handleChange);
-    return () => window.removeEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   return isMobile;

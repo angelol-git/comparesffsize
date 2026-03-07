@@ -178,7 +178,7 @@ function ItemForm({
         {!isSelectedItemEmpty() && (
           <button
             type="submit"
-            className="hover:bg-accent-hover bg-blue bg-accent-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-md py-2 text-sm text-white transition-all duration-150"
+            className="hover:bg-accent-hover bg-accent-dark flex w-full cursor-pointer items-center justify-center gap-2 rounded-md py-2 text-sm text-white transition-all duration-150"
           >
             <Save size={16} />
             Save

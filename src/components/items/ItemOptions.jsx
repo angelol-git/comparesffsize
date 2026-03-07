@@ -57,7 +57,6 @@ function ItemOptions({
               handleDeleteItem={handleDeleteItem}
               setActiveOptionId={setActiveOptionId}
               setActiveForm={setActiveForm}
-              d
             />
           </div>
         )}
