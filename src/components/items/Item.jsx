@@ -1,7 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import ItemOptions from "./ItemOptions";
-import { GripVertical } from "lucide-react";
+import { GripVertical, EyeOff } from "lucide-react";
+
 function Item({
   item,
   handleHideItem,
@@ -10,54 +11,100 @@ function Item({
   setActiveOptionId,
   setActiveForm,
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: item.id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: item.id });
 
-  const style = { transform: CSS.Transform.toString(transform), transition };
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   return (
     <div
       ref={setNodeRef}
-      style={{
-        ...style,
-      }}
-      className={`flex w-full justify-between rounded-lg border-1 px-2 py-4 ${!item.hide ? "border-accent bg-accent-light/10" : "border-gray-400 bg-gray-400/10"}`}
+      style={style}
+      className={`relative flex w-full items-center gap-3 rounded-xl border bg-white p-3 shadow-sm ${
+        isDragging
+          ? "cursor-grabbing opacity-50"
+          : "transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+      } ${
+        !item.hide
+          ? "hover:border-accent/30 border-gray-200"
+          : "border-gray-300/60 bg-gray-100/80 opacity-75"
+      }`}
     >
-      <div className="flex items-center gap-3 lg:gap-4">
+      <div
+        {...attributes}
+        {...listeners}
+        aria-label="Drag to reorder item"
+        role="button"
+        className={`flex h-8 w-8 shrink-0 touch-none items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 ${
+          isDragging ? "cursor-grabbing" : "cursor-grab"
+        }`}
+      >
+        <GripVertical size={18} strokeWidth={2} />
+      </div>
+
+      <div className="relative shrink-0">
         <div
-          {...attributes}
-          {...listeners}
-          aria-label="Drag to reorder item"
-          role="button"
-          className="cursor-grab touch-none"
-        >
-          <GripVertical size={22} className="stroke-icon" />
-        </div>
-        <div
-          style={{ backgroundColor: item.hide ? "#4B4B4B" : item.color }}
-          className="flex h-[20px] w-[20px] shrink-0 rounded-md lg:h-[24px] lg:w-[24px]"
+          className="h-8 w-8 rounded-lg shadow-sm"
+          style={{
+            backgroundColor: item.hide ? "#9CA3AF" : item.color,
+            boxShadow: item.hide
+              ? "0 1px 3px rgba(0,0,0,0.1)"
+              : `0 2px 8px ${item.color}30`,
+          }}
         />
-        <div className="flex flex-col">
-          <div className="font-bold">{item.name}</div>
-          <div className="text-secondary flex flex-col gap-1 text-sm">
-            <div className="">{item.brand}</div>
-            <div className="font-mono text-sm">
-              {`${item.measurements.length} ×
-            ${item.measurements.width} ×
-            ${item.measurements.height} mm
-            (${item.measurements.volume} L)`}
-            </div>
+        {item.hide && (
+          <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-gray-500/30">
+            <EyeOff size={14} className="text-white" />
           </div>
+        )}
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <h3
+            className={`truncate text-base font-semibold ${!item.hide ? "text-gray-900" : "text-gray-600"}`}
+          >
+            {item.name}
+          </h3>
+          {item.hide && (
+            <span className="shrink-0 rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-medium tracking-wider text-gray-600 uppercase">
+              Hidden
+            </span>
+          )}
+        </div>
+
+        <p className="text-sm font-medium text-gray-700">{item.brand}</p>
+
+        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+          <span className="font-mono text-xs text-gray-600">
+            {item.measurements.length}×{item.measurements.width}×
+            {item.measurements.height} mm
+          </span>
+          <span className="bg-accent-light text-accent-dark rounded-full px-2 py-0.5 font-mono text-xs font-semibold">
+            {item.measurements.volume} L
+          </span>
         </div>
       </div>
-      <ItemOptions
-        item={item}
-        handleHideItem={handleHideItem}
-        handleDeleteItem={handleDeleteItem}
-        activeOptionId={activeOptionId}
-        setActiveOptionId={setActiveOptionId}
-        setActiveForm={setActiveForm}
-      />
+
+      <div className="shrink-0">
+        <ItemOptions
+          item={item}
+          handleHideItem={handleHideItem}
+          handleDeleteItem={handleDeleteItem}
+          activeOptionId={activeOptionId}
+          setActiveOptionId={setActiveOptionId}
+          setActiveForm={setActiveForm}
+        />
+      </div>
     </div>
   );
 }

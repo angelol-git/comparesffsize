@@ -8,7 +8,8 @@ body {
 #root {
     min-height: 100svh;
     height: 100%;
-    font-family: "Inter", sans-serif;
+    font-family: "Space Grotesk", sans-serif;
+    background-color: #F0F4F8;
 }
 
 @theme {

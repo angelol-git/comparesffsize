@@ -56,11 +56,11 @@ function ItemsSection({
   return (
     <section
       id="sidebar-wrapper"
-      className={`border-border flex max-h-full flex-1 flex-col overflow-y-auto border-l-1 p-4 lg:py-4 ${
+      className={`border-border flex max-h-full flex-1 flex-col overflow-y-auto border-l-1 ${
         isCanvasView && isMobile ? "hidden" : ""
       }`}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between border-b border-gray-300 p-4 lg:py-4">
         <div className="flex items-center gap-2">
           <Layers className="text-accent h-5 w-5" />
           <h2 className="text-xl font-bold">My Items</h2>
@@ -75,10 +75,10 @@ function ItemsSection({
         </button>
       </div>
 
-      {items.length === 0 && activeForm.mode === null && (
-        <div>No items selected yet</div>
-      )}
-      <div className="flex flex-1 flex-col gap-3 rounded-md py-4">
+      <div className="flex flex-1 flex-col gap-3 p-4">
+        {items.length === 0 && activeForm.mode === null && (
+          <div>No items selected yet</div>
+        )}
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}

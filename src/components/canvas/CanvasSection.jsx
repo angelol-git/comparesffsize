@@ -29,6 +29,8 @@ function CanvasSection({ items, isCanvasView, setIsCanvasView }) {
           infiniteGrid
           cellSize={2}
           sectionSize={2}
+          cellColor="#60A5FA"
+          sectionColor="#2563EB"
         />
       </Canvas>
       {isMobile && filteredData.length > 0 && (

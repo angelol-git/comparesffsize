@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { X, ChevronDown, ChevronRight, Link } from "lucide-react";
+import { X, ChevronDown, ChevronRight, Search } from "lucide-react";
+
 function SearchSelect({
   data,
   color,
@@ -42,80 +43,65 @@ function SearchSelect({
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <label htmlFor="search-input" className="font-semibold">
-        Name
+    <div className="flex flex-col gap-2" ref={SearchSelectRef}>
+      <label className="text-xs font-semibold uppercase tracking-wider text-gray-700">
+        Select Case
       </label>
-      <div className="flex w-full flex-col gap-1" ref={SearchSelectRef}>
-        <div className="relative flex items-center gap-2">
-          <input
-            type="color"
-            value={color}
-            aria-label="Select color"
-            onChange={(event) => {
-              setColor(event.target.value);
+      
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-700" />
+        
+        <input
+          type="text"
+          placeholder="Search cases..."
+          autoComplete="off"
+          onChange={(event) => setSearchInput(event.target.value)}
+          onKeyDown={handleKeyDown}
+          value={
+            isSelectedItemEmpty()
+              ? searchInput
+              : `${selectedItem.brand} - ${selectedItem.name}`
+          }
+          className="w-full rounded-lg border border-gray-200 py-2 pl-9 pr-10 text-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:bg-gray-50"
+          disabled={!isSelectedItemEmpty()}
+        />
+        
+        {!isSelectedItemEmpty() && (
+          <button
+            type="button"
+            aria-label="Clear selection"
+            onClick={() => {
+              clearSelectedItem();
+              setSearchInput("");
             }}
-            className="h-[30px] w-[28px] shrink-0 cursor-pointer"
-          />
-          <input
-            type="text"
-            placeholder="Select..."
-            id="search-input"
-            autoComplete="off"
-            onChange={(event) => {
-              setSearchInput(event.target.value);
-            }}
-            onKeyDown={handleKeyDown}
-            value={
-              isSelectedItemEmpty()
-                ? searchInput
-                : `${selectedItem.brand} - ${selectedItem.name}`
-            }
-            className="border-border w-full rounded-md border-1 px-3 py-2"
-          />
-          {!isSelectedItemEmpty() ? (
-            <button
-              type="button"
-              aria-label="Clear selection"
-              onClick={() => {
-                clearSelectedItem();
-                setSearchInput("");
-              }}
-              className="absolute right-[10px] z-20 cursor-pointer"
-            >
-              <X size={18} />
-            </button>
-          ) : null}
-        </div>
-        <div className="border-border my-1 h-[150px] w-full overflow-auto rounded-md border p-2">
-          {searchInput.length > 1 &&
-          Object.entries(filteredData).length === 0 ? (
-            <p>No cases found</p>
-          ) : (
-            Object.entries(filteredData).map(([brand, items]) => {
-              return searchInput.length === 0 ? (
-                <SelectOptions
-                  brand={brand}
-                  items={items}
-                  open={false}
-                  key={brand}
-                  selectedItem={selectedItem}
-                  setSelectedItem={setSelectedItem}
-                />
-              ) : (
-                <SelectOptions
-                  brand={brand}
-                  items={items}
-                  open={true}
-                  key={brand}
-                  selectedItem={selectedItem}
-                  setSelectedItem={setSelectedItem}
-                />
-              );
-            })
-          )}
-        </div>
+            className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer rounded p-1 text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-700"
+          >
+            <X size={16} />
+          </button>
+        )}
       </div>
+
+      {/* Results list */}
+      {searchInput.length > 0 && Object.entries(filteredData).length === 0 ? (
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-center">
+          <p className="text-sm text-gray-700">
+            No cases found
+          </p>
+        </div>
+      ) : (
+        <div className="max-h-[180px] overflow-auto rounded-lg border border-gray-200 bg-white">
+          {Object.entries(filteredData).map(([brand, items]) => (
+            <SelectOptions
+              key={brand}
+              brand={brand}
+              items={items}
+              open={searchInput.length > 0}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -128,53 +114,48 @@ function SelectOptions({ brand, items, open, selectedItem, setSelectedItem }) {
   }, [open]);
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={() => {
-        setIsOpen(!isOpen);
-      }}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          setIsOpen(!isOpen);
-        }
-      }}
-      className="flex w-full cursor-pointer flex-col"
-    >
-      <div
-        className={`hover:bg-white-hover flex items-center gap-2 rounded-md ${selectedItem.brand === brand ? "bg-accent/50" : null}`}
+    <div className="border-b border-gray-100 last:border-0">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
       >
-        {!isOpen ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
-        <span className="font-semibold">{brand}</span>
-      </div>
-      {isOpen &&
-        items.map((item) => (
-          <button
-            key={item.name}
-            className={`hover:bg-white-hover text-cream flex w-full cursor-pointer rounded-md pl-10 ${selectedItem.name === item.name ? "bg-accent-light/50" : null}`}
-            onClick={() => {
-              setSelectedItem((prevState) => ({
-                ...prevState,
-                brand: brand,
-                name: item.name,
-                measurements: item.measurements,
-              }));
-            }}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                setSelectedItem((prevState) => ({
-                  ...prevState,
+        {isOpen ? (
+          <ChevronDown size={14} className="text-accent" />
+        ) : (
+          <ChevronRight size={14} className="text-gray-700" />
+        )}
+        <span>{brand}</span>
+      </button>
+
+      {isOpen && (
+        <div className="bg-gray-50/50">
+          {items.map((item) => (
+            <button
+              key={item.name}
+              type="button"
+              onClick={() => {
+                setSelectedItem((prev) => ({
+                  ...prev,
                   brand: brand,
                   name: item.name,
                   measurements: item.measurements,
                 }));
-              }
-            }}
-          >
-            {item.name}
-          </button>
-        ))}
+              }}
+              className={`flex w-full cursor-pointer items-center justify-between px-3 py-2 pl-8 text-sm transition-colors ${
+                selectedItem.name === item.name
+                  ? "bg-accent/10 text-accent-dark font-medium"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              }`}
+            >
+              <span>{item.name}</span>
+              <span className="text-xs text-gray-700">
+                {item.measurements.volume}L
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
