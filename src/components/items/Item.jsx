@@ -32,7 +32,7 @@ function Item({
       className={`relative flex w-full items-center gap-3 rounded-xl border bg-white p-3 shadow-sm ${
         isDragging
           ? "cursor-grabbing opacity-50"
-          : "transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+          : "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
       } ${
         !item.hide
           ? "hover:border-accent/30 border-gray-200"
@@ -53,7 +53,7 @@ function Item({
 
       <div className="relative shrink-0">
         <div
-          className="h-8 w-8 rounded-lg shadow-sm"
+          className="h-7 w-7 rounded-lg shadow-sm"
           style={{
             backgroundColor: item.hide ? "#9CA3AF" : item.color,
             boxShadow: item.hide

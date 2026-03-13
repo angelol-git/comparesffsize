@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import {
   DndContext,
   closestCenter,
@@ -17,6 +17,8 @@ import { Plus, Layers } from "lucide-react";
 import Item from "./Item";
 import ItemForm from "./ItemForm/ItemForm";
 import useIsMobile from "../../hooks/useIsMobile";
+import { COLORS } from "./ItemForm/constants";
+
 function ItemsSection({
   items,
   handleAddItem,
@@ -30,12 +32,25 @@ function ItemsSection({
   const [activeForm, setActiveForm] = useState({ item: null, mode: null });
   const [activeOptionId, setActiveOptionId] = useState(null);
   const itemFormRef = useRef(null);
+  const lastColorIndexRef = useRef(-1);
+  const hasInitializedRef = useRef(false);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
+  useEffect(() => {
+    if (!hasInitializedRef.current && items.length > 0) {
+      const lastItemColor = items[items.length - 1].color;
+      const colorIndex = COLORS.indexOf(lastItemColor);
+      if (colorIndex !== -1) {
+        lastColorIndexRef.current = colorIndex;
+      }
+      hasInitializedRef.current = true;
+    }
+  }, [items]);
 
   const handleDragEnd = useCallback(
     (event) => {
@@ -51,7 +66,17 @@ function ItemsSection({
     [items, handleReorderItems],
   );
 
-  const lastColor = items.length > 0 ? items[items.length - 1].color : null;
+  const handleAddItemWithColor = useCallback(
+    (newItem) => {
+      const nextColorIndex = (lastColorIndexRef.current + 1) % COLORS.length;
+      lastColorIndexRef.current = nextColorIndex;
+      const itemWithColor = { ...newItem, color: COLORS[nextColorIndex] };
+      handleAddItem(itemWithColor);
+    },
+    [handleAddItem],
+  );
+
+  const nextColor = COLORS[(lastColorIndexRef.current + 1) % COLORS.length];
 
   return (
     <section
@@ -96,8 +121,8 @@ function ItemsSection({
                     <ItemForm
                       mode={activeForm.mode}
                       editItem={activeForm.item}
-                      lastColor={lastColor}
-                      handleAddItem={handleAddItem}
+                      nextColor={nextColor}
+                      handleAddItem={handleAddItemWithColor}
                       handleEditItem={handleEditItem}
                       setActiveForm={setActiveForm}
                       itemFormRef={itemFormRef}
@@ -122,8 +147,8 @@ function ItemsSection({
           <ItemForm
             mode={activeForm.mode}
             editItem={activeForm.item}
-            lastColor={lastColor}
-            handleAddItem={handleAddItem}
+            nextColor={nextColor}
+            handleAddItem={handleAddItemWithColor}
             handleEditItem={handleEditItem}
             setActiveForm={setActiveForm}
             itemFormRef={itemFormRef}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { v7 as uuidv7 } from "uuid";
 import { Save, CircleX, Folder, PenTool, Layers } from "lucide-react";
-import { CATEGORIES, COLORS, EMPTY_ITEM } from "./constants";
+import { CATEGORIES, EMPTY_ITEM } from "./constants";
 import { useCaseData } from "../../../hooks/useCaseData";
 import MeasurementInputs from "./MeasurementInputs";
 import SearchSelect from "./SearchSelect";
@@ -9,7 +9,7 @@ import SearchSelect from "./SearchSelect";
 function ItemForm({
   mode,
   editItem,
-  lastColor,
+  nextColor,
   handleAddItem,
   handleEditItem,
   setActiveForm,
@@ -22,18 +22,9 @@ function ItemForm({
     mode === "edit" ? editItem.type : "case",
   );
   const [color, setColor] = useState(() =>
-    mode === "add" ? getColor() : selectedItem.color,
+    mode === "add" ? nextColor : selectedItem.color,
   );
   const { data, isLoading, isError } = useCaseData(category);
-
-  function getColor() {
-    if (!lastColor) return COLORS[0];
-    const lastIndexColor = COLORS.indexOf(lastColor);
-    if (lastIndexColor === -1) {
-      return COLORS[Math.floor(Math.random() * COLORS.length)];
-    }
-    return COLORS[(lastIndexColor + 1) % COLORS.length];
-  }
 
   useEffect(() => {
     if (itemFormRef?.current) {
@@ -217,7 +208,7 @@ function ItemForm({
         {!isSelectedItemEmpty() && (
           <button
             type="submit"
-            className="bg-accent-dark hover:bg-accent-hover flex flex-1 items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium text-white transition-colors"
+            className="bg-accent-dark hover:bg-accent-hover flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium text-white transition-colors"
           >
             <Save size={16} />
             {mode === "add" ? "Add Case" : "Save Changes"}
@@ -227,7 +218,7 @@ function ItemForm({
         <button
           type="button"
           onClick={() => setActiveForm({ item: null, mode: null })}
-          className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white py-2 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-50"
+          className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white py-2 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-50"
         >
           <CircleX size={16} />
           Cancel

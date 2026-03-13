@@ -1,23 +1,27 @@
 export const CATEGORIES = ["case", "custom", "other"];
 export const COLORS = [
-    "#8B0000", // dark red
-    "#00008B", // dark blue
-    "#B8860B", // dark goldenrod 
-    "#006400", // dark green
-    "#C71585", // dark pink 
-    "#008B8B",// teal
+  "#DC2626", // Red
+  "#2563EB", // Blue
+  "#D97706", // Amber
+  "#059669", // Emerald
+  "#DB2777", // Pink
+  "#0891B2", // Cyan
+  "#7C3AED", // Violet
+  "#EA580C", // Orange
+  "#4F46E5", // Indigo
+  "#0D9488", // Teal
 ];
 export const EMPTY_ITEM = {
-    brand: null,
-    name: null,
-    color: null,
-    hide: null,
-    id: null,
-    type: null,
-    measurements: {
-        length: null,
-        width: null,
-        height: null,
-        volume: null,
-    },
+  brand: null,
+  name: null,
+  color: null,
+  hide: null,
+  id: null,
+  type: null,
+  measurements: {
+    length: null,
+    width: null,
+    height: null,
+    volume: null,
+  },
 };
