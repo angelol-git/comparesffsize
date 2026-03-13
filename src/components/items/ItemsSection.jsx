@@ -13,7 +13,7 @@ import {
   verticalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { Plus } from "lucide-react";
+import { Plus, Layers } from "lucide-react";
 import Item from "./Item";
 import ItemForm from "./ItemForm/ItemForm";
 import useIsMobile from "../../hooks/useIsMobile";
@@ -61,7 +61,10 @@ function ItemsSection({
       }`}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">My Items</h2>
+        <div className="flex items-center gap-2">
+          <Layers className="text-accent h-5 w-5" />
+          <h2 className="text-xl font-bold">My Items</h2>
+        </div>
         <button
           onClick={() => setActiveForm({ item: null, mode: "add" })}
           disabled={activeForm.mode === "add"}

@@ -1,12 +1,15 @@
+import { Box } from "lucide-react";
+
 function Header() {
   return (
     <header className="border-border w-full border-b-1">
       <div className="flex items-center justify-between px-4 pb-2">
-        <h1 className="items-center gap-2 text-2xl font-bold">
-          <div>
-            Compare<span className="text-sage">SFF</span>Size
-          </div>
-        </h1>
+        <div className="flex items-center gap-1">
+          <Box className="fill-accent h-8 w-8 stroke-white stroke-1" />
+          <h1 className="text-2xl font-bold">
+            Compare<span className="text-accent">SFF</span>Size
+          </h1>
+        </div>
         <a
           href="https://github.com/angelol-git/comparesffsize"
           target="_blank"
