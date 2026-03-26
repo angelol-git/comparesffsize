@@ -1,4 +1,4 @@
-# <img src="https://github.com/angelol-git/comparesffsize/blob/main/.github/logo.png?raw=true" width="32" align="end" /> CompareSFFSize
+# <img src="https://github.com/angelol-git/comparesffsize/blob/main/.github/logo.png?raw=true" width="32" /> CompareSFFSize
 
 A web application for comparing small form factor (SFF) PC case sizes with interactive 3D visualization.
 
@@ -11,4 +11,4 @@ CompareSFFSize features:
 
 ## Demo
 
-<img src="https://github.com/angelol-git/comparesffsize/blob/main/.github/comparesffsize_demo.mp4?raw=true"  />
+<img src="https://github.com/angelol-git/comparesffsize/blob/main/.github/comparesffsize_demo.gif?raw=true" width="100%" />
