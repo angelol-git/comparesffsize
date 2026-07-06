@@ -3,6 +3,8 @@ import AdminHeader from "../components/admin/AdminHeader";
 import AddBrand from "../components/admin/AddBrand";
 import BrandSection from "../components/admin/BrandSection";
 
+const CASES_URL = `${import.meta.env.BASE_URL}cases.json`;
+
 function Admin() {
   const [cases, setCases] = useState({});
   const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ function Admin() {
 
   async function fetchCases() {
     try {
-      const response = await fetch("/cases.json");
+      const response = await fetch(CASES_URL);
       if (!response.ok) throw new Error("Failed to fetch");
       const data = await response.json();
       setCases(data);
